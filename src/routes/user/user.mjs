@@ -3,6 +3,6 @@ import UserControlller from "../../controllers/UserController/UserControlller.mj
 var UserRouter = express.Router();
 
 /* GET users listing. */
-UserRouter.get("/user", UserControlller.index);
+UserRouter.get("/", UserControlller.index);
 
 export default UserRouter;
