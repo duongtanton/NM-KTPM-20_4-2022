@@ -1,0 +1,16 @@
+
+Vai trò của các nhánh:
+	Nhánh master: chứa code hoàn thiện của đồ án, có thể lấy nộp bất cứ lúc nào(không bug/lỗi)
+	
+	Nhánh dev: chưa code vừa merge từ các nhánh khác vào
+
+Quy định đặt tên nhánh: 
+	Đối với đồ án:
+		- Tên nhành: feature/task-<id công việc>
+			+ id công việc là số thứ tự(ID) của công việc liệt kê trong file excel (vd: feature/task-1)
+                //file excel: https://docs.google.com/spreadsheets/d/1Qj5cAiRn57Nt3S0FCD1JFEz9EzEc4Hn4vxrsFITRRlE/edit#gid=0
+Lưu ý: 
+	Không push lên nhánh master và dev
+	Đối với đồ án tạo nhánh từ nhánh dev  
+    
+//Thiếu gì ae bổ xung sau nhé...
