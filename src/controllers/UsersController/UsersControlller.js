@@ -1,6 +1,7 @@
-import { Model } from "sequelize";
-import db from "../../db/models/index.js";
-
+const { Model } = require("sequelize");
+const db = require("../../db/models/index.js");
+const { CONSTANT } = require("../../common/index.js");
+const bcrypt = require("../../util/bcrypt.js");
 const UserController = {
   async index(req, res, next) {
     const { Users, Roles, Users_Roles } = db;
@@ -15,16 +16,12 @@ const UserController = {
     //     console.log(error);
     //   });
 
-    // Users.create({
-    //   username: "Duong Tan Ton",
-    //   password: "12345678910",
-    // })
-    //   .then((result) => {
-    //     console.log(result);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
+    Users.create({
+      username: "Duong Tan Ton",
+      password: "12345678910",
+    })
+      .then((result) => {})
+      .catch((error) => {});
 
     // Users_Roles.create({
     //   userId: 1,
@@ -66,13 +63,22 @@ const UserController = {
       }),
     ])
       .then((result) => {
-        console.log("Oke");
         res.json(result);
       })
       .catch((error) => {
-        console.log("Error");
         res.json(error);
       });
+
+    // Promise.all([bcrypt.hash("Tonduong", CONSTANT.SALT_ROUNDS)])
+    //   .then((result) => {
+    //     return bcrypt.compare("Tonduong", result[0]);
+    //   })
+    //   .then((result) => {
+    //     res.send(result);
+    //   })
+    //   .catch((error) => {
+    //     res.send(error);
+    //   });
   },
   async create(req, res, next) {
     res.send("create");
@@ -93,4 +99,4 @@ const UserController = {
     res.send("destroy");
   },
 };
-export default UserController;
+module.exports = UserController;

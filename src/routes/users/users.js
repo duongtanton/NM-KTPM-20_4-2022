@@ -1,5 +1,5 @@
-import express from "express";
-import UserControlller from "../../controllers/UsersController/UsersControlller.mjs";
+const express = require("express");
+const UserControlller = require("../../controllers/UsersController/UsersControlller.js");
 var UsersRouter = express.Router();
 
 /* GET users listing. */
@@ -14,4 +14,4 @@ UsersRouter.put("/", UserControlller.update);
 
 UsersRouter.delete("/:id", UserControlller.destroy);
 
-export default UsersRouter;
+module.exports = UsersRouter;

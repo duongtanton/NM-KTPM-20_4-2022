@@ -3,4 +3,4 @@ const HomeController = {
     res.render("index", { title: "Express" });
   },
 };
-export default HomeController;
+module.exports = HomeController;
