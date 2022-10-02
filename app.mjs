@@ -18,8 +18,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static("src/public"));
 
-// app.use("/", indexRouter);
-// app.use("/users", usersRouter);
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
 
 routes(app);
 

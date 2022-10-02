@@ -1,7 +1,7 @@
 import HomeRouter from "./home/home.mjs";
-import UserRouter from "./user/user.mjs";
+import UserRouter from "./users/users.mjs";
 
 export default function routes(app) {
   app.use("/", HomeRouter);
-  app.use("/user", UserRouter);
+  app.use("/users", UserRouter);
 }
