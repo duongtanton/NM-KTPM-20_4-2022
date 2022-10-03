@@ -1,25 +1,21 @@
-import createError from "http-errors";
-import express from "express";
-import path from "path";
-import cookieParser from "cookie-parser";
-import logger from "morgan";
-
-import routes from "./src/routes/routes.js";
+var createError = require("http-errors");
+var express = require("express");
+var path = require("path");
+var cookieParser = require("cookie-parser");
+var logger = require("morgan");
+const routes = require("./src/routes/routes");
 
 var app = express();
 
 // view engine setup
-app.set("views", "src/views");
+app.set("views", path.join(__dirname, "src/views"));
 app.set("view engine", "hbs");
 
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static("src/public"));
-
-import { createRequire } from "module";
-const require = createRequire(import.meta.url);
+app.use(express.static(path.join(__dirname, "src/public")));
 
 routes(app);
 
@@ -39,4 +35,4 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
-export default app;
+module.exports = app;
