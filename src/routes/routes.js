@@ -1,7 +1,7 @@
-const HomeRouter = require("./home/home.js");
-const UserRouter = require("./users/users.js");
+const AdminRouter = require("./admin");
+const UserRouter = require("./users");
 
 module.exports = function routes(app) {
-  app.use("/", HomeRouter);
-  app.use("/users", UserRouter);
+  app.use("/admin", AdminRouter);
+  app.use("/", UserRouter)
 };
