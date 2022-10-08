@@ -4,6 +4,7 @@ const { CONSTANT } = require("../../common/index.js");
 const bcrypt = require("../../util/bcrypt.js");
 const UserController = {
   async index(req, res, next) {
+
     res.render("./users/home")
   },
   async create(req, res, next) {
