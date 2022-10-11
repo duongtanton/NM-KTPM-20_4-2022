@@ -1,13 +1,15 @@
-var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
+const createError = require("http-errors");
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
 const routes = require("./src/routes/routes");
 const handlebars = require("express-handlebars");
+const methodOverride = require('method-override')
+const app = express();
 
-var app = express();
-var hbs = handlebars.create({
+app.use(methodOverride('_method'))
+const hbs = handlebars.create({
   defaultLayout: "users",
   helpers: {
     //create heplers for view here
