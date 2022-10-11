@@ -1,8 +1,7 @@
-const Roles = {
+const ROLES = {
     AMDIN: "Admin",
     ENTERPRISE: "Enterprise",
-    USER: "User"
+    USER: "User",
+    STAFF: "Staff",
 }
-module.exports = {
-    Roles
-}
+module.exports = ROLES

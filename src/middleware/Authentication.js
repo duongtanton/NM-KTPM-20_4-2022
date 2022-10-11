@@ -6,7 +6,7 @@ dotenv.config();
 const authen = (req, res, next) => {
     const token = req.cookies.auth;
     jwt.verify(token, process.env.SECRET_KEY, async (error, decode) => {
-        if (!decode && Object.keys(decode)?.length <= 0) {
+        if (!decode || Object.keys(decode)?.length <= 0) {
             res.redirect("/");
         } else {
             const { iat, exp } = decode;

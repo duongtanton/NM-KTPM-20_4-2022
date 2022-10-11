@@ -1,2 +1,3 @@
-const CONSTANT = require("./Constant.js");
-module.exports = { CONSTANT };
+const CONSTANT = require("./Constant");
+const ROLES = require("./Roles");
+module.exports = { CONSTANT, ROLES };
