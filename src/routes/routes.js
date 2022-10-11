@@ -1,10 +1,10 @@
 const { ROLES } = require("../common");
-const { authen } = require("../middleware/Authentication");
-const { author } = require("../middleware/Authorization");
+const { Authen, Author } = require("../middleware");
+const { DataCommon } = require("../middleware/DataCommon");
 const AdminRouter = require("./admin");
 const UserRouter = require("./users");
 
 module.exports = function routes(app) {
-  app.use("/admin", author(ROLES.AMDIN), AdminRouter);
-  app.use("/", UserRouter)
+  app.use("/admin", Author(ROLES.ENTERPRISE), DataCommon, AdminRouter);
+  app.use("/", DataCommon, UserRouter)
 };

@@ -5,7 +5,8 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const routes = require("./src/routes/routes");
 const handlebars = require("express-handlebars");
-const methodOverride = require('method-override')
+const methodOverride = require('method-override');
+const { LAYOUT } = require("./src/common");
 const app = express();
 
 app.use(methodOverride('_method'))
@@ -28,6 +29,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use("/static", express.static(path.join(__dirname, "src/public")));
+
+app.use((req, res, next) => {
+  const { originalUrl } = req;
+  const layout = originalUrl.match(/^\/admin/) ? LAYOUT.ADIM : LAYOUT.USERS;
+  res.locals.layout = layout;
+  next();
+})
 
 routes(app);
 
