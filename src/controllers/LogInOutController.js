@@ -1,6 +1,6 @@
 const { Model } = require("sequelize");
 const db = require("../db/models/index.js");
-const { CONSTANT, ROLES, Response } = require("../common/index.js");
+const { CONSTANT, ROLES, Response, Message, MESSAGE } = require("../common/index.js");
 const bcrypt = require("../util/bcrypt.js");
 const jwt = require('jsonwebtoken');
 const dotenv = require("dotenv");
@@ -16,14 +16,15 @@ const LogInOut = {
     const { username, password, repassword } = req.body;
     const user = await Users.findOne({ where: { username } });
     if (user != null) {
-      res.render("./login", Response(res, 0, "Username already exist", null));
+      ;
+      res.render("./login", Response(res, 0, Message(MESSAGE.ERROR, "Username already exist"), null));
     } else if (repassword != password) {
-      res.render("./login", Response(res, 0, "Password and retype not match", null));
+      res.render("./login", Response(res, 0, Message(MESSAGE.ERROR, "Password and retype not match"), null));
     } else {
       const user = await Users.create({ username, password }).then(result => result.toJSON?.());
       const token = jwt.sign(user, process.env.SECRET_KEY, { expiresIn: 60 * 60 });
       res.cookie("auth", token);
-      res.render("./login", Response(res, 1, "Register successfully", null));
+      res.render("./login", Response(res, 1, Message(MESSAGE.SUCCESS, "Register successfully. Please login!!!"), null));
     }
   },
 
@@ -33,9 +34,9 @@ const LogInOut = {
     const user = await Users.findOne({ where: { username }, raw: true });
     console.log(user)
     if (user == null) {
-      res.render("./login", Response(res, 0, "Username not match", null));
+      res.render("./login", Response(res, 0, Message(MESSAGE.ERROR, "Username not match"), null));
     } else if (!bcrypt.compare(password, user.password)) {
-      res.render("./login", Response(res, 0, "Password not match", null));
+      res.render("./login", Response(res, 0, Message(MESSAGE.ERROR, "Password not match"), null));
     } else {
       if (!!keep) {
         res.cookie("username", username);

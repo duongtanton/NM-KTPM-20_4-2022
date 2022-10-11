@@ -1,5 +1,5 @@
-const { CONSTANT, LAYOUT } = require("./Constant");
+const { CONSTANT, LAYOUT, MESSAGE, ROLES } = require("./Constant");
 const { Response } = require("./Response");
-const ROLES = require("./Roles");
+const { Message } = require("./Message");
 
-module.exports = { CONSTANT, LAYOUT, ROLES, Response };
+module.exports = { CONSTANT, LAYOUT, ROLES, MESSAGE, Response, Message };
