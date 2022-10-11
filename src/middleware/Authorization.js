@@ -1,10 +1,11 @@
 const jwt = require('jsonwebtoken');
 const dotenv = require("dotenv");
 const db = require('../db/models');
+const { LAYOUT, ROLES } = require('../common');
 dotenv.config();
 
 
-const author = (role) => {
+const Author = (role) => {
     const { Users, Roles, Users_Roles } = db;
     return (req, res, next) => {
         const token = req.cookies.auth;
@@ -28,5 +29,5 @@ const author = (role) => {
     }
 }
 module.exports = {
-    author
+    Author
 }

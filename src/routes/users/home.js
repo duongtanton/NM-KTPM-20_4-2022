@@ -1,17 +1,17 @@
 const express = require("express");
 const UserController = require("../../controllers/UsersController/UsersController.js");
 const UploadFile = require("../../middleware/UploadFile.js");
-var UsersRouter = express.Router();
+var HomeRouter = express.Router();
 /* GET users listing. */
-UsersRouter.get("/", UserController.index);
-UsersRouter.post("/create", UserController.create);
-UsersRouter.post("/", UploadFile.multiple("user/room", "file"), UserController.store);
-UsersRouter.get("/:id", UserController.show);
-UsersRouter.post("/:id/edit", UserController.edit);
+HomeRouter.get("/", UserController.index);
+HomeRouter.post("/create", UserController.create);
+HomeRouter.post("/", UploadFile.multiple("user/room", "file"), UserController.store);
+HomeRouter.get("/:id", UserController.show);
+HomeRouter.post("/:id/edit", UserController.edit);
 
-UsersRouter.patch("/", UserController.update);
-UsersRouter.put("/", UserController.update);
+HomeRouter.patch("/", UserController.update);
+HomeRouter.put("/", UserController.update);
 
-UsersRouter.delete("/:id", UserController.destroy);
+HomeRouter.delete("/:id", UserController.destroy);
 
-module.exports = UsersRouter;
+module.exports = HomeRouter;

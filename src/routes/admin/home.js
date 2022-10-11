@@ -1,5 +1,5 @@
 const express = require("express");
-const AdminController = require("../../controllers/AdminController/AdminControlller.js");
+const AdminController = require("../../controllers/AdminController/AdminController.js");
 var AdminRouter = express.Router();
 
 /* GET users listing. */

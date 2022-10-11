@@ -1,7 +1,10 @@
 const express = require("express");
 const AdminRoute = express.Router();
-const AdminHomeRouter = require("./home");
+const ProfilesRouter = require("./profiles");
+const HomeRouter = require("./home");
 
-AdminRoute.use("/", AdminHomeRouter);
+
+AdminRoute.use("/profiles", ProfilesRouter);
+AdminRoute.use("/", HomeRouter);
 
 module.exports = AdminRoute;

@@ -4,7 +4,7 @@ const { CONSTANT } = require("../../common/index.js");
 const bcrypt = require("../../util/bcrypt.js");
 const AdminController = {
   async index(req, res, next) {
-    res.render("./admin/home", {layout: "admin"});
+    res.render("./admin/home");
   },
   async create(req, res, next) {
     res.send("create");
