@@ -5,5 +5,16 @@ const LAYOUT = {
   ADIM: "admin",
   USERS: "users",
 }
-
-module.exports = { CONSTANT, LAYOUT };
+const MESSAGE = {
+  WARNING: "warning",
+  ERROR: "error",
+  INFO: "info",
+  SUCCESS: "success"
+}
+const ROLES = {
+  AMDIN: "Admin",
+  ENTERPRISE: "Enterprise",
+  USER: "User",
+  STAFF: "Staff",
+}
+module.exports = { CONSTANT, LAYOUT, MESSAGE, ROLES };
