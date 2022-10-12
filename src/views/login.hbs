@@ -31,12 +31,12 @@
 						<input name="repassword" type="password" placeholder="Retype" />
 						<span style="padding-right: 10px;">
 							<input checked="true" style="width: 16px; display: inline-block;" id="no-enterprise"
-								name="enterprise" value="false" type="radio" class="checkbox">
+								name="enterprise" value="" type="radio" class="checkbox">
 							<label style="line-height: 25px;  color: #333; font-weight: 300;"
 								for="no-enterprise">User</label>
 						</span>
 						<span>
-							<input style="width: 16px;  display: inline-block;" value="true" id="enterprise"
+							<input style="width: 16px;  display: inline-block;" value="1" id="enterprise"
 								name="enterprise" type="radio" class="checkbox">
 							<label for="enterprise"
 								style="line-height: 25px; font-weight: 300; color: #333;">Enterprise</label>
@@ -51,11 +51,6 @@
 </section>
 <!--/form-->
 <script>
-	function getCookie(name) {
-		const value = `; ${document.cookie}`;
-		const parts = value.split(`; ${name}=`);
-		if (parts.length === 2) return parts.pop().split(';').shift();
-	}
 	const username = document.querySelector(".username");
 	username.value = getCookie("username") || "";
 </script>

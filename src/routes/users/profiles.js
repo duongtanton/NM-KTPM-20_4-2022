@@ -10,6 +10,7 @@ ProfilesRouter.get("/", ProfilesController.index);
 // ProfilesRouter.post("/:id/edit", ProfilesController.edit);
 
 // ProfilesRouter.patch("/", ProfilesController.update);
+ProfilesRouter.patch("/api", ProfilesController.apiUpdate);
 // ProfilesRouter.put("/", ProfilesController.update);
 
 // ProfilesRouter.delete("/:id", ProfilesController.destroy);

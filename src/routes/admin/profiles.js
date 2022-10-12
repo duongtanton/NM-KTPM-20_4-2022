@@ -9,7 +9,8 @@ ProfilesRouter.get("/", ProfilesController.index);
 // ProfilesRouter.get("/:id", ProfilesController.show);
 // ProfilesRouter.post("/:id/edit", ProfilesController.edit);
 
-// ProfilesRouter.patch("/", ProfilesController.update);
+ProfilesRouter.patch("/", ProfilesController.update);
+ProfilesRouter.patch("/api", UploadFile.single("admin", "avatar"), ProfilesController.apiUpdate);
 // ProfilesRouter.put("/", ProfilesController.update);
 
 // ProfilesRouter.delete("/:id", ProfilesController.destroy);
