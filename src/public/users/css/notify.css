@@ -26,8 +26,8 @@
 }
 
 .toast-message .image img {
-  height: 30px !important;
-  width: 30px !important;
+  height: 50px !important;
+  width: 50px !important;
   padding-right: 6px;
   padding: 8px;
   animation: rotatenotify 0.4s linear infinite;
