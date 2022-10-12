@@ -25,6 +25,9 @@ const ProfilesController = {
     async update(req, res, next) {
         res.send("update");
     },
+    async apiUpdate(req, res, next) {
+        res.send("update");
+    },
     async destroy(req, res, next) {
         res.send("destroy");
     },

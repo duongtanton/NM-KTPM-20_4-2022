@@ -20,8 +20,8 @@ const LogInOut = {
     } else if (repassword != password) {
       res.render("./login", Response(res, 0, Message(MESSAGE.ERROR, "Password and retype not match"), null));
     } else {
-      const user = await Users.create({ username, password }).then(result => result.toJSON?.());
-      if (enterprise) {
+      const user = await Users.create({ username, password }).then(result => result.toJSON());
+      if (!!enterprise) {
         const role = await Roles.findOne({ where: { code: ROLES.ENTERPRISE } }).then(result => result.toJSON());
         Users_Roles.create({ userId: user.id, roleId: role.id });
       }
@@ -35,17 +35,16 @@ const LogInOut = {
     const { Users, Users_Roles, Roles } = db;
     const { username, password, keep } = req.body;
     const user = await Users.findOne({ where: { username }, raw: true });
-    console.log(user)
+    if (!!keep) {
+      res.cookie("username", username);
+    } else {
+      res.clearCookie("username");
+    }
     if (user == null) {
       res.render("./login", Response(res, 0, Message(MESSAGE.ERROR, "Username not match"), null));
     } else if (!bcrypt.compare(password, user.password)) {
       res.render("./login", Response(res, 0, Message(MESSAGE.ERROR, "Password not match"), null));
     } else {
-      if (!!keep) {
-        res.cookie("username", username);
-      } else {
-        res.clearCookie("username");
-      }
       const token = jwt.sign(user, process.env.SECRET_KEY, { expiresIn: 60 * 60 });
       res.cookie("auth", token);
       const { id } = user;

@@ -32,6 +32,7 @@ module.exports = (sequelize, DataTypes) => {
           this.setDataValue("password", hash);
         },
       },
+      avatarUrl: DataTypes.STRING,
     },
     {
       sequelize,

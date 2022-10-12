@@ -37,7 +37,7 @@
       <div class="row">
         <div class="col-sm-4">
           <div class="logo pull-left">
-            <a href="/"><img src="/static/users/images/home/logo.png" alt="" /></a>
+            <a href="/"><img src="/static/public/users/images/home/logo.png" alt="" /></a>
           </div>
           <div class="btn-group pull-right">
             <div class="btn-group">
@@ -65,12 +65,12 @@
           <div class="shop-menu pull-right">
             <ul class="nav navbar-nav">
               <li><a href="/profiles"><i class="fa fa-user"></i> Account</a></li>
-              <li><a href="/static/users/#"><i class="fa fa-star"></i> Wishlist</a></li>
-              <li><a href="/static/users/checkout.html"><i class="fa fa-crosshairs"></i>
+              <li><a href="/static/public/users/#"><i class="fa fa-star"></i> Wishlist</a></li>
+              <li><a href="/static/public/users/checkout.html"><i class="fa fa-crosshairs"></i>
                   Checkout</a></li>
-              <li><a href="/static/users/cart.html"><i class="fa fa-shopping-cart"></i>
+              <li><a href="/static/public/users/cart.html"><i class="fa fa-shopping-cart"></i>
                   Cart</a></li>
-              {{#if user}}
+              {{#if _user}}
               <li><a href="/login/out"><i class="fa fa-lock"></i> Logout</a></li>
               {{else}}
               <li><a href="/login"><i class="fa fa-lock"></i> Login</a></li>
@@ -98,24 +98,24 @@
           </div>
           <div class="mainmenu pull-left">
             <ul class="nav navbar-nav collapse navbar-collapse">
-              <li><a href="/static/users/index.html" class="active">Home</a></li>
-              <li class="dropdown"><a href="/static/users/#">Shop<i class="fa fa-angle-down"></i></a>
+              <li><a href="/static/public/users/index.html" class="active">Home</a></li>
+              <li class="dropdown"><a href="/static/public/users/#">Shop<i class="fa fa-angle-down"></i></a>
                 <ul role="menu" class="sub-menu">
-                  <li><a href="/static/users/shop.html">Products</a></li>
-                  <li><a href="/static/users/product-details.html">Product Details</a></li>
-                  <li><a href="/static/users/checkout.html">Checkout</a></li>
-                  <li><a href="/static/users/cart.html">Cart</a></li>
+                  <li><a href="/static/public/users/shop.html">Products</a></li>
+                  <li><a href="/static/public/users/product-details.html">Product Details</a></li>
+                  <li><a href="/static/public/users/checkout.html">Checkout</a></li>
+                  <li><a href="/static/public/users/cart.html">Cart</a></li>
                   <li><a href="/login">Login</a></li>
                 </ul>
               </li>
-              <li class="dropdown"><a href="/static/users/#">Blog<i class="fa fa-angle-down"></i></a>
+              <li class="dropdown"><a href="/static/public/users/#">Blog<i class="fa fa-angle-down"></i></a>
                 <ul role="menu" class="sub-menu">
-                  <li><a href="/static/users/blog.html">Blog List</a></li>
-                  <li><a href="/static/users/blog-single.html">Blog Single</a></li>
+                  <li><a href="/static/public/users/blog.html">Blog List</a></li>
+                  <li><a href="/static/public/users/blog-single.html">Blog Single</a></li>
                 </ul>
               </li>
-              <li><a href="/static/users/404.html">404</a></li>
-              <li><a href="/static/users/contact-us.html">Contact</a></li>
+              <li><a href="/static/public/users/404.html">404</a></li>
+              <li><a href="/static/public/users/contact-us.html">Contact</a></li>
             </ul>
           </div>
         </div>

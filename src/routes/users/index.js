@@ -4,6 +4,7 @@ const UsersRouter = express.Router();
 const UserHomeRouter = require("./home");
 const LogInOutRouter = require("../loginout");
 const ProfilesRouter = require("./profiles");
+const { DataCommon } = require("../../middleware/DataCommon");
 
 
 UsersRouter.use("/login", LogInOutRouter);
