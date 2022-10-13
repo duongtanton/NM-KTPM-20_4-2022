@@ -2170,6 +2170,7 @@
 <script>
     const avatar = document.querySelector("#avatar");
     const fileSelect = document.querySelector("#avater-file-select");
+
     if (!!avatar && !!fileSelect) {
         avatar.onclick = (e) => {
             fileSelect.click()
@@ -2177,11 +2178,8 @@
         fileSelect.onchange = async (e) => {
             const formData = new FormData();
             formData.append("avatar", e?.target?.files[0]);
-            for (var key of formData.entries()) {
-                console.log(key[0] + ', ' + key[1]);
-            }
             var path = (window.URL || window.webkitURL).createObjectURL(e?.target?.files[0]);
-            await fetch("http://localhost:3000/admin/profiles/api?_method=PATCH", {
+            await fetch("{{ url }}/admin/profiles/api?_method=PATCH", {
                 method: 'POST',
                 headers: {
                     //'Content-Type': 'multipart/form-data', ???
@@ -2189,13 +2187,13 @@
                 },
                 body: formData
             })
-                .then(response => response.json())
-                .then(response => {
-                    console.log(response);
-                    avatar.setAttribute("src", path)
+                .then(res => res.json())
+                .then(res => {
+                    avatar.setAttribute("src", path);
+                    showToastMessage(res.message);
                 })
-                .catch(response => {
-
+                .catch(res => {
+                    showToastMessage(res.message);
                 })
         }
         avatar.onerror = (e) => {

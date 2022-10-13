@@ -15,6 +15,9 @@ const hbs = handlebars.create({
   defaultLayout: "users",
   helpers: {
     //create heplers for view here
+    json: (content) => {
+      return JSON.stringify(content);
+    }
   },
   layoutsDir: "./src/views/layout",
   partialsDir: "./src/views/layout/partials",
