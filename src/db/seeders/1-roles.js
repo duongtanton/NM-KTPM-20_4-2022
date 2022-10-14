@@ -15,17 +15,17 @@ module.exports = {
     await queryInterface.bulkInsert('roles', [
       {
         code: 'Admin',
-        name: 'Quản trị viên',
+        name: 'Admin',
       }, {
         code: 'Enterprise',
-        name: 'Doanh nghiệp',
+        name: 'Enterprise',
       }, {
-        code: 'Admin',
-        name: 'Nhân viên',
+        code: 'Staff',
+        name: 'Staff',
       },
       {
         code: 'User',
-        name: 'Người dùng',
+        name: 'User',
       }
     ], {});
 

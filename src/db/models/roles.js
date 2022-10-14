@@ -11,14 +11,12 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       this.belongsToMany(models.Users, {
         through: "users_roles",
-        onDelete: "cascade",
         onUpdate: "cascade",
       });
-      this.hasOne(models.Users_Roles, {
-        foreignKey: "roleId",
-        onDelete: "cascade",
-        onUpdate: "cascade",
-      });
+
+      // this.hasOne(models.Users_Roles, {
+      //   onUpdate: "cascade",
+      // });
     }
   }
   RolesModel.init(

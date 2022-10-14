@@ -5,7 +5,7 @@ const { LAYOUT, ROLES } = require('../common');
 dotenv.config();
 
 
-const Author = (role) => {
+const Author = (_role) => {
     const { Users, Roles, Users_Roles } = db;
     return (req, res, next) => {
         const token = req.cookies.auth || req.headers.auth;
@@ -14,11 +14,11 @@ const Author = (role) => {
                 res.redirect("/login");
             } else {
                 const { id } = decode;
-                const users_roles = await Users_Roles.findAll({
-                    where: { userId: id },
+                const user = await Users.findOne({
+                    where: { id },
                     include: Roles,
-                }).then(result => result.map(rs => rs?.toJSON()));
-                const haspPemission = users_roles.some(ur => ur?.Role?.code === role)
+                }).then(result => result?.toJSON());
+                const haspPemission = user?.Roles?.some(role => role?.code === _role) || false;
                 if (haspPemission) {
                     next();
                 } else {

@@ -5,7 +5,7 @@ const bcrypt = require("../../util/bcrypt.js");
 const fs = require('fs')
 const ProfilesController = {
     async index(req, res, next) {
-        res.render("./admin/profiles", Response(res));
+        res.render("./admin/profiles/view", Response(res));
     },
     async create(req, res, next) {
         res.send("create");
@@ -14,7 +14,7 @@ const ProfilesController = {
         res.send("store");
     },
     async show(req, res, next) {
-        res.send("show");
+        res.render("./admin/profiles/edit", Response(res));
     },
     async edit(req, res, next) {
         res.send("edit");
