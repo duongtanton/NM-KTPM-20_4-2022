@@ -5,6 +5,6 @@ const AdminRouter = require("./admin");
 const UserRouter = require("./users");
 
 module.exports = function routes(app) {
-  app.use("/admin", Authen, Author(ROLES.ENTERPRISE), DataCommon, AdminRouter);
-  app.use("/", DataCommon, UserRouter)
+  app.use("/admin", AdminRouter);
+  app.use("/", DataCommon, UserRouter);
 };

@@ -14,7 +14,8 @@ app.use(methodOverride('_method'))
 const hbs = handlebars.create({
   defaultLayout: "users",
   helpers: {
-    //create heplers for view here
+    twoNumSum: (a, b) => a + b,
+    localTimeFormat: (time) => new Date(time).toLocaleString(),
   },
   layoutsDir: "./src/views/layout",
   partialsDir: "./src/views/layout/partials",

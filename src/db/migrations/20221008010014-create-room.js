@@ -12,14 +12,14 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
-      description: {
+      type: {
         type: Sequelize.STRING
       },
-      type: {
+      floor: {
         type: Sequelize.INTEGER
       },
-      price: {
-        type: Sequelize.DOUBLE
+      status: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
