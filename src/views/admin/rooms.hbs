@@ -277,6 +277,7 @@
 
 <!-- page specific plugin scripts -->
 <script src="/static/public/admin/assets/js/jquery.dataTables.min.js"></script>
+<script src="/static/public/admin/assets/js/jquery.validate.min.js"></script>
 <script src="/static/public/admin/assets/js/jquery.dataTables.bootstrap.min.js"></script>
 <script src="/static/public/admin/assets/js/dataTables.buttons.min.js"></script>
 <script src="/static/public/admin/assets/js/buttons.flash.min.js"></script>
@@ -289,11 +290,12 @@
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
     jQuery(function ($) {
+        //create & edit form
         const form = (data) => `<form class="form-horizontal form-data" role="form" style="padding: 8px;">
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="form-name">Name:</label>
 
-                <div class="col-sm-9">
+                <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
                     <input type="text" id="form-name" name="name" placeholder="Enter name"
                         class="col-xs-10 col-sm-5" value=${data ? data.name : ''}>
                 </div>
@@ -301,7 +303,7 @@
 
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="form-type">Type:</label>
-                <div class="col-sm-9">
+                <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
                     <select class="col-xs-10 col-sm-5" id="form-type" name="type" style="padding: 0;">
                         <option value="" disabled ${!data && 'selected'}></option>
                         <option value="STD" ${data && data.type === "STD" && 'selected'}>Standard</option>
@@ -318,14 +320,14 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="form-floor">Floor:</label>
 
-                <div class="col-sm-9">
+                <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
                     <input type="text" id="form-floor" name="floor" placeholder="Enter floor"
                         class="col-xs-10 col-sm-5" value=${data ? data.floor : ''}>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="form-status">Status:</label>
-                <div class="col-sm-9">
+                <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
                     <select class="col-xs-10 col-sm-5" id="form-status" name="status" style="padding: 0;">
                         <option value="" disabled ${!data && 'selected'}></option>
                         <option value="occupied" ${data && data.status === "occupied" && 'selected'}>Occupied</option>
@@ -335,7 +337,10 @@
                     </select>
                 </div>
             </div>
+            <button type="submit" hidden></button>
         </form>`;
+
+        //view form
         const details = (data) => `
             <form class="form-horizontal" role="form" action="/admin/rooms" method="POST">
                 <div class="profile-user-info profile-user-info-striped">
@@ -395,6 +400,44 @@
                     </div>
                 </div>
             </form>`;
+
+        //Client Validation for create & edit form     
+        const formValidation = {
+            rules: {
+                name: {
+                    required: true,
+                },
+                type: {
+                    required: true,
+                },
+                floor: {
+                    required: true,
+                    number: true,
+                    min: 1,
+                },
+                status: {
+                    required: true,
+                },
+            },
+            messages: {
+                name: {
+                    required: "This field is required"
+                },
+                type: {
+                    required: "This field is required"
+                },
+                floor: {
+                    required: "This field is required",
+                    number: "This field must be a number",
+                    min: "This field must be at least 1",
+                },
+                status: {
+                    required: "This field is required"
+                },
+            },
+        }
+
+        //Data Table display room info
         var myTable =
             $('#dynamic-table')
                 //.wrap("<div class='dataTables_borderWrap' />")   //if you are applying horizontal scrolling (sScrollX)
@@ -472,6 +515,7 @@
                 }
             ]
         });
+
         myTable.buttons().container().appendTo($('.tableTools-container'));
 
         //style the message box
@@ -496,8 +540,6 @@
             $('.dt-button-collection').appendTo('.tableTools-container .dt-buttons')
         });
 
-        ////
-
         setTimeout(function () {
             $($('.tableTools-container')).find('a.dt-button').each(function () {
                 var div = $(this).find(' > div').first();
@@ -505,9 +547,6 @@
                 else jQuery(this).tooltip({ container: 'body', title: $(this).text() });
             });
         }, 500);
-
-
-
 
 
         myTable.on('select', function (e, dt, type, index) {
@@ -617,6 +656,8 @@
             if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2)) return 'right';
             return 'left';
         }
+
+        //Manage popup window
         $(".view.bootbox-confirm").on(ace.click_event, async function (e) {
             const id = e.currentTarget.getAttribute('data-id');
             const res = await fetch(`/admin/rooms/${id}`, { method: 'GET' });
@@ -644,9 +685,15 @@
                 },
                 callback: function (result) {
                     if (result) {
-                        $('.form-data').attr("action", "/admin/rooms/create");
-                        $('.form-data').attr("method", "POST");
-                        $('.form-data').submit();
+                        $('.form-data').validate(formValidation);
+                        if ($('.form-data').valid()) {
+                            $('.form-data').attr("action", "/admin/rooms/create");
+                            $('.form-data').attr("method", "POST");
+                            $('.form-data').submit();
+                        } else {
+                            $('.form-data').find(':submit').click();
+                            return false;
+                        }
                     }
                 }
             });
@@ -671,10 +718,17 @@
                     }
                 },
                 callback: function (result) {
+
                     if (result) {
-                        $('.form-data').attr("action", `/admin/rooms/${id}/edit`);
-                        $('.form-data').attr("method", "POST");
-                        $('.form-data').submit();
+                        $('.form-data').validate(formValidation);
+                        if ($('.form-data').valid()) {
+                            $('.form-data').attr("action", `/admin/rooms/${id}/edit`);
+                            $('.form-data').attr("method", "POST");
+                            $('.form-data').submit();
+                        } else {
+                            $('.form-data').find(':submit').click();
+                            return false;
+                        }
                     }
                 }
             });

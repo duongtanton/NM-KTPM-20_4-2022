@@ -17,7 +17,6 @@ const RoomController = {
     },
     async create(req, res, next) {
         try {
-            console.log(req.body);
             const { name, type, floor, status } = req.body;
             const room = await Rooms.create({
                 name,
@@ -49,7 +48,6 @@ const RoomController = {
         try {
             const { id } = req.params
             const data = req.body;
-            console.log(data);
             const room = await Rooms.update(
                 data, {
                 where: { id, }
@@ -65,15 +63,13 @@ const RoomController = {
     async destroy(req, res, next) {
         const { id } = req.params;
         const room = await Rooms.destroy({ where: { id, } });
-        console.log(room);
         res.redirect('back');
     },
     async destroyMultiple(req, res, next) {
         const data = req.body;
         const idList = data.idList.split(',');
         const rooms = await Rooms.destroy({ where: { id: idList, } });
-        console.log(rooms);
-        res.redirect('/admin/rooms');
+        res.redirect('back');
     },
 };
 module.exports = RoomController;
