@@ -8,6 +8,7 @@ const config = {
     database: process.env.DATABASE_DEV_NAME,
     host: process.env.DATABASE_DEV_URL,
     dialect: process.env.DATABASE_DEV_DIALECT,
+    port: process.env.DATABASE_DEV_PORT
   },
   test: {
     username: "root",
