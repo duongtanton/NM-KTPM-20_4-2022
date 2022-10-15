@@ -19,7 +19,9 @@ const hbs = handlebars.create({
     localTimeFormat: (time) => new Date(time).toLocaleString(),
     json: (content) => {
       return JSON.stringify(content);
-    }
+    },
+    twoNumSum: (a, b) => a + b,
+    localTimeFormat: (time) => new Date(time).toLocaleString()
   },
   layoutsDir: "./src/views/layout",
   partialsDir: "./src/views/layout/partials",

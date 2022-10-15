@@ -9,11 +9,10 @@ const RoomController = {
             const rooms = await Rooms.findAll({
                 raw: true,
             });
-            res.render("./admin/rooms", { layout: "admin", rooms });
+            res.render("./admin/rooms", { rooms });
         } catch (err) {
             res.status(500).json(err);
         }
-
     },
     async create(req, res, next) {
         try {
@@ -30,7 +29,7 @@ const RoomController = {
         }
     },
     async store(req, res, next) {
-        res.render("./admin/rooms", { layout: "admin" });
+        res.render("./admin/rooms");
     },
     async show(req, res, next) {
         try {
@@ -58,7 +57,7 @@ const RoomController = {
         }
     },
     async update(req, res, next) {
-        res.render("./admin/rooms", { layout: "admin" });
+        res.render("./admin/rooms");
     },
     async destroy(req, res, next) {
         const { id } = req.params;

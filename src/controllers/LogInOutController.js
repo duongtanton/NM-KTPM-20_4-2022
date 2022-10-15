@@ -46,7 +46,7 @@ const LogInOut = {
   },
 
   async store(req, res, next) {
-    const { Users, Users_Roles, Roles } = db;
+    const { Users, Roles } = db;
     const { username, password, keep } = req.body;
     const user = await Users.findOne({ where: { username }, raw: true });
     if (!!keep) {
@@ -62,8 +62,12 @@ const LogInOut = {
       const token = jwt.sign(user, process.env.SECRET_KEY, { expiresIn: 60 * 60 });
       res.cookie("auth", token);
       const { id } = user;
-      const user_role = await Users_Roles.findAll({ where: { userId: id }, include: Roles }).then(result => result.map(ur => ur.toJSON()));
-      const roleAdmin = user_role.some(ur => (ur?.Role?.code == ROLES.AMDIN || ur?.Role?.code === ROLES.STAFF || ROLES.ENTERPRISE));
+      const userRoles = await Users.findOne({
+        where: { id },
+        include: Roles,
+      }).then(result => result?.toJSON());
+      const roleAdmin = userRoles?.Roles?.some(role => (role?.code == ROLES.AMDIN || role?.code === ROLES.STAFF
+        || role?.code === ROLES.ENTERPRISE)) || false;
       if (roleAdmin) {
         res.redirect("/admin");
       } else {
