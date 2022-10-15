@@ -27,7 +27,7 @@
 		<![endif]-->
 	<link rel="stylesheet" href="/static/public/admin/assets/css/ace-skins.min.css" />
 	<link rel="stylesheet" href="/static/public/admin/assets/css/ace-rtl.min.css" />
-	<link rel="stylesheet" href="/static/public/admin/assets/css/notify.css" />
+	<link rel="stylesheet" href="/static/public/common/notify.css" />
 
 	<!--[if lte IE 9]>
 		  <link rel="stylesheet" href="/static/public/admin/assets/css/ace-ie.min.css" />
@@ -47,22 +47,11 @@
 </head>
 
 <body class="no-skin">
-	<div id="toast-message-group" class="toast-message-group">
-		<div id="toast-message" class="toast-message {{#if message}}{{message.type}}{{/if}} ">
-			<div class="image">
-				<img src="https://cdn-icons-png.flaticon.com/512/2097/2097710.png" alt="Notify">
-			</div>
-			<div class="content">
-				<div class="warning">Warning!</div>
-				<div class="success">Success!</div>
-				<div class="error">Error!</div>
-				<div class="info">Info!</div>
-				<div class="message">
-					{{#if message}}{{message.content}}{{/if}}
-				</div>
-			</div>
-		</div>
-	</div>
+	<div id="toast-message-group" class="toast-message-group"></div>
+	<script src="/static/public/common/notify.js"></script>
+	<script>
+		showToastMessage({{{ json  message }}});
+	</script>
 	{{> admin_header}}
 
 	<div class="main-container ace-save-state" id="main-container">
@@ -95,6 +84,7 @@
 	<script type="text/javascript">
 		if ('ontouchstart' in document.documentElement) document.write("<script src='/static/public/admin/assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
 	</script>
+	<script src="/static/public/common/function.js"></script>
 	<script src="/static/public/admin/assets/js/bootstrap.min.js"></script>
 
 	<!-- page specific plugin scripts -->
@@ -113,7 +103,6 @@
 	<!-- ace scripts -->
 	<script src="/static/public/admin/assets/js/ace-elements.min.js"></script>
 	<script src="/static/public/admin/assets/js/ace.min.js"></script>
-	<script src="/static/public/admin/assets/js/notify.js"></script>
 	<script src="/static/public/common/function.js"></script>
 	<script src="/static/public/admin/assets/js/jquery.dataTables.min.js"></script>
 	<script src="/static/public/admin/assets/js/jquery.dataTables.bootstrap.min.js"></script>

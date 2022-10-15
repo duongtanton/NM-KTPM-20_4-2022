@@ -6,7 +6,7 @@ var ProfilesRouter = express.Router();
 ProfilesRouter.get("/", ProfilesController.index);
 // ProfilesRouter.post("/create", ProfilesController.create);
 // ProfilesRouter.post("/", UploadFile.multiple("user/profiles", "file"), ProfilesController.store);
-// ProfilesRouter.get("/:id", ProfilesController.show);
+ProfilesRouter.get("/:id", ProfilesController.show);
 // ProfilesRouter.post("/:id/edit", ProfilesController.edit);
 
 ProfilesRouter.patch("/", ProfilesController.update);

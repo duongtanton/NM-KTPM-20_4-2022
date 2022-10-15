@@ -12,12 +12,15 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       this.belongsToMany(models.Roles, {
         through: "users_roles",
-        onDelete: "cascade",
         onUpdate: "cascade",
       });
-      this.hasOne(models.Users_Roles, {
-        foreignKey: "userId",
-        onDelete: "cascade",
+
+      // this.hasOne(models.Users_Roles, {
+      //   onUpdate: "cascade",
+      // });
+
+      this.belongsTo(models.Enterprises, {
+        foreignKey: 'enterpriseId',
         onUpdate: "cascade",
       });
     }
@@ -33,6 +36,8 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       avatarUrl: DataTypes.STRING,
+      nickname: DataTypes.STRING,
+      enterpriseId: DataTypes.INTEGER
     },
     {
       sequelize,
