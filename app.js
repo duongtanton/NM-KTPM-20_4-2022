@@ -9,19 +9,14 @@ const methodOverride = require('method-override');
 const { LAYOUT } = require("./src/common");
 const { Authen } = require("./src/middleware");
 const app = express();
+const Helpers = require("./src/common/Helpers")
 
 app.use(methodOverride('_method'))
 const hbs = handlebars.create({
   defaultLayout: "users",
   helpers: {
     //create heplers for view here
-    twoNumSum: (a, b) => a + b,
-    localTimeFormat: (time) => new Date(time).toLocaleString(),
-    json: (content) => {
-      return JSON.stringify(content);
-    },
-    twoNumSum: (a, b) => a + b,
-    localTimeFormat: (time) => new Date(time).toLocaleString()
+    ...Helpers
   },
   layoutsDir: "./src/views/layout",
   partialsDir: "./src/views/layout/partials",

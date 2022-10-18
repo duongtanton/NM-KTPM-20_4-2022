@@ -1,3 +1,5 @@
+<script src="/static/public/admin/assets/js/ace-extra.min.js"></script>
+
 <div class="main-content-inner">
     <div class="breadcrumbs ace-save-state" id="breadcrumbs">
         <ul class="breadcrumb">
@@ -40,7 +42,7 @@
                     <img style="cursor: pointer;" id="avatar" class="editable img-responsive" alt="Alex's Avatar" src="{{#if _user.avatarUrl}}
                                                 /static/{{_user.avatarUrl}}
                                                 {{else}}
-                                                /static/public/admin/admin//static/public/admin/assets/images/avatars/avatar_default.png
+                                                /static/public/admin/assets/images/avatars/avatar_default.png
                                                 {{/if}}
                                             " />
                     <input id="avater-file-select" style="display: none;" type="file" name="avatar" accept="image/*" />
@@ -145,92 +147,115 @@
         </div>
 
         <div class="col-xs-12 col-sm-9">
-            <form class="form-horizontal" role="form">
-                <div class="form-group">
-                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Exterprice code </label>
-                    <div class="col-sm-9">
-                        <input type="text" id="form-field-1" placeholder="Exterprice code" class="col-xs-10 col-sm-5" />
+            {{!-- <form class="form-horizontal" role="form"> --}}
+                <form class="form-horizontal form-edit-enterprise" action="/admin/profiles?_method=PATCH" method="POST">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Exterprice code
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="text" name="code" value="{{_user.enterprise.code}}" id=" form-field-1"
+                                readonly="" placeholder="Exterprice code" class="col-xs-10 col-sm-5" />
+                        </div>
                     </div>
-                </div>
-                <div class="space-4"></div>
+                    <div class="space-4"></div>
 
-                <div class="form-group">
-                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Nickname </label>
-                    <div class="col-sm-9">
-                        <input type="text" id="form-field-1" placeholder="Nickname" class="col-xs-10 col-sm-5" />
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Name </label>
+                        <div class="col-sm-9">
+                            <input type="text" name="name" value="{{_user.enterprise.name}}" id="form-field-1"
+                                placeholder="Name" class="col-xs-10 col-sm-5" />
+                        </div>
                     </div>
-                </div>
-                <div class="space-4"></div>
+                    <div class="space-4"></div>
 
-                <div class="form-group">
-                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Localtion</label>
-                    <div class="col-sm-9">
-                        <input type="text" id="form-field-1" placeholder="Localtion" class="col-xs-10 col-sm-5" />
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Localtion</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="localtion" value="{{_user.enterprise.localtion}}" id="form-field-1"
+                                placeholder="Localtion" class="col-xs-10 col-sm-5" />
+                        </div>
                     </div>
-                </div>
 
-                <div class="space-4"></div>
+                    <div class="space-4"></div>
 
-                <div class="form-group">
-                    <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> Email </label>
-                    <div class="col-sm-9">
-                        <input type="email" id="form-field-2" placeholder="abc@gmail.com" class="col-xs-10 col-sm-5" />
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> Email </label>
+                        <div class="col-sm-9">
+                            <input type="email" name="email" value="{{_user.enterprise.email}}" id="form-field-2"
+                                placeholder="abc@gmail.com" class="col-xs-10 col-sm-5" />
+                        </div>
                     </div>
-                </div>
 
-                <div class="space-4"></div>
+                    <div class="space-4"></div>
 
-                <div class="form-group">
-                    <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> Phone </label>
-                    <div class="col-sm-9">
-                        <input type="number" id="form-field-2" placeholder="Phone" class="col-xs-10 col-sm-5" />
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> Phone </label>
+                        <div class="col-sm-9">
+                            <input type="number" name="phone" value="{{_user.enterprise.phone}}" id="form-field-2"
+                                placeholder="Phone" class="col-xs-10 col-sm-5" />
+                        </div>
                     </div>
-                </div>
 
-                <div class="space-4"></div>
+                    <div class="space-4"></div>
 
-                <div class="form-group">
-                    <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> Password Field </label>
-                    <div class="col-sm-9">
-                        <input type="password" id="form-field-2" placeholder="Password" class="col-xs-10 col-sm-5" />
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-field-2">Verified </label>
+                        <div class="col-xs-3">
+                            <label>
+                                <input checked="{{_user.enterprise.verified}}" name="verified"
+                                    class="ace ace-switch ace-switch-5" type="checkbox" />
+                                <span class="lbl"></span>
+                            </label>
+                        </div>
                     </div>
-                </div>
 
-                <div class="space-4"></div>
+                    <div class="space-4"></div>
 
-                <div class="form-group">
-                    <label class="col-sm-3 control-label no-padding-right" for="form-input-readonly"> Joined</label>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-input-readonly"> Joined</label>
 
-                    <div class="col-sm-9">
-                        <input readonly="" type="text" class="col-xs-10 col-sm-5" id="form-input-readonly"
-                            value="2020/20/08" />
+                        <div class="col-sm-9">
+                            <input readonly="" type="text" class="col-xs-10 col-sm-5" id="form-input-readonly"
+                                value="{{ formatDate _user.enterprise.createAt }}" />
+                        </div>
                     </div>
-                </div>
 
-                <div class="space-4"></div>
-                <h4 class="header green clearfix">
-                    About me
-                </h4>
+                    <div class="space-4"></div>
 
-                <div class="wysiwyg-editor" id="editor1"></div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="form-input-readonly"> Updated at
+                        </label>
 
-                <div class="space-4"></div>
-
-                <div class="clearfix form-actions">
-                    <div class="col-md-offset-3 col-md-9">
-                        <button class="btn btn-info" type="button">
-                            <i class="ace-icon fa fa-check bigger-110"></i>
-                            Submit
-                        </button>
-
-                        &nbsp; &nbsp; &nbsp;
-                        <a href="/admin/profiles/" class="btn" type="reset">
-
-                            <i class="ace-icon fa fa-undo bigger-110"></i>
-                            Cancel
-                        </a>
+                        <div class="col-sm-9">
+                            <input readonly="" type="text" class="col-xs-10 col-sm-5" id="form-input-readonly"
+                                value="{{ formatDate _user.enterprise.updateAt }}" />
+                        </div>
                     </div>
-                </div>
+
+                    <div class="space-4"></div>
+
+                    <h4 class="header green clearfix">
+                        About me
+                    </h4>
+                    <div class="wysiwyg-editor exterprise-description" id="editor1"></div>
+
+                    <div class="space-4"></div>
+
+                    <div class="clearfix form-actions">
+                        <div class="col-md-offset-3 col-md-9">
+                            <button class="btn btn-info" type="submit">
+                                <i class="ace-icon fa fa-check bigger-110"></i>
+                                Submit
+                            </button>
+                            &nbsp; &nbsp; &nbsp;
+                            <a href="/admin/profiles/" class="btn" type="reset">
+                                <i class="ace-icon fa fa-undo bigger-110"></i>
+                                Cancel
+                            </a>
+                        </div>
+                    </div>
+
+                </form>
 
                 <div class="hr hr-24"></div>
 
@@ -239,7 +264,6 @@
                         <div class="widget-box">
                             <div class="widget-header">
                                 <h4 class="widget-title">Text Area</h4>
-
                                 <div class="widget-toolbar">
                                     <a href="#" data-action="collapse">
                                         <i class="ace-icon fa fa-chevron-up"></i>
@@ -1161,7 +1185,8 @@
                         </div>
                     </div>
                 </div>
-            </form>
+                {{!--
+            </form> --}}
         </div>
     </div>
 </div>
@@ -1174,6 +1199,7 @@
         }
     }
 </script>
+
 <script src="/static/public/admin/assets/js/jquery-2.1.4.min.js"></script>
 
 <!-- <![endif]-->
@@ -1184,7 +1210,6 @@
 <script type="text/javascript">
     if ('ontouchstart' in document.documentElement) document.write("<script src='/static/public/admin/assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
 </script>
-
 <script src="/static/public/admin/assets/js/bootstrap.min.js"></script>
 
 <!-- page specific plugin scripts -->
@@ -1383,4 +1408,9 @@
 
 
     });
+
+    const formEdit = document.querySelector(".form-edit-enterprise");
+    const exterpriseDescription = document.querySelector(".exterprise-description");
+    document.onsubmit = (e) => {
+    }
 </script>

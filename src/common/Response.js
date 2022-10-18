@@ -7,8 +7,8 @@ const Response = (res, code, message, data) => {
         code,
         url,
         message,
-        data,
-        layout
+        layout,
+        ...data,
     }
 }
 const ResponseApi = (res, code, message, data) => {
@@ -19,7 +19,8 @@ const ResponseApi = (res, code, message, data) => {
         url,
         message,
         data,
-        layout
+        layout,
+        ...data,
     }
 }
 module.exports = {
