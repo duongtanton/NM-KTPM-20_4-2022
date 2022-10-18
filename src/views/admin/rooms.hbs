@@ -667,6 +667,15 @@
                 message: details(data),
             });
         });
+        $(".tooltip-view.bootbox-confirm").on(ace.click_event, async function (e) {
+            const id = e.currentTarget.getAttribute('data-id');
+            const res = await fetch(`/admin/rooms/${id}`, { method: 'GET' });
+            const data = await res.json();
+
+            bootbox.alert({
+                message: details(data),
+            });
+        });
         $(".add.bootbox-confirm").on(ace.click_event, function () {
             bootbox.confirm({
                 message: form(),
@@ -733,7 +742,68 @@
                 }
             });
         });
+        $(".tooltip-edit.bootbox-confirm").on(ace.click_event, async function (e) {
+            const id = e.currentTarget.getAttribute('data-id');
+            const res = await fetch(`/admin/rooms/${id}`, { method: 'GET' });
+            const data = await res.json();
+            bootbox.confirm({
+                message: form(data),
+                buttons:
+                {
+                    "confirm":
+                    {
+                        "label": "Save",
+                        "className": "btn-sm btn-primary",
+                    },
+                    "cancel":
+                    {
+                        "label": "Cancel",
+                        "className": "btn-sm",
+                    }
+                },
+                callback: function (result) {
+
+                    if (result) {
+                        $('.form-data').validate(formValidation);
+                        if ($('.form-data').valid()) {
+                            $('.form-data').attr("action", `/admin/rooms/${id}/edit`);
+                            $('.form-data').attr("method", "POST");
+                            $('.form-data').submit();
+                        } else {
+                            $('.form-data').find(':submit').click();
+                            return false;
+                        }
+                    }
+                }
+            });
+        });
         $(".delete.bootbox-confirm").on(ace.click_event, function (e) {
+            const id = e.currentTarget.getAttribute('data-id');
+            bootbox.confirm({
+                message: `<span>Are you sure want to delete the room with ID ${id}?</span>`,
+                buttons:
+                {
+                    "confirm":
+                    {
+                        "label": "Delete",
+                        "className": "btn-sm btn-danger",
+                    },
+                    "cancel":
+                    {
+                        "label": "Cancel",
+                        "className": "btn-sm",
+                    }
+                },
+                callback: function (result) {
+                    if (result) {
+                        $('.form-delete').attr("action", `/admin/rooms/${id}?_method=DELETE`);
+                        $('.form-delete').attr("method", "POST");
+                        $('.form-delete').submit();
+                    }
+                }
+            });
+        });
+        $(".tooltip-delete.bootbox-confirm").on(ace.click_event, function (e) {
             const id = e.currentTarget.getAttribute('data-id');
             bootbox.confirm({
                 message: `<span>Are you sure want to delete the room with ID ${id}?</span>`,
