@@ -287,6 +287,7 @@
 <script src="/static/public/admin/assets/js/buttons.colVis.min.js"></script>
 <script src="/static/public/admin/assets/js/dataTables.select.min.js"></script>
 <script src="/static/public/admin/assets/js/bootbox.js"></script>
+<script src="/static/public/admin/assets/js/ace-elements.min.js"></script>
 
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
@@ -395,6 +396,22 @@
 
                         <div class="profile-info-value">
                             <span>${data.status}</span>
+                        </div>
+                    </div>
+
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">Description</div>
+
+                        <div class="profile-info-value">
+                            <span>${data.description}</span>
+                        </div>
+                    </div>
+
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">Image</div>
+
+                        <div class="profile-info-value">
+                            <img src="/${data.image}" alt="">
                         </div>
                     </div>
 
@@ -697,7 +714,7 @@
             });
         });
         $(".add.bootbox-confirm").on(ace.click_event, function () {
-            bootbox.confirm({
+            const box = bootbox.confirm({
                 message: form(),
                 buttons:
                 {
@@ -714,30 +731,66 @@
                 },
                 callback: function (result) {
                     if (result) {
-                        $('.form-data').validate(formValidation);
-                        $('.form-data').submit(async function (e) {
-                            e.preventDefault()
-                            let file = document.getElementById("form-image").files[0];
-                            const data = new FormData()
-                            data.append("name", document.getElementById('form-name').value);
-                            data.append("type", document.getElementById('form-type').value);
-                            data.append("floor", document.getElementById('form-floor').value);
-                            data.append("status", document.getElementById('form-status').value);
-                            data.append("description", document.getElementById('form-description').value);
-                            data.append("room-image", file)
-                            const res = await fetch(`/admin/rooms/create`, {
-                                method: 'POST',
-                                body: data
-                            });
-                        });
                         if ($('.form-data').valid()) {
+                            console.log('valid')
                             $('.form-data').submit();
                         } else {
-                            $('.form-data').find(':submit').click();
+                            console.log('invalid')
                             return false;
                         }
                     }
                 }
+            });
+            box.on("shown.bs.modal", function () {
+                $('.form-data').validate(formValidation);
+                $('.form-data').submit(function (e) {
+                    e.preventDefault();
+                    let file = document.getElementById("form-image").files[0];
+                    console.log(file)
+                    const data = new FormData()
+                    data.append("name", document.getElementById('form-name').value);
+                    data.append("type", document.getElementById('form-type').value);
+                    data.append("floor", document.getElementById('form-floor').value);
+                    data.append("status", document.getElementById('form-status').value);
+                    data.append("description", document.getElementById('form-description').value);
+                    data.append("room-image", file);
+                    fetch(`/admin/rooms/create`, {
+                        method: 'POST',
+                        body: data
+                    })
+                        .then((res) => { console.log(res); })
+                        .catch((err) => { console.log(err); })
+                });
+                $('#form-image').ace_file_input({
+                    style: 'well',
+                    btn_choose: 'Drop files here or click to choose',
+                    btn_change: null,
+                    no_icon: 'ace-icon fa fa-cloud-upload',
+                    droppable: true,
+                    thumbnail: 'small'//large | fit
+                    //,icon_remove:null//set null, to hide remove/reset button
+                    /**,before_change:function(files, dropped) {
+                        //Check an example below
+                        //or examples/file-upload.html
+                        return true;
+                    }*/
+                    /**,before_remove : function() {
+                        return true;
+                    }*/
+                    ,
+                    preview_error: function (filename, error_code) {
+                        //name of the file that failed
+                        //error_code values
+                        //1 = 'FILE_LOAD_FAILED',
+                        //2 = 'IMAGE_LOAD_FAILED',
+                        //3 = 'THUMBNAIL_FAILED'
+                        //alert(error_code);
+                    }
+
+                }).on('change', function () {
+                    //console.log($(this).data('ace_input_files'));
+                    //console.log($(this).data('ace_input_method'));
+                });
             });
         });
         $(".edit.bootbox-confirm").on(ace.click_event, async function (e) {

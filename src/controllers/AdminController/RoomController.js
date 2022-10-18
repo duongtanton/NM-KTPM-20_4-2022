@@ -1,6 +1,6 @@
 const { Model } = require("sequelize");
 const db = require("../../db/models/index.js");
-const { CONSTANT } = require("../../common/index.js");
+const { CONSTANT, ResponseApi, Message, MESSAGE } = require("../../common/index.js");
 const bcrypt = require("../../util/bcrypt.js");
 const { Rooms } = db;
 const RoomController = {
@@ -17,15 +17,16 @@ const RoomController = {
     async create(req, res, next) {
         try {
             const { name, type, floor, status, description } = req.body;
+            const { path } = req.file;
             const room = await Rooms.create({
                 name,
                 type,
                 floor,
                 status,
                 description,
-                image: req.file.filename
+                image: path.split("\\").slice(1).join("//")
             });
-            res.redirect('back');
+            res.json(ResponseApi(res, 1, Message(MESSAGE.SUCCESS, "Create room successfully!!!")))
         } catch (err) {
             res.status(500).json(err);
         }
