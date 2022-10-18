@@ -16,12 +16,14 @@ const RoomController = {
     },
     async create(req, res, next) {
         try {
-            const { name, type, floor, status } = req.body;
+            const { name, type, floor, status, description } = req.body;
             const room = await Rooms.create({
                 name,
                 type,
                 floor,
                 status,
+                description,
+                image: req.file.filename
             });
             res.redirect('back');
         } catch (err) {

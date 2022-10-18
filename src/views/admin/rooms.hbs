@@ -278,6 +278,7 @@
 <!-- page specific plugin scripts -->
 <script src="/static/public/admin/assets/js/jquery.dataTables.min.js"></script>
 <script src="/static/public/admin/assets/js/jquery.validate.min.js"></script>
+<script src="/static/public/admin/assets/js/jquery-additional-methods.min.js"></script>
 <script src="/static/public/admin/assets/js/jquery.dataTables.bootstrap.min.js"></script>
 <script src="/static/public/admin/assets/js/dataTables.buttons.min.js"></script>
 <script src="/static/public/admin/assets/js/buttons.flash.min.js"></script>
@@ -335,6 +336,19 @@
                         <option value="cleaning" ${data && data.status === "cleaning" && 'selected'}>Cleaning</option>
                         <option value="maintenance" ${data && data.status === "maintenance" && 'selected'}>Maintenance</option>
                     </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-description">Description:</label>
+
+                <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
+                    <textarea id="form-description" class="col-xs-10 autosize-transition form-control" name="description" placeholder="Enter description">${data ? data.description : ''}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-image" style="padding-top: 0">Image:</label>
+                <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
+                    <input type="file" id="form-image" class="col-xs-10" name="image" style="padding: 0; color: initial; outline: none"/>
                 </div>
             </div>
             <button type="submit" hidden></button>
@@ -401,7 +415,7 @@
                 </div>
             </form>`;
 
-        //Client Validation for create & edit form     
+        //Client Validation for create & edit form   
         const formValidation = {
             rules: {
                 name: {
@@ -418,6 +432,9 @@
                 status: {
                     required: true,
                 },
+                image: {
+                    extension: "jpeg|jpg|png"
+                }
             },
             messages: {
                 name: {
@@ -434,6 +451,9 @@
                 status: {
                     required: "This field is required"
                 },
+                image: {
+                    extension: "This field only support jpeg,jpg,png files"
+                }
             },
         }
 
@@ -695,9 +715,22 @@
                 callback: function (result) {
                     if (result) {
                         $('.form-data').validate(formValidation);
+                        $('.form-data').submit(async function (e) {
+                            e.preventDefault()
+                            let file = document.getElementById("form-image").files[0];
+                            const data = new FormData()
+                            data.append("name", document.getElementById('form-name').value);
+                            data.append("type", document.getElementById('form-type').value);
+                            data.append("floor", document.getElementById('form-floor').value);
+                            data.append("status", document.getElementById('form-status').value);
+                            data.append("description", document.getElementById('form-description').value);
+                            data.append("room-image", file)
+                            const res = await fetch(`/admin/rooms/create`, {
+                                method: 'POST',
+                                body: data
+                            });
+                        });
                         if ($('.form-data').valid()) {
-                            $('.form-data').attr("action", "/admin/rooms/create");
-                            $('.form-data').attr("method", "POST");
                             $('.form-data').submit();
                         } else {
                             $('.form-data').find(':submit').click();
@@ -727,7 +760,6 @@
                     }
                 },
                 callback: function (result) {
-
                     if (result) {
                         $('.form-data').validate(formValidation);
                         if ($('.form-data').valid()) {
@@ -859,5 +891,6 @@
                 }
             });
         });
+
     });
 </script>
