@@ -3,8 +3,13 @@ const db = require("../../db/models/index.js");
 const { CONSTANT, Response, ResponseApi, Message, MESSAGE } = require("../../common");
 const bcrypt = require("../../util/bcrypt.js");
 const fs = require('fs')
+const { Enterprises, Users } = db;
 const ProfilesController = {
     async index(req, res, next) {
+        const { _user } = res.locals;
+        const enterprise = await Enterprises.findOne({ where: { id: _user.enterpriseId } }).then(r => r.toJSON());
+        _user.enterprise = enterprise;
+        res.locals._user = _user;
         res.render("./admin/profiles/view", Response(res));
     },
     async create(req, res, next) {
@@ -14,16 +19,30 @@ const ProfilesController = {
         res.send("store");
     },
     async show(req, res, next) {
+        const { _user } = res.locals;
+        const enterprise = await Enterprises.findOne({ where: { id: _user.enterpriseId } }).then(r => r.toJSON());
+        _user.enterprise = enterprise;
+        res.locals._user = _user;
         res.render("./admin/profiles/edit", Response(res));
     },
     async edit(req, res, next) {
         res.send("edit");
     },
     async update(req, res, next) {
-        res.send("update");
+        const { code, name, localtion, email, phone, verified } = req.body;
+        const { _user } = res.locals;
+        const enterprise = await Enterprises.update({
+            name,
+            localtion,
+            email,
+            phone,
+            updateAt: new Date()
+        }, { where: { code, id: _user.enterpriseId } }).then(() => Enterprises.findOne({ id: _user.enterpriseId, raw: true }));
+        _user.enterprise = enterprise;
+        res.locals._user = _user;
+        res.render("./admin/profiles/edit", Response(res, 1, Message(MESSAGE.SUCCESS, "Update profile successfully!!!")));
     },
     async apiUpdate(req, res, next) {
-        const { Users } = db;
         const { _user } = res.locals;
         const { path } = req.file;
         const pathPreFile = "src/" + _user.avatarUrl;
