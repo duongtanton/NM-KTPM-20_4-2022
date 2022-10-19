@@ -73,24 +73,32 @@ const RoomController = {
                 data, {
                 where: { id, }
             })
-            res.json(ResponseApi(res, 1, Message(MESSAGE.SUCCESS, "Update room successfully!!!")))
+            res.json(ResponseApi(res, 1, Message(MESSAGE.SUCCESS, "Update room successfully!!!")));
         } catch (err) {
-            res.json(ResponseApi(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!")))
+            res.json(ResponseApi(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!")));
         }
     },
     async update(req, res, next) {
         res.render("./admin/rooms");
     },
     async destroy(req, res, next) {
-        const { id } = req.params;
-        const room = await Rooms.destroy({ where: { id, } });
-        res.redirect('back');
+        try {
+            const { id } = req.params;
+            const room = await Rooms.destroy({ where: { id, } });
+            res.json(ResponseApi(res, 1, Message(MESSAGE.SUCCESS, "Delete room successfully!!!")));
+        }
+        catch (err) {
+            res.json(ResponseApi(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!")));
+        }
     },
     async destroyMultiple(req, res, next) {
-        const data = req.body;
-        const idList = data.idList.split(',');
-        const rooms = await Rooms.destroy({ where: { id: idList, } });
-        res.redirect('back');
+        try {
+            const { idList } = req.body;
+            const rooms = await Rooms.destroy({ where: { id: idList, } });
+            res.json(ResponseApi(res, 1, Message(MESSAGE.SUCCESS, "Delete rooms successfully!!!")));
+        } catch (err) {
+            res.json(ResponseApi(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!")));
+        }
     },
 };
 module.exports = RoomController;

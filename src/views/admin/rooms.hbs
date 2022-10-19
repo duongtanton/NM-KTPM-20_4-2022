@@ -262,7 +262,6 @@
                         </div>
                     </div>
                 </div>
-                <form class="form-delete"></form>
                 <!-- PAGE CONTENT ENDS -->
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -971,9 +970,11 @@
                 },
                 callback: function (result) {
                     if (result) {
-                        $('.form-delete').attr("action", `/admin/rooms/${id}?_method=DELETE`);
-                        $('.form-delete').attr("method", "POST");
-                        $('.form-delete').submit();
+                        fetch(`/admin/rooms/${id}`, {
+                            method: 'DELETE',
+                        })
+                            .then((res) => { location.reload(); })
+                            .catch((err) => { console.log(err); })
                     }
                 }
             });
@@ -997,9 +998,11 @@
                 },
                 callback: function (result) {
                     if (result) {
-                        $('.form-delete').attr("action", `/admin/rooms/${id}?_method=DELETE`);
-                        $('.form-delete').attr("method", "POST");
-                        $('.form-delete').submit();
+                        fetch(`/admin/rooms/${id}`, {
+                            method: 'DELETE',
+                        })
+                            .then((res) => { location.reload(); })
+                            .catch((err) => { console.log(err); })
                     }
                 }
             });
@@ -1026,14 +1029,20 @@
                         $('tbody').find('input[type="checkbox"]:checked').each(function () {
                             idList.push($(this).attr('data-id'));
                         })
-                        $('.form-delete').append(`<input type="hidden" name="idList" value=${idList}>`);
-                        $('.form-delete').attr("action", `/admin/rooms?_method=DELETE`);
-                        $('.form-delete').attr("method", "POST");
-                        $('.form-delete').submit();
+                        fetch(`/admin/rooms`, {
+                            method: 'DELETE',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                idList,
+                            }),
+                        })
+                            .then((res) => { location.reload(); })
+                            .catch((err) => { console.log(err); })
                     }
                 }
             });
         });
-
     });
 </script>

@@ -32,7 +32,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use("/static", express.static(path.join(__dirname, "src")));
-app.use("/assets", (req, res, next) => {
+app.use("/assets", Authen, (req, res, next) => {
   const { originalUrl } = req;
   res.sendFile(originalUrl, { root: "src" });
 });
