@@ -5,6 +5,7 @@ const { bcrypt, crypto } = require("../util");
 const jwt = require('jsonwebtoken');
 const dotenv = require("dotenv");
 dotenv.config();
+const { Users, Users_Roles, Roles, Enterprises } = db;
 
 const LogInOut = {
   async index(req, res, next) {
@@ -12,7 +13,6 @@ const LogInOut = {
   },
 
   async create(req, res, next) {
-    const { Users, Users_Roles, Roles, Enterprises } = db;
     const { username, password, repassword, enterprise } = req.body;
     const user = await Users.findOne({ where: { username } });
     if (user != null) {
@@ -46,7 +46,6 @@ const LogInOut = {
   },
 
   async store(req, res, next) {
-    const { Users, Roles } = db;
     const { username, password, keep } = req.body;
     const user = await Users.findOne({ where: { username }, raw: true });
     if (!!keep) {
