@@ -350,7 +350,7 @@
                 <label class="col-sm-3 control-label no-padding-right" for="form-description">Description:</label>
 
                 <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
-                    <textarea id="form-description" class="col-xs-10 autosize-transition form-control" name="description" placeholder="Enter description" style="max-width: 100%">${data ? data.description : ''}</textarea>
+                    <textarea id="form-description" class="col-xs-10 autosize-transition form-control limited" maxLength="200" name="description" placeholder="Enter description" style="max-width: 100%">${data ? data.description : ''}</textarea>
                 </div>
             </div>
             <div class="form-group">
@@ -457,15 +457,16 @@
                     required: true,
                 },
                 image: {
-                    extension: "jpeg|jpg|png"
+                    extension: "jpeg|jpg|png",
+                    required: true,
                 }
             },
             messages: {
                 name: {
-                    required: "This field is required"
+                    required: "This field is required",
                 },
                 type: {
-                    required: "This field is required"
+                    required: "This field is required",
                 },
                 floor: {
                     required: "This field is required",
@@ -473,10 +474,11 @@
                     min: "This field must be at least 1",
                 },
                 status: {
-                    required: "This field is required"
+                    required: "This field is required",
                 },
                 image: {
-                    extension: "This field only support jpeg,jpg,png files"
+                    extension: "This field only support jpeg,jpg,png files",
+                    required: "This field is required",
                 }
             },
         }
@@ -700,6 +702,19 @@
             if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2)) return 'right';
             return 'left';
         }
+        function FileListItems(files) {
+            let fileList = new ClipboardEvent("").clipboardData || new DataTransfer()
+            for (let i = 0; i < files.length; i++) {
+                fileList.items.add(files[i])
+            }
+            return fileList.files
+        }
+        async function urlToObject(url) {
+            const response = await fetch(url);
+            const blob = await response.blob();
+            const file = new File([blob], url.substring(url.lastIndexOf('/') + 1), { type: blob.type });
+            document.getElementById('form-image').files = new FileListItems([file]);
+        }
 
         //Manage popup window
         $(".view.bootbox-confirm").on(ace.click_event, async function (e) {
@@ -750,18 +765,17 @@
                 $('.form-data').validate(formValidation);
                 $('.form-data').submit(function (e) {
                     e.preventDefault();
-                    let file = document.getElementById("form-image").files[0];
-                    console.log(file)
-                    const data = new FormData()
-                    data.append("name", document.getElementById('form-name').value);
-                    data.append("type", document.getElementById('form-type').value);
-                    data.append("floor", document.getElementById('form-floor').value);
-                    data.append("status", document.getElementById('form-status').value);
-                    data.append("description", document.getElementById('form-description').value);
-                    data.append("room-image", file);
+                    const file = document.getElementById("form-image").files[0];
+                    const formData = new FormData()
+                    formData.append("name", document.getElementById('form-name').value);
+                    formData.append("type", document.getElementById('form-type').value);
+                    formData.append("floor", document.getElementById('form-floor').value);
+                    formData.append("status", document.getElementById('form-status').value);
+                    formData.append("description", document.getElementById('form-description').value);
+                    formData.append("room-image", file);
                     fetch(`/admin/rooms/create`, {
                         method: 'POST',
-                        body: data
+                        body: formData
                     })
                         .then((res) => { location.reload(); })
                         .catch((err) => { console.log(err); })
@@ -808,7 +822,8 @@
             const id = e.currentTarget.getAttribute('data-id');
             const res = await fetch(`/admin/rooms/${id}`, { method: 'GET' });
             const data = await res.json();
-            bootbox.confirm({
+
+            const box = bootbox.confirm({
                 message: form(data),
                 buttons:
                 {
@@ -825,24 +840,57 @@
                 },
                 callback: function (result) {
                     if (result) {
-                        $('.form-data').validate(formValidation);
                         if ($('.form-data').valid()) {
-                            $('.form-data').attr("action", `/admin/rooms/${id}/edit`);
-                            $('.form-data').attr("method", "POST");
                             $('.form-data').submit();
                         } else {
-                            $('.form-data').find(':submit').click();
                             return false;
                         }
                     }
                 }
+            });
+            box.on("shown.bs.modal", function () {
+                var changeImage = false;
+                urlToObject(data.image);
+                $('.form-data').validate(formValidation);
+                $('.form-data').submit(function (e) {
+                    e.preventDefault();
+                    const name = document.getElementById('form-name').value;
+                    const type = document.getElementById('form-type').value;
+                    const floor = document.getElementById('form-floor').value;
+                    const status = document.getElementById('form-status').value;
+                    const description = document.getElementById('form-description').value;
+                    const file = document.getElementById("form-image").files[0];
+
+                    const formData = new FormData()
+                    data.name !== name && formData.append("name", name);
+                    data.type !== type && formData.append("type", type);
+                    data.floor != floor && formData.append("floor", floor);
+                    data.status !== status && formData.append("status", status);
+                    data.description !== description && formData.append("description", description);
+                    changeImage === true && formData.append("room-image", file);
+                    fetch(`/admin/rooms/${id}/edit`, {
+                        method: 'POST',
+                        body: formData
+                    })
+                        .then((res) => { location.reload(); })
+                        .catch((err) => { console.log(err); })
+                });
+                $('#form-image').change(() => {
+                    changeImage = true;
+                })
+                autosize($('textarea[class*=autosize]'));
+                $('textarea.limited').inputlimiter({
+                    remText: '%n character%s remaining...',
+                    limitText: 'max allowed : %n.'
+                });
             });
         });
         $(".tooltip-edit.bootbox-confirm").on(ace.click_event, async function (e) {
             const id = e.currentTarget.getAttribute('data-id');
             const res = await fetch(`/admin/rooms/${id}`, { method: 'GET' });
             const data = await res.json();
-            bootbox.confirm({
+
+            const box = bootbox.confirm({
                 message: form(data),
                 buttons:
                 {
@@ -858,19 +906,50 @@
                     }
                 },
                 callback: function (result) {
-
                     if (result) {
-                        $('.form-data').validate(formValidation);
                         if ($('.form-data').valid()) {
-                            $('.form-data').attr("action", `/admin/rooms/${id}/edit`);
-                            $('.form-data').attr("method", "POST");
                             $('.form-data').submit();
                         } else {
-                            $('.form-data').find(':submit').click();
                             return false;
                         }
                     }
                 }
+            });
+            box.on("shown.bs.modal", function () {
+                var changeImage = false;
+                urlToObject(data.image);
+                $('.form-data').validate(formValidation);
+                $('.form-data').submit(function (e) {
+                    e.preventDefault();
+                    const name = document.getElementById('form-name').value;
+                    const type = document.getElementById('form-type').value;
+                    const floor = document.getElementById('form-floor').value;
+                    const status = document.getElementById('form-status').value;
+                    const description = document.getElementById('form-description').value;
+                    const file = document.getElementById("form-image").files[0];
+
+                    const formData = new FormData()
+                    data.name !== name && formData.append("name", name);
+                    data.type !== type && formData.append("type", type);
+                    data.floor !== floor && formData.append("floor", floor);
+                    data.status !== status && formData.append("status", status);
+                    data.description !== description && formData.append("description", description);
+                    changeImage === true && formData.append("room-image", file);
+                    fetch(`/admin/rooms/${id}/edit`, {
+                        method: 'POST',
+                        body: formData
+                    })
+                        .then((res) => { location.reload(); })
+                        .catch((err) => { console.log(err); })
+                });
+                $('#form-image').change(() => {
+                    changeImage = true;
+                })
+                autosize($('textarea[class*=autosize]'));
+                $('textarea.limited').inputlimiter({
+                    remText: '%n character%s remaining...',
+                    limitText: 'max allowed : %n.'
+                });
             });
         });
         $(".delete.bootbox-confirm").on(ace.click_event, function (e) {

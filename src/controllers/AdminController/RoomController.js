@@ -22,27 +22,18 @@ const RoomController = {
         try {
             const { name, type, floor, status, description } = req.body;
             const { path } = req.file;
-            console.log(
-                {
-                    name,
-                    type,
-                    floor,
-                    status,
-                    description,
-                    image: path.split("\\").slice(1).join("//")
-                }
-            )
+
             const room = await Rooms.create({
                 name,
                 type,
                 floor,
                 status,
                 description,
-                image: path.split("\\").slice(1).join("//")
+                image: path.split("\\").slice(1).join("//"),
             });
             res.json(ResponseApi(res, 1, Message(MESSAGE.SUCCESS, "Create room successfully!!!")))
         } catch (err) {
-            res.status(500).json(err);
+            res.json(ResponseApi(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!")))
         }
     },
     async store(req, res, next) {
@@ -61,20 +52,30 @@ const RoomController = {
                 image: req.protocol + '://' + req.headers.host + "/" + infoRoom.image,
             });
         } catch (err) {
-            res.status(500).json(err);
+            res.json(ResponseApi(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!")))
         }
     },
     async edit(req, res, next) {
         try {
-            const { id } = req.params
-            const data = req.body;
+            const { id } = req.params;
+            let path;
+            if (req.file) {
+                path = req.file.path;
+            }
+            const data = path
+                ? {
+                    ...req.body,
+                    image: path.split("\\").slice(1).join("//"),
+                }
+                : req.body;
+            console.log(data);
             const room = await Rooms.update(
                 data, {
                 where: { id, }
             })
-            res.redirect('back');
+            res.json(ResponseApi(res, 1, Message(MESSAGE.SUCCESS, "Update room successfully!!!")))
         } catch (err) {
-            res.status(500).json(err);
+            res.json(ResponseApi(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!")))
         }
     },
     async update(req, res, next) {
