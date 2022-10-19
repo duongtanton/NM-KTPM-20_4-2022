@@ -146,6 +146,8 @@
                                         <th>Type</th>
                                         <th>Floor</th>
                                         <th>Status</th>
+                                        <th>Description</th>
+                                        <th>Image</th>
                                         <th>
                                             <i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
                                             Updated At
@@ -180,6 +182,10 @@
                                             <span class="label-status">
                                                 {{this.status}}
                                             </span>
+                                        </td>
+                                        <td style="max-width: 100px;">{{this.description}}</td>
+                                        <td style="width: 150px;">
+                                            <img src="{{this.image}}" alt="{{this.image}}" style="width: 100%;">
                                         </td>
                                         <td>
                                             {{localTimeFormat this.updatedAt}}
@@ -288,7 +294,8 @@
 <script src="/static/public/admin/assets/js/dataTables.select.min.js"></script>
 <script src="/static/public/admin/assets/js/bootbox.js"></script>
 <script src="/static/public/admin/assets/js/ace-elements.min.js"></script>
-
+<script src="/static/public/admin/assets/js/autosize.min.js"></script>
+<script src="/static/public/admin/assets/js/jquery.inputlimiter.min.js"></script>
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
     jQuery(function ($) {
@@ -343,7 +350,7 @@
                 <label class="col-sm-3 control-label no-padding-right" for="form-description">Description:</label>
 
                 <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
-                    <textarea id="form-description" class="col-xs-10 autosize-transition form-control" name="description" placeholder="Enter description">${data ? data.description : ''}</textarea>
+                    <textarea id="form-description" class="col-xs-10 autosize-transition form-control" name="description" placeholder="Enter description" style="max-width: 100%">${data ? data.description : ''}</textarea>
                 </div>
             </div>
             <div class="form-group">
@@ -411,7 +418,7 @@
                         <div class="profile-info-name">Image</div>
 
                         <div class="profile-info-value">
-                            <img src="/${data.image}" alt="">
+                            <img src="${data.image}" alt="" style="width: 150px;">
                         </div>
                     </div>
 
@@ -483,8 +490,11 @@
                     "aoColumns": [
                         { "bSortable": false },
                         { "bSortable": false },
-                        null, null, null, null, null, null, null,
-                        { "bSortable": false }
+                        null, null, null, null, null,
+                        { "bSortable": false },
+                        { "bSortable": false },
+                        null, null,
+                        { "bSortable": false },
                     ],
                     "aaSorting": [],
 
@@ -604,9 +614,6 @@
                 $('.clearfix > .delete-multiple').css('display', 'none');
             }
         });
-
-
-
 
         /////////////////////////////////
         //table checkboxes
@@ -732,10 +739,8 @@
                 callback: function (result) {
                     if (result) {
                         if ($('.form-data').valid()) {
-                            console.log('valid')
                             $('.form-data').submit();
                         } else {
-                            console.log('invalid')
                             return false;
                         }
                     }
@@ -758,7 +763,7 @@
                         method: 'POST',
                         body: data
                     })
-                        .then((res) => { console.log(res); })
+                        .then((res) => { location.reload(); })
                         .catch((err) => { console.log(err); })
                 });
                 $('#form-image').ace_file_input({
@@ -790,6 +795,12 @@
                 }).on('change', function () {
                     //console.log($(this).data('ace_input_files'));
                     //console.log($(this).data('ace_input_method'));
+                });
+
+                autosize($('textarea[class*=autosize]'));
+                $('textarea.limited').inputlimiter({
+                    remText: '%n character%s remaining...',
+                    limitText: 'max allowed : %n.'
                 });
             });
         });

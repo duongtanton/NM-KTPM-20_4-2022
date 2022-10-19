@@ -9,7 +9,11 @@ const RoomController = {
             const rooms = await Rooms.findAll({
                 raw: true,
             });
-            res.render("./admin/rooms", { rooms });
+            const infoRooms = rooms.map((room) => ({
+                ...room,
+                image: req.protocol + '://' + req.headers.host + "/" + room.image,
+            }))
+            res.render("./admin/rooms", { rooms: infoRooms });
         } catch (err) {
             res.status(500).json(err);
         }
@@ -18,6 +22,16 @@ const RoomController = {
         try {
             const { name, type, floor, status, description } = req.body;
             const { path } = req.file;
+            console.log(
+                {
+                    name,
+                    type,
+                    floor,
+                    status,
+                    description,
+                    image: path.split("\\").slice(1).join("//")
+                }
+            )
             const room = await Rooms.create({
                 name,
                 type,
@@ -41,7 +55,11 @@ const RoomController = {
                 { where: { id: id } },
                 { raw: true }
             );
-            res.status(200).json(room.dataValues);
+            const infoRoom = room.dataValues;
+            res.status(200).json({
+                ...infoRoom,
+                image: req.protocol + '://' + req.headers.host + "/" + infoRoom.image,
+            });
         } catch (err) {
             res.status(500).json(err);
         }
