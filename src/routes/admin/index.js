@@ -7,7 +7,7 @@ const ProfilesRouter = require("./profiles");
 const HomeRouter = require("./home");
 const RoomRouter = require("./rooms");
 
-AdminRoute.use("/room-type", AdminRoomTypeRouter)
+AdminRoute.use("/rooms-type", AdminRoomTypeRouter)
 AdminRoute.use("/rooms", RoomRouter);
 AdminRoute.use("/profiles", ProfilesRouter);
 AdminRoute.use("/", HomeRouter);

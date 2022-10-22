@@ -20,7 +20,6 @@ module.exports = (sequelize, DataTypes) => {
   }
   room.init({
     name: DataTypes.STRING,
-    type: DataTypes.STRING,
     floor: DataTypes.INTEGER,
     status: DataTypes.STRING,
   }, {

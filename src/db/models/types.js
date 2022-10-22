@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.hasMany(models.room, {
+      this.hasMany(models.Rooms, {
         foreignKey: "typeId",
         onDelete: "cascade",
         onUpdate: "cascade",
@@ -20,7 +20,9 @@ module.exports = (sequelize, DataTypes) => {
   }
   types.init({
     name: DataTypes.STRING,
-    price: DataTypes.DOUBLE
+    price: DataTypes.DOUBLE,
+    bedNumber : DataTypes.INTEGER,
+    roomNumber : DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'types',
