@@ -1,38 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
     <title>{{title}}</title>
-    <link href="/static/users/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/users/css/font-awesome.min.css" rel="stylesheet">
-    <link href="/static/users/css/prettyPhoto.css" rel="stylesheet">
-    <link href="/static/users/css/price-range.css" rel="stylesheet">
-    <link href="/static/users/css/animate.css" rel="stylesheet">
-	<link href="/static/users/css/main.css" rel="stylesheet">
-	<link href="/static/users/css/responsive.css" rel="stylesheet">
+    <link href="/static/public/users/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/public/users/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/static/public/users/css/prettyPhoto.css" rel="stylesheet">
+    <link href="/static/public/users/css/price-range.css" rel="stylesheet">
+    <link href="/static/public/users/css/animate.css" rel="stylesheet">
+    <link href="/static/public/users/css/main.css" rel="stylesheet">
+    <link href="/static/public/users/css/responsive.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/public/common/notify.css" />
+
     <!--[if lt IE 9]>
-    <script src="/static/users/js/html5shiv.js"></script>
-    <script src="/static/users/js/respond.min.js"></script>
-    <![endif]-->       
-    <link rel="shortcut icon" href="/static/users/images/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/static/users/images/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static/users/images/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static/users/images/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="/static/users/images/ico/apple-touch-icon-57-precomposed.png">
-</head><!--/head-->
+    <script src="/static/public/users/js/html5shiv.js"></script>
+    <script src="/static/public/users/js/respond.min.js"></script>
+    <![endif]-->
+    <link rel="shortcut icon" href="/static/public/users/images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+        href="/static/public/users/images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114"
+        href="/static/public/users/images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72"
+        href="/static/public/users/images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/static/public/users/images/ico/apple-touch-icon-57-precomposed.png">
+
+</head>
+<!--/head-->
 
 <body>
+    <div id="toast-message-group" class="toast-message-group">
+        {{!-- <div id="toast-message" class="toast-message {{#if message}}{{message.type}}{{/if}} ">
+            <div class="image">
+                <img src="https://cdn-icons-png.flaticon.com/512/2097/2097710.png" alt="Notify">
+            </div>
+            <div class="content">
+                <div class="warning">Warning!</div>
+                <div class="success">Success!</div>
+                <div class="error">Error!</div>
+                <div class="info">Info!</div>
+                <div class="message">
+                    {{#if message}}{{message.content}}{{/if}}
+                </div>
+            </div>
+        </div> --}}
+    </div>
+    <script src="/static/public/common/function.js"></script>
+    <script src="/static/public/common/notify.js"></script>
+    <script>
+        showToastMessage({{{ json  message }}});
+    </script>
     {{> users_header }}
     {{{body}}}
     {{> users_footer }}
-    <script src="/static/users/js/jquery.js"></script>
-    <script src="/static/users/js/bootstrap.min.js"></script>
-    <script src="/static/users/js/jquery.scrollUp.min.js"></script>
-    <script src="/static/users/js/price-range.js"></script>
-    <script src="/static/users/js/jquery.prettyPhoto.js"></script>
-    <script src="/static/users/js/main.js"></script>
+    <script src="/static/public/users/js/jquery.js"></script>
+    <script src="/static/public/users/js/bootstrap.min.js"></script>
+    <script src="/static/public/users/js/jquery.scrollUp.min.js"></script>
+    <script src="/static/public/users/js/price-range.js"></script>
+    <script src="/static/public/users/js/jquery.prettyPhoto.js"></script>
+    <script src="/static/public/users/js/main.js"></script>
+
 </body>
+
 </html>

@@ -1,11 +1,10 @@
 const { Model } = require("sequelize");
 const db = require("../../db/models/index.js");
-const { CONSTANT } = require("../../common/index.js");
+const { CONSTANT, Response } = require("../../common");
 const bcrypt = require("../../util/bcrypt.js");
-const UserController = {
+const UsersController = {
   async index(req, res, next) {
-
-    res.render("./users/home")
+    res.render("./users/home", Response(res))
   },
   async create(req, res, next) {
     res.send("create");
@@ -26,4 +25,4 @@ const UserController = {
     res.send("destroy");
   },
 };
-module.exports = UserController;
+module.exports = UsersController;

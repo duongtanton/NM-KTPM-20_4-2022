@@ -9,16 +9,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsTo(models.Users, {
-        foreignKey: "userId",
-        onDelete: "cascade",
-        onUpdate: "cascade",
-      });
-      this.belongsTo(models.Roles, {
-        foreignKey: "roleId",
-        onDelete: "cascade",
-        onUpdate: "cascade",
-      });
+      // this.belongsTo(models.Users, {
+      //   foreignKey: "userId",
+      //   onUpdate: "cascade",
+      // });
+
+      // this.belongsTo(models.Roles, {
+      //   foreignKey: "roleId",
+      //   onUpdate: "cascade",
+      // });
     }
   }
   users_rolesModel.init(

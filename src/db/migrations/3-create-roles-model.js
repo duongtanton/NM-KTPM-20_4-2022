@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("roles", {
+    await queryInterface.createTable("Roles", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -13,19 +13,37 @@ module.exports = {
         type: Sequelize.STRING,
       },
       name: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING
+      },
+      description: {
+        type: Sequelize.STRING
+      },
+      typeId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "types",
+          key: "id",
+        },
+        onUpdate: "cascade",
+        onDelete: "cascade",
+      },
+      price: {
+        type: Sequelize.DOUBLE,
+        // type: Sequelize.STRING,
       },
       createdAt: {
+        defaultValue: Sequelize.fn("now"),
         allowNull: false,
         type: Sequelize.DATE,
       },
       updatedAt: {
+        defaultValue: Sequelize.fn("now"),
         allowNull: false,
         type: Sequelize.DATE,
       },
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("roles");
+    await queryInterface.dropTable("Roles");
   },
 };

@@ -32,7 +32,7 @@
 		<link rel="stylesheet" href="assets/css/ace-rtl.min.css" />
 
 		<!--[if lte IE 9]>
-		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
+		 <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
 		<![endif]-->
 
 		<!-- inline styles related to this page -->
@@ -49,7 +49,7 @@
 	</head>
 
 	<body class="no-skin">
-		<div id="navbar" class="navbar navbar-default          ace-save-state">
+		<div id="navbar" class="navbar navbar-default ace-save-state">
 			<div class="navbar-container ace-save-state" id="navbar-container">
 				<button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
 					<span class="sr-only">Toggle sidebar</span>
@@ -305,7 +305,7 @@
 												<span class="msg-body">
 													<span class="msg-title">
 														<span class="blue">Fred:</span>
-														Vestibulum id penatibus et auctor  ...
+														Vestibulum id penatibus et auctor ...
 													</span>
 
 													<span class="msg-time">
@@ -373,7 +373,7 @@
 				try{ace.settings.loadState('main-container')}catch(e){}
 			</script>
 
-			<div id="sidebar" class="sidebar                  responsive                    ace-save-state">
+			<div id="sidebar" class="sidebar responsive ace-save-state">
 				<script type="text/javascript">
 					try{ace.settings.loadState('sidebar')}catch(e){}
 				</script>
@@ -2999,7 +2999,7 @@
 		<!-- page specific plugin scripts -->
 
 		<!--[if lte IE 8]>
-		  <script src="assets/js/excanvas.min.js"></script>
+		 <script src="assets/js/excanvas.min.js"></script>
 		<![endif]-->
 		<script src="assets/js/jquery-ui.custom.min.js"></script>
 		<script src="assets/js/jquery.ui.touch-punch.min.js"></script>
@@ -3026,25 +3026,25 @@
 				//editables on first profile page
 				$.fn.editable.defaults.mode = 'inline';
 				$.fn.editableform.loading = "<div class='editableform-loading'><i class='ace-icon fa fa-spinner fa-spin fa-2x light-blue'></i></div>";
-			    $.fn.editableform.buttons = '<button type="submit" class="btn btn-info editable-submit"><i class="ace-icon fa fa-check"></i></button>'+
-			                                '<button type="button" class="btn editable-cancel"><i class="ace-icon fa fa-times"></i></button>';    
+			 $.fn.editableform.buttons = '<button type="submit" class="btn btn-info editable-submit"><i class="ace-icon fa fa-check"></i></button>'+
+			 '<button type="button" class="btn editable-cancel"><i class="ace-icon fa fa-times"></i></button>'; 
 				
 				//editables 
 				
 				//text editable
-			    $('#username')
+			 $('#username')
 				.editable({
 					type: 'text',
 					name: 'username'		
-			    });
+			 });
 			
 			
 				
 				//select2 editable
 				var countries = [];
-			    $.each({ "CA": "Canada", "IN": "India", "NL": "Netherlands", "TR": "Turkey", "US": "United States"}, function(k, v) {
-			        countries.push({id: k, text: v});
-			    });
+			 $.each({ "CA": "Canada", "IN": "India", "NL": "Netherlands", "TR": "Turkey", "US": "United States"}, function(k, v) {
+			 countries.push({id: k, text: v});
+			 });
 			
 				var cities = [];
 				cities["CA"] = [];
@@ -3069,11 +3069,11 @@
 				});
 				
 				var currentValue = "NL";
-			    $('#country').editable({
+			 $('#country').editable({
 					type: 'select2',
 					value : 'NL',
 					//onblur:'ignore',
-			        source: countries,
+			 source: countries,
 					select2: {
 						'width': 140
 					},		
@@ -3106,17 +3106,17 @@
 						$(city).remove();//remove previous instance
 						
 					}
-			    });
+			 });
 			
 				$('#city').editable({
 					type: 'select2',
 					value : 'Amsterdam',
 					//onblur:'ignore',
-			        source: cities[currentValue],
+			 source: cities[currentValue],
 					select2: {
 						'width': 140
 					}
-			    });
+			 });
 			
 			
 				
@@ -3125,7 +3125,7 @@
 					type: 'adate',
 					date: {
 						//datepicker plugin options
-						    format: 'yyyy/mm/dd',
+						 format: 'yyyy/mm/dd',
 						viewformat: 'yyyy/mm/dd',
 						 weekStart: 1
 						 
@@ -3135,8 +3135,8 @@
 					}
 				})
 			
-			    $('#age').editable({
-			        type: 'spinner',
+			 $('#age').editable({
+			 type: 'spinner',
 					name : 'age',
 					spinner : {
 						min : 16,
@@ -3148,13 +3148,13 @@
 				});
 				
 			
-			    $('#login').editable({
-			        type: 'slider',
+			 $('#login').editable({
+			 type: 'slider',
 					name : 'login',
 					
 					slider : {
 						 min : 1,
-						  max: 50,
+						 max: 50,
 						width: 100
 						//,nativeUI: true//if true and browser support input[type=range], native browser control will be used
 					},
@@ -3167,7 +3167,7 @@
 			
 				$('#about').editable({
 					mode: 'inline',
-			        type: 'wysiwyg',
+			 type: 'wysiwyg',
 					name : 'about',
 			
 					wysiwyg : {
@@ -3195,7 +3195,7 @@
 						type: 'image',
 						name: 'avatar',
 						value: null,
-						//onblur: 'ignore',  //don't reset or hide editable onblur?!
+						//onblur: 'ignore', //don't reset or hide editable onblur?!
 						image: {
 							//specify ace file input plugin's options here
 							btn_choose: 'Change Avatar',
@@ -3226,7 +3226,7 @@
 								$.gritter.removeAll();
 							}
 						},
-					    url: function(params) {
+					 url: function(params) {
 							// ***UPDATE AVATAR HERE*** //
 							//for a working upload example you can replace the contents of this function with 
 							//examples/profile-avatar-update.js
@@ -3287,8 +3287,8 @@
 				$('#avatar2').on('click', function(){
 					var modal = 
 					'<div class="modal fade">\
-					  <div class="modal-dialog">\
-					   <div class="modal-content">\
+					 <div class="modal-dialog">\
+					 <div class="modal-content">\
 						<div class="modal-header">\
 							<button type="button" class="close" data-dismiss="modal">&times;</button>\
 							<h4 class="blue">Change Avatar</h4>\
@@ -3305,7 +3305,7 @@
 							<button type="button" class="btn btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-times"></i> Cancel</button>\
 						 </div>\
 						</form>\
-					  </div>\
+					 </div>\
 					 </div>\
 					</div>';
 					
@@ -3390,7 +3390,7 @@
 					size: size
 				}).css('color', barColor);
 				});
-			  
+			 
 				///////////////////////////////////////////
 			
 				//right & left position

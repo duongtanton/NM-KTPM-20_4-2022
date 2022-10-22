@@ -19,10 +19,13 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   room.init({
-    name: DataTypes.STRING
+    name: DataTypes.STRING,
+    type: DataTypes.STRING,
+    floor: DataTypes.INTEGER,
+    status: DataTypes.STRING,
   }, {
     sequelize,
-    modelName: 'room',
+    modelName: 'Rooms',
   });
   return room;
 };
