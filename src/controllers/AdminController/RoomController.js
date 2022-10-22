@@ -15,7 +15,7 @@ const RoomController = {
             }))
             res.render("./admin/rooms", { rooms: infoRooms });
         } catch (err) {
-            res.status(500).json(err);
+            res.json(ResponseApi(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!")));
         }
     },
     async create(req, res, next) {
