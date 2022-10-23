@@ -1,11 +1,11 @@
 const express = require("express");
-const RoomTypeController = require("../../controllers/AdminController/RoomType");
+const RoomTypeController = require("../../controllers/AdminController/RoomTypesController");
 var AdminRouter = express.Router();
 
 /* GET users listing. */
 AdminRouter.get("/", RoomTypeController.index);
-AdminRouter.get("/create",(req,res) =>{
-    res.render("./admin/add-type", {layout: "admin"});
+AdminRouter.get("/create", (req, res) => {
+    res.render("./admin/add-type");
 })
 AdminRouter.post("/create", RoomTypeController.create);
 AdminRouter.post("/", RoomTypeController.store);

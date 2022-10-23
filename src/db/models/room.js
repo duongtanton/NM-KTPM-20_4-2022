@@ -11,11 +11,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsTo(models.types, {
-        foreignKey: "typeId",
-        onDelete: "cascade",
-        onUpdate: "cascade",
-      })
+      // this.belongsTo(models.types, {
+      //   foreignKey: "typeId",
+      //   onDelete: "cascade",
+      //   onUpdate: "cascade",
+      // })
     }
   }
   room.init({

@@ -1,7 +1,5 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class types extends Model {
     /**
@@ -11,21 +9,21 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.hasMany(models.Rooms, {
-        foreignKey: "typeId",
-        onDelete: "cascade",
-        onUpdate: "cascade",
-      })
+      // this.hasMany(models.Rooms, {
+      //   foreignKey: "typeId",
+      //   onDelete: "cascade",
+      //   onUpdate: "cascade",
+      // })
     }
   }
   types.init({
     name: DataTypes.STRING,
     price: DataTypes.DOUBLE,
-    bedNumber : DataTypes.INTEGER,
-    roomNumber : DataTypes.INTEGER
+    bedNumber: DataTypes.INTEGER,
+    roomNumber: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'types',
+    modelName: 'Room_Types',
   });
   return types;
 };

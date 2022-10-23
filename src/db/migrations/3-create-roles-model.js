@@ -18,15 +18,6 @@ module.exports = {
       description: {
         type: Sequelize.STRING
       },
-      typeId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: "types",
-          key: "id",
-        },
-        onUpdate: "cascade",
-        onDelete: "cascade",
-      },
       price: {
         type: Sequelize.DOUBLE,
         // type: Sequelize.STRING,

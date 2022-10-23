@@ -176,10 +176,10 @@
                                             </span>
                                         </td> --}}
                                         <td>
-                                            {{localTimeFormat this.updatedAt}}
+                                            {{formatDate this.updatedAt}}
                                         </td>
                                         <td>
-                                            {{localTimeFormat this.createdAt}}
+                                            {{formatDate this.createdAt}}
                                         </td>
                                         <td>
                                             <div class="hidden-sm hidden-xs action-buttons">
@@ -323,7 +323,7 @@
 
         //view form
         const details = (data) => `
-            <form class="form-horizontal" role="form" action="/admin/rooms-type/create" method="POST">
+            <form class="form-horizontal" role="form" action="/admin/room-types/create" method="POST">
                 <div class="profile-user-info profile-user-info-striped">
                     <div class="profile-info-row">
                         <div class="profile-info-name">ID</div>
@@ -641,7 +641,7 @@
         //Manage popup window
         $(".view.bootbox-confirm").on(ace.click_event, async function (e) {
             const id = e.currentTarget.getAttribute('data-id');
-            const res = await fetch(`/admin/rooms-type/${id}`, { method: 'GET' });
+            const res = await fetch(`/admin/room-types/${id}`, { method: 'GET' });
             const data = await res.json();
 
             bootbox.alert({
@@ -668,7 +668,7 @@
                     if (result) {
                         $('.form-data').validate(formValidation);
                         if ($('.form-data').valid()) {
-                            $('.form-data').attr("action", "/admin/rooms-type/create");
+                            $('.form-data').attr("action", "/admin/room-types/create");
                             $('.form-data').attr("method", "POST");
                             $('.form-data').submit();
                         } else {
@@ -681,7 +681,7 @@
         });
         $(".edit.bootbox-confirm").on(ace.click_event, async function (e) {
             const id = e.currentTarget.getAttribute('data-id');
-            const res = await fetch(`/admin/rooms-type/${id}`, { method: 'GET' });
+            const res = await fetch(`/admin/room-types/${id}`, { method: 'GET' });
             const data = await res.json();
             bootbox.confirm({
                 message: form(data),
@@ -703,7 +703,7 @@
                     if (result) {
                         $('.form-data').validate(formValidation);
                         if ($('.form-data').valid()) {
-                            $('.form-data').attr("action", `/admin/rooms-type/${id}/edit`);
+                            $('.form-data').attr("action", `/admin/room-types/${id}/edit`);
                             $('.form-data').attr("method", "POST");
                             $('.form-data').submit();
                         } else {
@@ -733,7 +733,7 @@
                 },
                 callback: function (result) {
                     if (result) {
-                        $('.form-delete').attr("action", `/admin/rooms-type/${id}?_method=DELETE`);
+                        $('.form-delete').attr("action", `/admin/room-types/${id}?_method=DELETE`);
                         $('.form-delete').attr("method", "POST");
                         $('.form-delete').submit();
                     }

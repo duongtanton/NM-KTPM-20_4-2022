@@ -14,15 +14,19 @@ module.exports = {
         allowNull: false,
         unique: true,
       },
-      typeId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: "types",
-          key: "id",
-        },
-        onDelete: "cascade",
-        onUpdate: "cascade",
+      type: {
+        type: Sequelize.STRING,
+        allowNull: false,
       },
+      // typeId: {
+      //   type: Sequelize.INTEGER,
+      //   references: {
+      //     model: "types",
+      //     key: "id",
+      //   },
+      //   onDelete: "cascade",
+      //   onUpdate: "cascade",
+      // },
       floor: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -33,6 +37,13 @@ module.exports = {
       status: {
         type: Sequelize.STRING,
         allowNull: false,
+      },
+      image: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      description: {
+        type: Sequelize.STRING,
       },
       createdAt: {
         type: Sequelize.DATE,
