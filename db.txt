@@ -8,6 +8,6 @@ sau đó làm bước 1 -> 2. Done
     //4. npx sequelize help              // Hiển thị help.
     //5. npx sequelize migration:create  // Tạo 1 migration mới.
     //6. npx sequelize version
-3. npx sequelize-cli db:seed:all
+3. npx sequelize-cli db:seed:all // chay seeder gen du lieu
 
 4. npx sequelize-cli model:generate --name User --attributes firstName:string,lastName:string,email:string // gen model

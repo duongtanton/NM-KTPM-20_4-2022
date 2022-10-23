@@ -142,26 +142,17 @@
                                             </label>
                                         </th>
                                         <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Floor</th>
-                                        <th>Status</th>
-                                        <th>Description</th>
-                                        <th>Image</th>
-                                        <th>
-                                            <i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
-                                            Updated At
-                                        </th>
-                                        <th>
-                                            <i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
-                                            Created At
-                                        </th>
-                                        <th></th>
+                                        <th>Loại Phòng</th>
+                                        <th>Giá</th>
+                                        <th>Số Giường</th>
+                                        <th>Số Phòng Trống</th>
+                                        <th>Ngày Tạo</th>
+                                        <th>Ngày Thay Đổi</th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
-                                    {{#each rooms}}
+                                    {{#each types}}
                                     <tr>
                                         <td class="number-order center">{{twoNumSum @index 1}}</td>
                                         <td class="center">
@@ -175,18 +166,15 @@
                                             {{this.name}}
                                         </td>
                                         <td>
-                                            {{this.type}}
+                                            {{this.price}}
                                         </td>
-                                        <td>{{this.floor}}</td>
-                                        <td>
+                                        <td>{{this.bedNumber}}</td>
+                                        <Td>{{this.roomNumber}}</Td>
+                                        {{!-- <td>
                                             <span class="label-status">
                                                 {{this.status}}
                                             </span>
-                                        </td>
-                                        <td style="max-width: 100px;">{{this.description}}</td>
-                                        <td style="width: 150px;">
-                                            <img src="{{this.image}}" alt="{{this.image}}" style="width: 100%;">
-                                        </td>
+                                        </td> --}}
                                         <td>
                                             {{formatDate this.updatedAt}}
                                         </td>
@@ -262,6 +250,7 @@
                         </div>
                     </div>
                 </div>
+                <form class="form-delete"></form>
                 <!-- PAGE CONTENT ENDS -->
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -283,7 +272,6 @@
 <!-- page specific plugin scripts -->
 <script src="/static/public/admin/assets/js/jquery.dataTables.min.js"></script>
 <script src="/static/public/admin/assets/js/jquery.validate.min.js"></script>
-<script src="/static/public/admin/assets/js/jquery-additional-methods.min.js"></script>
 <script src="/static/public/admin/assets/js/jquery.dataTables.bootstrap.min.js"></script>
 <script src="/static/public/admin/assets/js/dataTables.buttons.min.js"></script>
 <script src="/static/public/admin/assets/js/buttons.flash.min.js"></script>
@@ -292,16 +280,14 @@
 <script src="/static/public/admin/assets/js/buttons.colVis.min.js"></script>
 <script src="/static/public/admin/assets/js/dataTables.select.min.js"></script>
 <script src="/static/public/admin/assets/js/bootbox.js"></script>
-<script src="/static/public/admin/assets/js/ace-elements.min.js"></script>
-<script src="/static/public/admin/assets/js/autosize.min.js"></script>
-<script src="/static/public/admin/assets/js/jquery.inputlimiter.min.js"></script>
+
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
     jQuery(function ($) {
         //create & edit form
         const form = (data) => `<form class="form-horizontal form-data" role="form" style="padding: 8px;">
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="form-name">Name:</label>
+                <label class="col-sm-3 control-label no-padding-right" for="form-name">LOại Phòng:</label>
 
                 <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
                     <input type="text" id="form-name" name="name" placeholder="Enter name"
@@ -310,52 +296,26 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="form-type">Type:</label>
+                <label class="col-sm-3 control-label no-padding-right" for="form-type">Giá:</label>
                 <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
-                    <select class="col-xs-10 col-sm-5" id="form-type" name="type" style="padding: 0;">
-                        <option value="" disabled ${!data && 'selected'}></option>
-                        <option value="STD" ${data && data.type === "STD" && 'selected'}>Standard</option>
-                        <option value="SUP" ${data && data.type === "SUP" && 'selected'}>Superior</option>
-                        <option value="DLX" ${data && data.type === "DLX" && 'selected'}>Deluxe</option>
-                        <option value="SUT" ${data && data.type === "SUT" && 'selected'}>Suite</option>
-                        <option value="SGL" ${data && data.type === "SGL" && 'selected'}>Single bed room</option>
-                        <option value="TWN" ${data && data.type === "TWN" && 'selected'}>Twin bed room</option>
-                        <option value="DBL" ${data && data.type === "DBL" && 'selected'}>Double bed room</option>
-                        <option value="TRPL" ${data && data.type === "TRPL" && 'selected'}>Triple bed room</option>
-                    </select>
+                    <input type="text" id="form-name" name="price" placeholder="100.000"
+                        class="col-xs-10 col-sm-5" value=${data ? data.price : ''}>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="form-floor">Floor:</label>
+                <label class="col-sm-3 control-label no-padding-right" for="form-floor">Số Giường:</label>
 
                 <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
-                    <input type="text" id="form-floor" name="floor" placeholder="Enter floor"
-                        class="col-xs-10 col-sm-5" value=${data ? data.floor : ''}>
+                    <input type="text" id="form-floor" name="bedNumber" placeholder="1"
+                        class="col-xs-10 col-sm-5" value=${data ? data.bedNumber : ''}>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="form-status">Status:</label>
-                <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
-                    <select class="col-xs-10 col-sm-5" id="form-status" name="status" style="padding: 0;">
-                        <option value="" disabled ${!data && 'selected'}></option>
-                        <option value="occupied" ${data && data.status === "occupied" && 'selected'}>Occupied</option>
-                        <option value="available" ${data && data.status === "available" && 'selected'}>Available</option>
-                        <option value="cleaning" ${data && data.status === "cleaning" && 'selected'}>Cleaning</option>
-                        <option value="maintenance" ${data && data.status === "maintenance" && 'selected'}>Maintenance</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="form-description">Description:</label>
+                <label class="col-sm-3 control-label no-padding-right" for="form-floor">Số Phòng Trống:</label>
 
                 <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
-                    <textarea id="form-description" class="col-xs-10 autosize-transition form-control limited" maxLength="200" name="description" placeholder="Enter description" style="max-width: 100%">${data ? data.description : ''}</textarea>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="form-image" style="padding-top: 0">Image:</label>
-                <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
-                    <input type="file" id="form-image" class="col-xs-10" name="image" style="padding: 0; color: initial; outline: none"/>
+                    <input type="text" id="form-floor" name="roomNumber" placeholder="1"
+                        class="col-xs-10 col-sm-5" value=${data ? data.roomNumber : ''}>
                 </div>
             </div>
             <button type="submit" hidden></button>
@@ -363,7 +323,7 @@
 
         //view form
         const details = (data) => `
-            <form class="form-horizontal" role="form" action="/admin/rooms" method="POST">
+            <form class="form-horizontal" role="form" action="/admin/room-types/create" method="POST">
                 <div class="profile-user-info profile-user-info-striped">
                     <div class="profile-info-row">
                         <div class="profile-info-name">ID</div>
@@ -374,7 +334,7 @@
                     </div>
 
                     <div class="profile-info-row">
-                        <div class="profile-info-name">Name</div>
+                        <div class="profile-info-name">Loại Phòng</div>
 
                         <div class="profile-info-value">
                             <span>${data.name}</span>
@@ -382,42 +342,26 @@
                     </div>
 
                     <div class="profile-info-row">
-                        <div class="profile-info-name">Type</div>
+                        <div class="profile-info-name">Giá</div>
 
                         <div class="profile-info-value">
-                            <span>${data.type}</span>
+                            <span>${data.price}</span>
                         </div>
                     </div>
 
                     <div class="profile-info-row">
-                        <div class="profile-info-name">Floor</div>
+                        <div class="profile-info-name">Số Giường</div>
 
                         <div class="profile-info-value">
-                            <span>${data.floor}</span>
+                            <span>${data.bedNumber}</span>
                         </div>
                     </div>
 
                     <div class="profile-info-row">
-                        <div class="profile-info-name">Status</div>
+                        <div class="profile-info-name">Số Phòng Còn Trống</div>
 
                         <div class="profile-info-value">
-                            <span>${data.status}</span>
-                        </div>
-                    </div>
-
-                    <div class="profile-info-row">
-                        <div class="profile-info-name">Description</div>
-
-                        <div class="profile-info-value">
-                            <span>${data.description}</span>
-                        </div>
-                    </div>
-
-                    <div class="profile-info-row">
-                        <div class="profile-info-name">Image</div>
-
-                        <div class="profile-info-value">
-                            <img src="${data.image}" alt="" style="width: 150px;">
+                            <span>${data.roomNumber}</span>
                         </div>
                     </div>
 
@@ -438,34 +382,30 @@
                 </div>
             </form>`;
 
-        //Client Validation for create & edit form   
+        //Client Validation for create & edit form     
         const formValidation = {
             rules: {
                 name: {
                     required: true,
                 },
-                type: {
+                Price: {
                     required: true,
                 },
-                floor: {
+                bedNumber: {
                     required: true,
                     number: true,
                     min: 1,
                 },
-                status: {
+                roomNumber: {
                     required: true,
                 },
-                image: {
-                    extension: "jpeg|jpg|png",
-                    required: true,
-                }
             },
             messages: {
                 name: {
-                    required: "This field is required",
+                    required: "This field is required"
                 },
                 type: {
-                    required: "This field is required",
+                    required: "This field is required"
                 },
                 floor: {
                     required: "This field is required",
@@ -473,12 +413,8 @@
                     min: "This field must be at least 1",
                 },
                 status: {
-                    required: "This field is required",
+                    required: "This field is required"
                 },
-                image: {
-                    extension: "This field only support jpeg,jpg,png files",
-                    required: "This field is required",
-                }
             },
         }
 
@@ -491,11 +427,8 @@
                     "aoColumns": [
                         { "bSortable": false },
                         { "bSortable": false },
-                        null, null, null, null, null,
-                        { "bSortable": false },
-                        { "bSortable": false },
-                        null, null,
-                        { "bSortable": false },
+                        null, null, null, null, null, null, null,
+                        { "bSortable": false }
                     ],
                     "aaSorting": [],
 
@@ -616,6 +549,9 @@
             }
         });
 
+
+
+
         /////////////////////////////////
         //table checkboxes
         $('th input[type=checkbox], td input[type=checkbox]').prop('checked', false);
@@ -701,33 +637,11 @@
             if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2)) return 'right';
             return 'left';
         }
-        function FileListItems(files) {
-            let fileList = new ClipboardEvent("").clipboardData || new DataTransfer()
-            for (let i = 0; i < files.length; i++) {
-                fileList.items.add(files[i])
-            }
-            return fileList.files
-        }
-        async function urlToObject(url) {
-            const response = await fetch(url);
-            const blob = await response.blob();
-            const file = new File([blob], url.substring(url.lastIndexOf('/') + 1), { type: blob.type });
-            document.getElementById('form-image').files = new FileListItems([file]);
-        }
 
         //Manage popup window
         $(".view.bootbox-confirm").on(ace.click_event, async function (e) {
             const id = e.currentTarget.getAttribute('data-id');
-            const res = await fetch(`/admin/rooms/${id}`, { method: 'GET' });
-            const data = await res.json();
-
-            bootbox.alert({
-                message: details(data),
-            });
-        });
-        $(".tooltip-view.bootbox-confirm").on(ace.click_event, async function (e) {
-            const id = e.currentTarget.getAttribute('data-id');
-            const res = await fetch(`/admin/rooms/${id}`, { method: 'GET' });
+            const res = await fetch(`/admin/room-types/${id}`, { method: 'GET' });
             const data = await res.json();
 
             bootbox.alert({
@@ -735,7 +649,7 @@
             });
         });
         $(".add.bootbox-confirm").on(ace.click_event, function () {
-            const box = bootbox.confirm({
+            bootbox.confirm({
                 message: form(),
                 buttons:
                 {
@@ -752,77 +666,24 @@
                 },
                 callback: function (result) {
                     if (result) {
+                        $('.form-data').validate(formValidation);
                         if ($('.form-data').valid()) {
+                            $('.form-data').attr("action", "/admin/room-types/create");
+                            $('.form-data').attr("method", "POST");
                             $('.form-data').submit();
                         } else {
+                            $('.form-data').find(':submit').click();
                             return false;
                         }
                     }
                 }
-            });
-            box.on("shown.bs.modal", function () {
-                $('.form-data').validate(formValidation);
-                $('.form-data').submit(function (e) {
-                    e.preventDefault();
-                    const file = document.getElementById("form-image").files[0];
-                    const formData = new FormData()
-                    formData.append("name", document.getElementById('form-name').value);
-                    formData.append("type", document.getElementById('form-type').value);
-                    formData.append("floor", document.getElementById('form-floor').value);
-                    formData.append("status", document.getElementById('form-status').value);
-                    formData.append("description", document.getElementById('form-description').value);
-                    formData.append("room-image", file);
-                    fetch(`/admin/rooms/create`, {
-                        method: 'POST',
-                        body: formData
-                    })
-                        .then((res) => { location.reload(); })
-                        .catch((err) => { console.log(err); })
-                });
-                $('#form-image').ace_file_input({
-                    style: 'well',
-                    btn_choose: 'Drop files here or click to choose',
-                    btn_change: null,
-                    no_icon: 'ace-icon fa fa-cloud-upload',
-                    droppable: true,
-                    thumbnail: 'small'//large | fit
-                    //,icon_remove:null//set null, to hide remove/reset button
-                    /**,before_change:function(files, dropped) {
-                        //Check an example below
-                        //or examples/file-upload.html
-                        return true;
-                    }*/
-                    /**,before_remove : function() {
-                        return true;
-                    }*/
-                    ,
-                    preview_error: function (filename, error_code) {
-                        //name of the file that failed
-                        //error_code values
-                        //1 = 'FILE_LOAD_FAILED',
-                        //2 = 'IMAGE_LOAD_FAILED',
-                        //3 = 'THUMBNAIL_FAILED'
-                        //alert(error_code);
-                    }
-
-                }).on('change', function () {
-                    //console.log($(this).data('ace_input_files'));
-                    //console.log($(this).data('ace_input_method'));
-                });
-
-                autosize($('textarea[class*=autosize]'));
-                $('textarea.limited').inputlimiter({
-                    remText: '%n character%s remaining...',
-                    limitText: 'max allowed : %n.'
-                });
             });
         });
         $(".edit.bootbox-confirm").on(ace.click_event, async function (e) {
             const id = e.currentTarget.getAttribute('data-id');
-            const res = await fetch(`/admin/rooms/${id}`, { method: 'GET' });
+            const res = await fetch(`/admin/room-types/${id}`, { method: 'GET' });
             const data = await res.json();
-
-            const box = bootbox.confirm({
+            bootbox.confirm({
                 message: form(data),
                 buttons:
                 {
@@ -838,117 +699,19 @@
                     }
                 },
                 callback: function (result) {
+
                     if (result) {
+                        $('.form-data').validate(formValidation);
                         if ($('.form-data').valid()) {
+                            $('.form-data').attr("action", `/admin/room-types/${id}/edit`);
+                            $('.form-data').attr("method", "POST");
                             $('.form-data').submit();
                         } else {
+                            $('.form-data').find(':submit').click();
                             return false;
                         }
                     }
                 }
-            });
-            box.on("shown.bs.modal", function () {
-                var changeImage = false;
-                urlToObject(data.image);
-                $('.form-data').validate(formValidation);
-                $('.form-data').submit(function (e) {
-                    e.preventDefault();
-                    const name = document.getElementById('form-name').value;
-                    const type = document.getElementById('form-type').value;
-                    const floor = document.getElementById('form-floor').value;
-                    const status = document.getElementById('form-status').value;
-                    const description = document.getElementById('form-description').value;
-                    const file = document.getElementById("form-image").files[0];
-
-                    const formData = new FormData()
-                    data.name !== name && formData.append("name", name);
-                    data.type !== type && formData.append("type", type);
-                    data.floor != floor && formData.append("floor", floor);
-                    data.status !== status && formData.append("status", status);
-                    data.description !== description && formData.append("description", description);
-                    changeImage === true && formData.append("room-image", file);
-                    fetch(`/admin/rooms/${id}/edit`, {
-                        method: 'POST',
-                        body: formData
-                    })
-                        .then((res) => { location.reload(); })
-                        .catch((err) => { console.log(err); })
-                });
-                $('#form-image').change(() => {
-                    changeImage = true;
-                })
-                autosize($('textarea[class*=autosize]'));
-                $('textarea.limited').inputlimiter({
-                    remText: '%n character%s remaining...',
-                    limitText: 'max allowed : %n.'
-                });
-            });
-        });
-        $(".tooltip-edit.bootbox-confirm").on(ace.click_event, async function (e) {
-            const id = e.currentTarget.getAttribute('data-id');
-            const res = await fetch(`/admin/rooms/${id}`, { method: 'GET' });
-            const data = await res.json();
-
-            const box = bootbox.confirm({
-                message: form(data),
-                buttons:
-                {
-                    "confirm":
-                    {
-                        "label": "Save",
-                        "className": "btn-sm btn-primary",
-                    },
-                    "cancel":
-                    {
-                        "label": "Cancel",
-                        "className": "btn-sm",
-                    }
-                },
-                callback: function (result) {
-                    if (result) {
-                        if ($('.form-data').valid()) {
-                            $('.form-data').submit();
-                        } else {
-                            return false;
-                        }
-                    }
-                }
-            });
-            box.on("shown.bs.modal", function () {
-                var changeImage = false;
-                urlToObject(data.image);
-                $('.form-data').validate(formValidation);
-                $('.form-data').submit(function (e) {
-                    e.preventDefault();
-                    const name = document.getElementById('form-name').value;
-                    const type = document.getElementById('form-type').value;
-                    const floor = document.getElementById('form-floor').value;
-                    const status = document.getElementById('form-status').value;
-                    const description = document.getElementById('form-description').value;
-                    const file = document.getElementById("form-image").files[0];
-
-                    const formData = new FormData()
-                    data.name !== name && formData.append("name", name);
-                    data.type !== type && formData.append("type", type);
-                    data.floor !== floor && formData.append("floor", floor);
-                    data.status !== status && formData.append("status", status);
-                    data.description !== description && formData.append("description", description);
-                    changeImage === true && formData.append("room-image", file);
-                    fetch(`/admin/rooms/${id}/edit`, {
-                        method: 'POST',
-                        body: formData
-                    })
-                        .then((res) => { location.reload(); })
-                        .catch((err) => { console.log(err); })
-                });
-                $('#form-image').change(() => {
-                    changeImage = true;
-                })
-                autosize($('textarea[class*=autosize]'));
-                $('textarea.limited').inputlimiter({
-                    remText: '%n character%s remaining...',
-                    limitText: 'max allowed : %n.'
-                });
             });
         });
         $(".delete.bootbox-confirm").on(ace.click_event, function (e) {
@@ -970,39 +733,9 @@
                 },
                 callback: function (result) {
                     if (result) {
-                        fetch(`/admin/rooms/${id}`, {
-                            method: 'DELETE',
-                        })
-                            .then((res) => { location.reload(); })
-                            .catch((err) => { console.log(err); })
-                    }
-                }
-            });
-        });
-        $(".tooltip-delete.bootbox-confirm").on(ace.click_event, function (e) {
-            const id = e.currentTarget.getAttribute('data-id');
-            bootbox.confirm({
-                message: `<span>Are you sure want to delete the room with ID ${id}?</span>`,
-                buttons:
-                {
-                    "confirm":
-                    {
-                        "label": "Delete",
-                        "className": "btn-sm btn-danger",
-                    },
-                    "cancel":
-                    {
-                        "label": "Cancel",
-                        "className": "btn-sm",
-                    }
-                },
-                callback: function (result) {
-                    if (result) {
-                        fetch(`/admin/rooms/${id}`, {
-                            method: 'DELETE',
-                        })
-                            .then((res) => { location.reload(); })
-                            .catch((err) => { console.log(err); })
+                        $('.form-delete').attr("action", `/admin/room-types/${id}?_method=DELETE`);
+                        $('.form-delete').attr("method", "POST");
+                        $('.form-delete').submit();
                     }
                 }
             });
@@ -1029,17 +762,10 @@
                         $('tbody').find('input[type="checkbox"]:checked').each(function () {
                             idList.push($(this).attr('data-id'));
                         })
-                        fetch(`/admin/rooms`, {
-                            method: 'DELETE',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                                idList,
-                            }),
-                        })
-                            .then((res) => { location.reload(); })
-                            .catch((err) => { console.log(err); })
+                        $('.form-delete').append(`<input type="hidden" name="idList" value=${idList}>`);
+                        $('.form-delete').attr("action", `/admin/rooms?_method=DELETE`);
+                        $('.form-delete').attr("method", "POST");
+                        $('.form-delete').submit();
                     }
                 }
             });
