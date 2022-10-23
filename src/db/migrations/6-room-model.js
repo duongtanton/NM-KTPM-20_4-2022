@@ -1,22 +1,18 @@
-"use strict";
+'use strict';
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Roles", {
+    await queryInterface.createTable('Rooms', {
       id: {
+        type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
-      },
-      code: {
-        type: Sequelize.STRING,
       },
       name: {
-        type: Sequelize.STRING
-      },
-      description: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true,
       },
       typeId: {
         type: Sequelize.INTEGER,
@@ -24,26 +20,31 @@ module.exports = {
           model: "types",
           key: "id",
         },
-        onUpdate: "cascade",
         onDelete: "cascade",
+        onUpdate: "cascade",
       },
-      price: {
-        type: Sequelize.DOUBLE,
-        // type: Sequelize.STRING,
+      floor: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        validate: {
+          min: 1,
+        }
+      },
+      status: {
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       createdAt: {
-        defaultValue: Sequelize.fn("now"),
-        allowNull: false,
         type: Sequelize.DATE,
+        allowNull: false,
       },
       updatedAt: {
-        defaultValue: Sequelize.fn("now"),
-        allowNull: false,
         type: Sequelize.DATE,
-      },
+        allowNull: false,
+      }
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Roles");
-  },
+    await queryInterface.dropTable('Rooms');
+  }
 };

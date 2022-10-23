@@ -11,7 +11,7 @@ const DataCommon = (req, res, next) => {
         try {
             const { username, id } = decode;
             const _user = await Users.findOne({ where: { username, id } }).then(result => result?.toJSON());
-            res.locals._user = _user;
+            res.locals.user = _user;
             res.locals.url = req.protocol + '://' + req.get('host');
             next();
         } catch {

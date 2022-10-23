@@ -19,6 +19,7 @@ if (config.use_env_variable) {
     config.password,
     config
   );
+  console.log("connect to database succesful");
 }
 
 fs.readdirSync(__dirname)

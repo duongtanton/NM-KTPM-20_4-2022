@@ -2,48 +2,36 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Roles", {
+    await queryInterface.createTable("types", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      code: {
+      name: {
         type: Sequelize.STRING,
       },
-      name: {
-        type: Sequelize.STRING
-      },
-      description: {
-        type: Sequelize.STRING
-      },
-      typeId: {
+      bedNumber: {
         type: Sequelize.INTEGER,
-        references: {
-          model: "types",
-          key: "id",
-        },
-        onUpdate: "cascade",
-        onDelete: "cascade",
+      },
+      roomNumber: {
+        type: Sequelize.INTEGER
       },
       price: {
-        type: Sequelize.DOUBLE,
-        // type: Sequelize.STRING,
+        type: Sequelize.DOUBLE
       },
       createdAt: {
-        defaultValue: Sequelize.fn("now"),
         allowNull: false,
         type: Sequelize.DATE,
       },
       updatedAt: {
-        defaultValue: Sequelize.fn("now"),
         allowNull: false,
         type: Sequelize.DATE,
       },
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Roles");
+    await queryInterface.dropTable("types");
   },
 };

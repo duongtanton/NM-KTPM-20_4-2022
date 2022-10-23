@@ -13,7 +13,7 @@ const Authen = (req, res, next) => {
         } else {
             const { iat, exp, username, id } = decode;
             const _user = await Users.findOne({ where: { username, id } }).then(result => result?.toJSON());
-            if (Date.now() >= exp * 1000 || !_user) {
+            if (Date.now() <= exp * 1000 || !_user) {
                 res.render("/login")
             } else {
                 const token = jwt.sign(_user, process.env.SECRET_KEY, { expiresIn: 60 * 60 });
