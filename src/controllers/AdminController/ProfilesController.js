@@ -7,7 +7,7 @@ const { Enterprises, Users } = db;
 const ProfilesController = {
     async index(req, res, next) {
         const { _user } = res.locals;
-        const enterprise = await Enterprises.findOne({ where: { id: _user.enterpriseId } }).then(r => r.toJSON());
+        const enterprise = await Enterprises.findOne({ where: { id: _user.enterpriseId } }).then(r => r.toJSON()).catch(err => console.log(err));
         _user.enterprise = enterprise;
         res.locals._user = _user;
         res.render("./admin/profiles/view", Response(res));
