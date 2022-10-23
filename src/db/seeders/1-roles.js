@@ -16,19 +16,26 @@ module.exports = {
       {
         code: 'Admin',
         name: 'Admin',
+        createdAt: new Date(),
+        updatedAt: new Date(),
       }, {
         code: 'Enterprise',
         name: 'Enterprise',
+        createdAt: new Date(),
+        updatedAt: new Date(),
       }, {
         code: 'Staff',
         name: 'Staff',
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         code: 'User',
         name: 'User',
+        createdAt: new Date(),
+        updatedAt: new Date(),
       }
     ], {});
-
   },
 
   async down(queryInterface, Sequelize) {

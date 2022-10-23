@@ -5,8 +5,10 @@ const AdminTypesRoomRouter = require("./room_types")
 
 const ProfilesRouter = require("./profiles");
 const HomeRouter = require("./home");
+const HotelsRouter = require("./hotels");
 const RoomRouter = require("./rooms");
 
+AdminRoute.use("/hotels", HotelsRouter);
 AdminRoute.use("/room-types", AdminTypesRoomRouter)
 AdminRoute.use("/rooms", RoomRouter);
 AdminRoute.use("/profiles", ProfilesRouter);
