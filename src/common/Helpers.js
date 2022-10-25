@@ -6,11 +6,9 @@ const json = content => JSON.stringify(content);
 
 
 const twoNumSum = (a, b) => a + b;
-const localTimeFormat = time => new Date(time).toLocaleString();
 
 module.exports = {
     formatDate,
     twoNumSum,
-    localTimeFormat,
     json,
 }

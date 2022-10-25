@@ -1,0 +1,103 @@
+<head>
+    {{!--
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    --}}
+    <link rel="stylesheet" href="/static/public/users/css/profileEdit.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css"></script>
+    <script src="//cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<div class="edit-profile-bg">
+    <div class="edit-profile container rounded bg-white mt-5 mb-5">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4 class="text-center">Profile Settings</h4>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+
+            <div class="col-md-3 border-right">
+                <span=>
+                    <img style="cursor: pointer;" id="avatar" class="editable profile-img" alt="Alex's Avatar" src="{{#if _user.avatarUrl}}
+                                                /static/{{_user.avatarUrl}}
+                                                {{else}}
+                                                /static/public/admin/assets/images/avatars/avatar_default.png
+                                                {{/if}}
+                                            " />
+                    <input id="avater-file-select" style="display: none;" type="file" name="avatar" accept="image/*" />
+                </span>
+            </div>
+            <div class="col-md-5 border-right">
+                <div style="padding-top: 2rem;">
+                    <form class="form-horizontal form-edit-enterprise" action="/profiles?_method=PATCH" method="POST">
+                        <div class="space-4"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Name </label>
+                            <div class="col-sm-9">
+                                <input class="input-field" type="text" name="name" value="{{_user.user.name}}" id="form-field-1"
+                                    placeholder="Name" class="col-xs-9" />
+                            </div>
+                        </div>
+                        <div class="space-4"></div>
+
+                        <div class="space-4"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> Email </label>
+                            <div class="col-sm-9">
+                                <input class="input-field" type="email" name="email" value="{{_user.user.email}}" id="form-field-2"
+                                    placeholder="abc@gmail.com" class="col-xs-9" />
+                            </div>
+                        </div>
+
+                        <div class="space-4"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> Phone </label>
+                            <div class="col-sm-9">
+                                <input class="input-field" type="text" name="phone" value="{{_user.user.phone}}" id="form-field-2"
+                                    placeholder="Phone" class="col-xs-9" />
+                            </div>
+                        </div>
+
+                        <div class="space-4"></div>
+                        <div class="space-4"></div>
+
+                        <div class="space-4"></div>
+
+                        <div class="space-4"></div>
+                        <div class="wysiwyg-editor exterprise-description" id="editor1"></div>
+
+                        <div class="space-4"></div>
+
+                        <div class="clearfix form-actions">
+                            <div class="col-md-offset-3 col-md-9">
+                                <button class="btn btn-info" type="submit">
+                                    <i class="ace-icon fa fa-check bigger-110"></i>
+                                    Submit
+                                </button>
+                                &nbsp; &nbsp; &nbsp;
+                                <a href="/profiles/" class="btn" type="reset">
+                                    <i class="ace-icon fa fa-undo bigger-110"></i>
+                                    Cancel
+                                </a>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            {{!-- <div class="col-md-4">
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-between align-items-center experience"><span>Edit
+                            Experience</span><span class="border px-3 p-1 add-experience"><i
+                                class="fa fa-plus"></i>&nbsp;Experience</span></div><br>
+                    <div class="col-md-12"><label class="labels">Experience in Designing</label><input type="text"
+                            class="form-control" placeholder="experience" value=""></div> <br>
+                    <div class="col-md-12"><label class="labels">Additional Details</label><input type="text"
+                            class="form-control" placeholder="additional details" value=""></div>
+                </div>
+            </div> --}}
+        </div>
+    </div>
+</div>

@@ -5,14 +5,15 @@ const bcrypt = require("../../util/bcrypt.js");
 const { Promotions } = db;
 const PromotionController = {
     async index(req, res, next) {
-        // try {
-        const promotions = await Promotions.findAll({
-            raw: true,
-        });
-        res.render("./admin/promotions", Response(res, 1, null, { promotions }));
-        // } catch (err) {
-        //     res.status(500).json(err);
-        // }
+        try {
+            const promotions = await Promotions.findAll({
+                raw: true,
+            });
+            console.log(promotions);
+            res.render("./admin/promotions", Response(res, 1, null, { promotions }));
+        } catch (err) {
+            res.status(500).json(err);
+        }
     },
     async create(req, res, next) {
         try {

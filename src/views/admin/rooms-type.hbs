@@ -7,9 +7,9 @@
             </li>
 
             <li>
-                <a href="#">Promotion</a>
+                <a href="#">Room</a>
             </li>
-            <li class="active">Promotion Management</li>
+            <li class="active">Room Management</li>
         </ul><!-- /.breadcrumb -->
 
         <div class="nav-search" id="nav-search">
@@ -98,10 +98,10 @@
 
         <div class="page-header">
             <h1>
-                Promotion Management
+                Room Management
                 <small>
                     <i class="ace-icon fa fa-angle-double-right"></i>
-                    Promotionoom management for full control over hotel capacitys
+                    Room management for full control over hotel capacitys
                 </small>
             </h1>
         </div><!-- /.page-header -->
@@ -124,7 +124,7 @@
                             <div class="pull-right tableTools-container"></div>
                         </div>
                         <div class="table-header">
-                            Promotion table
+                            Room table
                         </div>
 
                         <!-- div.table-responsive -->
@@ -142,24 +142,17 @@
                                             </label>
                                         </th>
                                         <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Floor</th>
-                                        <th>Status</th>
-                                        <th>
-                                            <i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
-                                            Updated At
-                                        </th>
-                                        <th>
-                                            <i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
-                                            Created At
-                                        </th>
-                                        <th></th>
+                                        <th>Loại Phòng</th>
+                                        <th>Giá</th>
+                                        <th>Số Giường</th>
+                                        <th>Số Phòng Trống</th>
+                                        <th>Ngày Tạo</th>
+                                        <th>Ngày Thay Đổi</th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
-                                    {{#each promotions}}
+                                    {{#each types}}
                                     <tr>
                                         <td class="number-order center">{{twoNumSum @index 1}}</td>
                                         <td class="center">
@@ -173,14 +166,15 @@
                                             {{this.name}}
                                         </td>
                                         <td>
-                                            {{this.status}}
+                                            {{this.price}}
                                         </td>
-                                        <td>{{this.value}}</td>
-                                        <td>
+                                        <td>{{this.bedNumber}}</td>
+                                        <Td>{{this.roomNumber}}</Td>
+                                        {{!-- <td>
                                             <span class="label-status">
                                                 {{this.status}}
                                             </span>
-                                        </td>
+                                        </td> --}}
                                         <td>
                                             {{formatDate this.updatedAt}}
                                         </td>
@@ -293,7 +287,7 @@
         //create & edit form
         const form = (data) => `<form class="form-horizontal form-data" role="form" style="padding: 8px;">
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="form-name">Name:</label>
+                <label class="col-sm-3 control-label no-padding-right" for="form-name">LOại Phòng:</label>
 
                 <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
                     <input type="text" id="form-name" name="name" placeholder="Enter name"
@@ -302,39 +296,26 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="form-type">Type:</label>
+                <label class="col-sm-3 control-label no-padding-right" for="form-type">Giá:</label>
                 <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
-                    <select class="col-xs-10 col-sm-5" id="form-type" name="status" style="padding: 0;">
-                        <option value="" disabled ${!data && 'selected'}></option>
-                        <option value="STD" ${data && data.type === "STD" && 'selected'}>Standard</option>
-                        <option value="SUP" ${data && data.type === "SUP" && 'selected'}>Superior</option>
-                        <option value="DLX" ${data && data.type === "DLX" && 'selected'}>Deluxe</option>
-                        <option value="SUT" ${data && data.type === "SUT" && 'selected'}>Suite</option>
-                        <option value="SGL" ${data && data.type === "SGL" && 'selected'}>Single bed room</option>
-                        <option value="TWN" ${data && data.type === "TWN" && 'selected'}>Twin bed room</option>
-                        <option value="DBL" ${data && data.type === "DBL" && 'selected'}>Double bed room</option>
-                        <option value="TRPL" ${data && data.type === "TRPL" && 'selected'}>Triple bed room</option>
-                    </select>
+                    <input type="text" id="form-name" name="price" placeholder="100.000"
+                        class="col-xs-10 col-sm-5" value=${data ? data.price : ''}>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="form-floor">Floor:</label>
+                <label class="col-sm-3 control-label no-padding-right" for="form-floor">Số Giường:</label>
 
                 <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
-                    <input type="text" id="form-floor" name="value" placeholder="Enter floor"
-                        class="col-xs-10 col-sm-5" value=${data ? data.floor : ''}>
+                    <input type="text" id="form-floor" name="bedNumber" placeholder="1"
+                        class="col-xs-10 col-sm-5" value=${data ? data.bedNumber : ''}>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="form-status">Status:</label>
+                <label class="col-sm-3 control-label no-padding-right" for="form-floor">Số Phòng Trống:</label>
+
                 <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
-                    <select class="col-xs-10 col-sm-5" id="form-status" name="value" style="padding: 0;">
-                        <option value="" disabled ${!data && 'selected'}></option>
-                        <option value="occupied" ${data && data.status === "occupied" && 'selected'}>Occupied</option>
-                        <option value="available" ${data && data.status === "available" && 'selected'}>Available</option>
-                        <option value="cleaning" ${data && data.status === "cleaning" && 'selected'}>Cleaning</option>
-                        <option value="maintenance" ${data && data.status === "maintenance" && 'selected'}>Maintenance</option>
-                    </select>
+                    <input type="text" id="form-floor" name="roomNumber" placeholder="1"
+                        class="col-xs-10 col-sm-5" value=${data ? data.roomNumber : ''}>
                 </div>
             </div>
             <button type="submit" hidden></button>
@@ -342,7 +323,7 @@
 
         //view form
         const details = (data) => `
-            <form class="form-horizontal" role="form" action="/admin/promotions" method="POST">
+            <form class="form-horizontal" role="form" action="/admin/room-types/create" method="POST">
                 <div class="profile-user-info profile-user-info-striped">
                     <div class="profile-info-row">
                         <div class="profile-info-name">ID</div>
@@ -353,7 +334,7 @@
                     </div>
 
                     <div class="profile-info-row">
-                        <div class="profile-info-name">Name</div>
+                        <div class="profile-info-name">Loại Phòng</div>
 
                         <div class="profile-info-value">
                             <span>${data.name}</span>
@@ -361,26 +342,26 @@
                     </div>
 
                     <div class="profile-info-row">
-                        <div class="profile-info-name">Type</div>
+                        <div class="profile-info-name">Giá</div>
 
                         <div class="profile-info-value">
-                            <span>${data.type}</span>
+                            <span>${data.price}</span>
                         </div>
                     </div>
 
                     <div class="profile-info-row">
-                        <div class="profile-info-name">Floor</div>
+                        <div class="profile-info-name">Số Giường</div>
 
                         <div class="profile-info-value">
-                            <span>${data.floor}</span>
+                            <span>${data.bedNumber}</span>
                         </div>
                     </div>
 
                     <div class="profile-info-row">
-                        <div class="profile-info-name">Status</div>
+                        <div class="profile-info-name">Số Phòng Còn Trống</div>
 
                         <div class="profile-info-value">
-                            <span>${data.status}</span>
+                            <span>${data.roomNumber}</span>
                         </div>
                     </div>
 
@@ -407,15 +388,15 @@
                 name: {
                     required: true,
                 },
-                type: {
+                Price: {
                     required: true,
                 },
-                floor: {
+                bedNumber: {
                     required: true,
                     number: true,
                     min: 1,
                 },
-                status: {
+                roomNumber: {
                     required: true,
                 },
             },
@@ -437,8 +418,10 @@
             },
         }
 
+        //Data Table display room info
         var myTable =
             $('#dynamic-table')
+                //.wrap("<div class='dataTables_borderWrap' />")   //if you are applying horizontal scrolling (sScrollX)
                 .DataTable({
                     bAutoWidth: false,
                     "aoColumns": [
@@ -448,6 +431,24 @@
                         { "bSortable": false }
                     ],
                     "aaSorting": [],
+
+
+                    //"bProcessing": true,
+                    //"bServerSide": true,
+                    //"sAjaxSource": "http://127.0.0.1/table.php"	,
+
+                    //,
+                    //"sScrollY": "200px",
+                    //"bPaginate": false,
+
+                    //"sScrollX": "100%",
+                    //"sScrollXInner": "120%",
+                    //"bScrollCollapse": true,
+                    //Note: if you are applying horizontal scrolling (sScrollX) on a ".table-bordered"
+                    //you may want to wrap the table inside a "div.dataTables_borderWrap" element
+
+                    //"iDisplayLength": 50
+
 
                     select: {
                         style: 'multi'
@@ -640,7 +641,7 @@
         //Manage popup window
         $(".view.bootbox-confirm").on(ace.click_event, async function (e) {
             const id = e.currentTarget.getAttribute('data-id');
-            const res = await fetch(`/admin/promotions/${id}`, { method: 'GET' });
+            const res = await fetch(`/admin/room-types/${id}`, { method: 'GET' });
             const data = await res.json();
 
             bootbox.alert({
@@ -661,13 +662,13 @@
                     {
                         "label": "Cancel",
                         "className": "btn-sm",
-                    }
+                    },
                 },
                 callback: function (result) {
                     if (result) {
                         $('.form-data').validate(formValidation);
                         if ($('.form-data').valid()) {
-                            $('.form-data').attr("action", "/admin/promotions/create");
+                            $('.form-data').attr("action", "/admin/room-types/create");
                             $('.form-data').attr("method", "POST");
                             $('.form-data').submit();
                         } else {
@@ -680,7 +681,7 @@
         });
         $(".edit.bootbox-confirm").on(ace.click_event, async function (e) {
             const id = e.currentTarget.getAttribute('data-id');
-            const res = await fetch(`/admin/promotions/${id}`, { method: 'GET' });
+            const res = await fetch(`/admin/room-types/${id}`, { method: 'GET' });
             const data = await res.json();
             bootbox.confirm({
                 message: form(data),
@@ -702,7 +703,7 @@
                     if (result) {
                         $('.form-data').validate(formValidation);
                         if ($('.form-data').valid()) {
-                            $('.form-data').attr("action", `/admin/promotions/${id}/edit`);
+                            $('.form-data').attr("action", `/admin/room-types/${id}/edit`);
                             $('.form-data').attr("method", "POST");
                             $('.form-data').submit();
                         } else {
@@ -732,7 +733,7 @@
                 },
                 callback: function (result) {
                     if (result) {
-                        $('.form-delete').attr("action", `/admin/promotions/${id}?_method=DELETE`);
+                        $('.form-delete').attr("action", `/admin/room-types/${id}?_method=DELETE`);
                         $('.form-delete').attr("method", "POST");
                         $('.form-delete').submit();
                     }
@@ -762,7 +763,7 @@
                             idList.push($(this).attr('data-id'));
                         })
                         $('.form-delete').append(`<input type="hidden" name="idList" value=${idList}>`);
-                        $('.form-delete').attr("action", `/admin/promotions?_method=DELETE`);
+                        $('.form-delete').attr("action", `/admin/rooms?_method=DELETE`);
                         $('.form-delete').attr("method", "POST");
                         $('.form-delete').submit();
                     }
