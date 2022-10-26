@@ -1,6 +1,6 @@
 const { Model } = require("sequelize");
 const db = require("../../db/models/index.js");
-const { CONSTANT, Response } = require("../../common");
+const { CONSTANT, Response, Message, MESSAGE } = require("../../common");
 const bcrypt = require("../../util/bcrypt.js");
 const { Rooms } = db;
 const RoomController = {

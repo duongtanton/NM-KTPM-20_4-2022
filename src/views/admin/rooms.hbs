@@ -305,7 +305,7 @@
 
                 <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
                     <input type="text" id="form-name" name="name" placeholder="Enter name"
-                        class="col-xs-10 col-sm-5" value=${data ? data.name : ''}>
+                        class="col-xs-10 col-sm-5" value='${data ? data.name : ''}'>
                 </div>
             </div>
 
@@ -821,6 +821,7 @@
             const id = e.currentTarget.getAttribute('data-id');
             const res = await fetch(`/admin/rooms/${id}`, { method: 'GET' });
             const data = await res.json();
+            console.log(data.name);
 
             const box = bootbox.confirm({
                 message: form(data),
