@@ -96,7 +96,7 @@
 }
 .view-grid .room-description {
     font-size: 1em;
-    min-height: 3.5em;
+    min-height: 4.2em;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
