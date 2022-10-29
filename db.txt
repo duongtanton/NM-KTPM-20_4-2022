@@ -4,7 +4,7 @@ sau đó làm bước 1 -> 2. Done
 
 1. npx sequelize init              // Khởi tạo project.
 2. npx sequelize db:migrate        // Chạy migration.
-    //3. npx sequelize db:migrate:undo   // Rollback lần cuối chạy migration.
+    //3. npx sequelize db:migrate:undo:all    // Rollback lần cuối chạy migration.
     //4. npx sequelize help              // Hiển thị help.
     //5. npx sequelize migration:create  // Tạo 1 migration mới.
     //6. npx sequelize version
