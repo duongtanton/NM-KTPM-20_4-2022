@@ -16,7 +16,10 @@ body {
     margin: auto;
     display: block;
     height: auto;
-    max-width: 65%;
+    max-width: 75%;
+}
+.profile-img input{
+    margin-top: 15px;
 }
 .form-control:focus {
     box-shadow: none;

@@ -11,7 +11,7 @@ ProfilesRouter.get("/edit", ProfilesController.show);
 // ProfilesRouter.post("/:id/edit", ProfilesController.edit);
 
 ProfilesRouter.patch("/", ProfilesController.update);
-ProfilesRouter.patch("/api", ProfilesController.apiUpdate);
+ProfilesRouter.patch("/api",UploadFile.single("users", "avatar"), ProfilesController.apiUpdate);
 // ProfilesRouter.put("/", ProfilesController.update);
 
 // ProfilesRouter.delete("/:id", ProfilesController.destroy);
