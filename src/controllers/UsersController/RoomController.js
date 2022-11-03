@@ -19,7 +19,7 @@ const RoomController = {
             }))
             res.status(200).json(infoRooms);
         } catch (err) {
-            res.json(Response(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!")));
+            res.json(Response(err, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!")));
         }
     },
     async show(req, res, next) {
