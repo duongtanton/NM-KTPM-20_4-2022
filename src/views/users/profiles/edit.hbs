@@ -16,14 +16,14 @@
             <div class="col-md-1"></div>
 
             <div class="col-md-3 border-right">
-                <span=>
-                    <img style="cursor: pointer;" id="avatar" class="editable profile-img" alt="Alex's Avatar" src="{{#if _user.avatarUrl}}
+                 <span class="profile-img">
+                    <img style="cursor: pointer;" id="avatar" class="editable img-responsive" alt="Alex's Avatar" src="{{#if _user.avatarUrl}}
                                                 /static/{{_user.avatarUrl}}
                                                 {{else}}
                                                 /static/public/admin/assets/images/avatars/avatar_default.png
                                                 {{/if}}
                                             " />
-                    <input id="avater-file-select" style="display: none;" type="file" name="avatar" accept="image/*" />
+                    <input class="" id="avater-file-select" style="display: block;" type="file" name="avatar" accept="image/*" />
                 </span>
             </div>
             <div class="col-md-5 border-right">
@@ -34,7 +34,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Name </label>
                             <div class="col-sm-9">
-                                <input class="input-field" type="text" name="name" value="{{_user.user.name}}" id="form-field-1"
+                                <input class="input-field" type="text" name="name" value="{{_user.user.nickname}}" id="form-field-1"
                                     placeholder="Name" class="col-xs-9" />
                             </div>
                         </div>
@@ -101,3 +101,41 @@
         </div>
     </div>
 </div>
+<script>
+    const avatar = document.querySelector("#avatar");
+    const fileSelect = document.querySelector("#avater-file-select");
+    if (!!avatar && !!fileSelect) {
+        avatar.onerror = (e) => {
+            avatar.src = "/static/public/admin/assets/images/avatars/avatar_default.png";
+        }
+        avatar.onclick = (e) => { 
+            fileSelect.click()
+        }
+        fileSelect.onchange = async (e) => {
+            const formData = new FormData();
+            formData.append("avatar", e?.target?.files[0]);
+            var path = (window.URL || window.webkitURL).createObjectURL(e?.target?.files[0]);
+            console.log(path)
+            console.log(formData)
+            await fetch("{{ url }}/profiles/api?_method=PATCH", {
+                method: 'POST',
+                headers: {
+                    //'Content-Type': 'multipart/form-data', ???
+                    auth: getCookie("auth"),
+                }, 
+                body: formData
+            })
+                .then(res => res.json())
+                .then(res => {
+                    avatar.setAttribute("src", path);
+                    showToastMessage(res.message);
+                })
+                .catch(res => {
+                    showToastMessage(res.message);
+                })
+        }
+        avatar.onerror = (e) => {
+            avatar.src = "/static/public/admin/assets/images/avatars/avatar_default.png";
+        }
+    } 
+</script>

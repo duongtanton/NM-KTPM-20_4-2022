@@ -2,6 +2,7 @@ const { Model } = require("sequelize");
 const db = require("../../db/models/index.js");
 const { CONSTANT, ResponseApi, Message, MESSAGE } = require("../../common/index.js");
 const bcrypt = require("../../util/bcrypt.js");
+const fs = require('fs');
 const { Rooms } = db;
 const RoomController = {
     async index(req, res, next) {
@@ -46,7 +47,7 @@ const RoomController = {
                 { where: { id: id } },
                 { raw: true }
             );
-            const infoRoom = room.dataValues;
+            const infoRoom = room.toJSON();
             res.status(200).json({
                 ...infoRoom,
                 image: req.protocol + '://' + req.headers.host + "/" + infoRoom.image,
@@ -58,9 +59,12 @@ const RoomController = {
     async edit(req, res, next) {
         try {
             const { id } = req.params;
-            let path;
+            let path, urlImg;
+
             if (req.file) {
                 path = req.file.path;
+                const roomById = await Rooms.findOne({ where: { id, } });
+                urlImg = 'src/' + roomById.toJSON().image;
             }
             const data = path
                 ? {
@@ -68,11 +72,16 @@ const RoomController = {
                     image: path.split("\\").slice(1).join("//"),
                 }
                 : req.body;
-            console.log(data);
+
             const room = await Rooms.update(
                 data, {
                 where: { id, }
             })
+
+            if (urlImg && fs.lstatSync(urlImg).isFile()) {
+                fs.unlinkSync(urlImg);
+            }
+
             res.json(ResponseApi(res, 1, Message(MESSAGE.SUCCESS, "Update room successfully!!!")));
         } catch (err) {
             res.json(ResponseApi(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!")));
@@ -84,7 +93,14 @@ const RoomController = {
     async destroy(req, res, next) {
         try {
             const { id } = req.params;
+            let urlImg;
+            const roomById = await Rooms.findOne({ where: { id, } });
+            urlImg = 'src/' + roomById.toJSON().image;
+
             const room = await Rooms.destroy({ where: { id, } });
+            if (urlImg && fs.lstatSync(urlImg).isFile()) {
+                fs.unlinkSync(urlImg);
+            }
             res.json(ResponseApi(res, 1, Message(MESSAGE.SUCCESS, "Delete room successfully!!!")));
         }
         catch (err) {
@@ -94,7 +110,18 @@ const RoomController = {
     async destroyMultiple(req, res, next) {
         try {
             const { idList } = req.body;
+            let urlImgs = [];
+            const roomById = await Rooms.findAll({ where: { id: idList } });
+            urlImgs = roomById.map(room => 'src/' + room.toJSON().image);
+            
             const rooms = await Rooms.destroy({ where: { id: idList, } });
+            if (urlImgs.length > 0) {
+                urlImgs.forEach((urlImg) => {
+                    if (fs.lstatSync(urlImg).isFile()) {
+                        fs.unlinkSync(urlImg);
+                    }
+                })
+            }
             res.json(ResponseApi(res, 1, Message(MESSAGE.SUCCESS, "Delete rooms successfully!!!")));
         } catch (err) {
             res.json(ResponseApi(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!")));
