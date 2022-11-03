@@ -36,7 +36,8 @@ const ProfilesController = {
             localtion,
             email,
             phone,
-            updateAt: new Date()
+            updateAt: new Date(),
+            verified: true,
         }, { where: { code, id: _user.enterpriseId } }).then(() => Enterprises.findOne({ id: _user.enterpriseId, raw: true }));
         _user.enterprise = enterprise;
         res.locals._user = _user;
@@ -67,5 +68,8 @@ const ProfilesController = {
     async destroy(req, res, next) {
         res.send("destroy");
     },
+    async verify(req, res, next) {
+
+    }
 };
 module.exports = ProfilesController;
