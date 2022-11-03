@@ -2,7 +2,6 @@ const express = require("express");
 const AdminRoute = express.Router();
 
 const AdminTypesRoomRouter = require("./room_types")
-
 const ProfilesRouter = require("./profiles");
 const HomeRouter = require("./home");
 const HotelsRouter = require("./hotels");
