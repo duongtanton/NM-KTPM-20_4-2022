@@ -20,6 +20,14 @@ module.exports = {
             },
             status: {
                 type: Sequelize.INTEGER
+            },
+            createdAt: {
+                type: Sequelize.DATE,
+                allowNull: false,
+            },
+            updatedAt: {
+                type: Sequelize.DATE,
+                allowNull: false,
             }
         });
     },

@@ -1,6 +1,6 @@
 const { Model } = require("sequelize");
 const db = require("../../db/models/index.js");
-const { CONSTANT } = require("../../common/index.js");
+const { CONSTANT, Response } = require("../../common/index.js");
 const bcrypt = require("../../util/bcrypt.js");
 const { Promotions } = db;
 const PromotionController = {
@@ -9,7 +9,8 @@ const PromotionController = {
             const promotions = await Promotions.findAll({
                 raw: true,
             });
-            res.render("./admin/promotions", { promotions });
+            console.log(promotions);
+            res.render("./admin/promotions", Response(res, 1, null, { promotions }));
         } catch (err) {
             res.status(500).json(err);
         }
@@ -56,7 +57,7 @@ const PromotionController = {
         }
     },
     async update(req, res, next) {
-        res.render("./admin/promotions");
+        res.render("./admin/promotions", Response(res, 1, null, null));
     },
     async destroy(req, res, next) {
         const { id } = req.params;

@@ -173,19 +173,19 @@
                                             {{this.name}}
                                         </td>
                                         <td>
-                                            {{this.type}}
+                                            {{this.status}}
                                         </td>
-                                        <td>{{this.floor}}</td>
+                                        <td>{{this.value}}</td>
                                         <td>
                                             <span class="label-status">
                                                 {{this.status}}
                                             </span>
                                         </td>
                                         <td>
-                                            {{localTimeFormat this.updatedAt}}
+                                            {{formatDate this.updatedAt}}
                                         </td>
                                         <td>
-                                            {{localTimeFormat this.createdAt}}
+                                            {{formatDate this.createdAt}}
                                         </td>
                                         <td>
                                             <div class="hidden-sm hidden-xs action-buttons">
@@ -304,7 +304,7 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="form-type">Type:</label>
                 <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
-                    <select class="col-xs-10 col-sm-5" id="form-type" name="type" style="padding: 0;">
+                    <select class="col-xs-10 col-sm-5" id="form-type" name="status" style="padding: 0;">
                         <option value="" disabled ${!data && 'selected'}></option>
                         <option value="STD" ${data && data.type === "STD" && 'selected'}>Standard</option>
                         <option value="SUP" ${data && data.type === "SUP" && 'selected'}>Superior</option>
@@ -321,14 +321,14 @@
                 <label class="col-sm-3 control-label no-padding-right" for="form-floor">Floor:</label>
 
                 <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
-                    <input type="text" id="form-floor" name="floor" placeholder="Enter floor"
+                    <input type="text" id="form-floor" name="value" placeholder="Enter floor"
                         class="col-xs-10 col-sm-5" value=${data ? data.floor : ''}>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="form-status">Status:</label>
                 <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
-                    <select class="col-xs-10 col-sm-5" id="form-status" name="status" style="padding: 0;">
+                    <select class="col-xs-10 col-sm-5" id="form-status" name="value" style="padding: 0;">
                         <option value="" disabled ${!data && 'selected'}></option>
                         <option value="occupied" ${data && data.status === "occupied" && 'selected'}>Occupied</option>
                         <option value="available" ${data && data.status === "available" && 'selected'}>Available</option>
