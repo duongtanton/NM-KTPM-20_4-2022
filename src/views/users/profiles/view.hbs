@@ -1,0 +1,112 @@
+<head>
+    {{!--
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    --}}
+    <link rel="stylesheet" href="/static/public/users/css/profilesUser.css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container emp-profile">
+    <form method="post">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="profile-img">
+                    <img style="cursor: pointer;" id="avatar" alt="Alex's Avatar" src="{{#if _user.avatarUrl}}
+                                            /static/{{_user.avatarUrl}}
+                                            {{else}}
+                                            /static/public/admin/assets/images/avatars/avatar_default.png
+                                            {{/if}}
+                                        " />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="profile-head text-center">
+                    {{#if _user.user.nickname}}
+                    <h4>{{_user.user.nickname}}</h4>
+                    {{else}}
+                    <h4>User Default</h4>
+                    {{/if}}
+                    {{!-- <p class="proile-rating">RANKINGS : <span>8/10</span></p> --}}
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                                aria-controls="home" aria-selected="true">Infomation</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="row">
+                    {{!-- <div class="col-md-3">
+                    </div> --}}
+                    <div class="col-md-12">
+                        <div class="tab-content profile-tab text-center" id="myTabContent">
+                            <div class="tab-pane fade show active in" id="home" role="tabpanel"
+                                aria-labelledby="home-tab">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>User Id</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>{{_user.user.id}}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Name</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{#if _user.user.nickname}}
+                                        <p>{{_user.user.nickname}}</p>
+                                        {{else}}
+                                        <p>User Default</p>
+                                        {{/if}}
+                                        {{!-- {{#if _user.user.nickname}}}
+                                        <p>{{_user.user.nickname}}</p>
+                                        {{else}}
+                                        <p>NickName Default</p>
+                                        {{/if}} --}}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Email</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{#if _user.user.email}}
+                                        <p>{{_user.user.email}}</p>
+                                        {{else}}
+                                        <p>abc@gmail.com</p>
+                                        {{/if}}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Phone</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{#if _user.user.phone}}
+                                        <p>{{_user.user.phone}}</p>
+                                        {{else}}
+                                        <p>999-999-999</p>
+                                        {{/if}}
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <a href="/profiles/edit">
+                    <span class="btn btn-purple no-border">
+                        <i class="ace-icon fa fa-edit bigger-130"></i>
+                        <span class="bigger-110">Edit Account</span>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </form>
+</div>

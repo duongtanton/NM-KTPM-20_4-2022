@@ -7,7 +7,7 @@ const { Enterprises, Users } = db;
 const ProfilesController = {
     async index(req, res, next) {
         const { _user } = res.locals;
-        const enterprise = await Enterprises.findOne({ where: { id: _user.enterpriseId } }).then(r => r.toJSON());
+        const enterprise = await Enterprises.findOne({ where: { id: _user.enterpriseId } }).then(r => r.toJSON()).catch(err => console.log(err));
         _user.enterprise = enterprise;
         res.locals._user = _user;
         res.render("./admin/profiles/view", Response(res));
@@ -36,7 +36,8 @@ const ProfilesController = {
             localtion,
             email,
             phone,
-            updateAt: new Date()
+            updateAt: new Date(),
+            verified: true,
         }, { where: { code, id: _user.enterpriseId } }).then(() => Enterprises.findOne({ id: _user.enterpriseId, raw: true }));
         _user.enterprise = enterprise;
         res.locals._user = _user;
@@ -67,5 +68,8 @@ const ProfilesController = {
     async destroy(req, res, next) {
         res.send("destroy");
     },
+    async verify(req, res, next) {
+
+    }
 };
 module.exports = ProfilesController;

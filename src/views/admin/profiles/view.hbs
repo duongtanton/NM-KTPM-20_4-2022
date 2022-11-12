@@ -155,7 +155,7 @@
                                         <a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
                                             <i class="ace-icon fa fa-circle light-green"></i>
                                             &nbsp;
-                                            <span class="white">Alex M. Doe</span>
+                                            <span class="white">{{_user.enterprise.name}}</span>
                                         </a>
 
                                         <ul class="align-left dropdown-menu dropdown-caret dropdown-lighter">
@@ -296,10 +296,17 @@
 
                             <div class="profile-user-info profile-user-info-striped">
                                 <div class="profile-info-row">
-                                    <div class="profile-info-name"> Username </div>
+                                    <div class="profile-info-name"> Exterprice code</div>
 
                                     <div class="profile-info-value">
-                                        <span class="editable" id="username">alexdoe</span>
+                                        <span class="editable" id="username">{{_user.enterprise.code}}</span>
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> Name</div>
+
+                                    <div class="profile-info-value">
+                                        <span class="editable" id="username">{{_user.enterprise.name}}</span>
                                     </div>
                                 </div>
 
@@ -308,43 +315,52 @@
 
                                     <div class="profile-info-value">
                                         <i class="fa fa-map-marker light-orange bigger-110"></i>
-                                        <span class="editable" id="country">Netherlands</span>
-                                        <span class="editable" id="city">Amsterdam</span>
+                                        <span class="editable" id="country">{{_user.enterprise.localtion}}</span>
                                     </div>
                                 </div>
-
                                 <div class="profile-info-row">
-                                    <div class="profile-info-name"> Age </div>
+                                    <div class="profile-info-name"> Email </div>
 
                                     <div class="profile-info-value">
-                                        <span class="editable" id="age">38</span>
+                                        <span class="editable" id="country">{{_user.enterprise.email}}</span>
                                     </div>
                                 </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> Phone </div>
 
+                                    <div class="profile-info-value">
+                                        <span class="editable" id="country">{{_user.enterprise.phone}}</span>
+                                    </div>
+                                </div>
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> Verified </div>
+                                    <div class="col-xs-3 pt-3" style="padding-top: 4px;">
+                                        <input readonly="true" checked="{{_user.enterprise.verified}}" name="verified"
+                                            class="ace ace-switch ace-switch-5" type="checkbox" />
+                                        <span class="lbl"></span>
+                                    </div>
+                                </div>
                                 <div class="profile-info-row">
                                     <div class="profile-info-name"> Joined </div>
 
                                     <div class="profile-info-value">
-                                        <span class="editable" id="signup">2010/06/20</span>
+                                        <span class="editable" id="signup">{{ formatDate
+                                            _user.enterprise.createAt}}</span>
                                     </div>
                                 </div>
 
                                 <div class="profile-info-row">
-                                    <div class="profile-info-name"> Last Online </div>
-
+                                    <div class="profile-info-name"> Last updated </div>
                                     <div class="profile-info-value">
-                                        <span class="editable" id="login">3 hours ago</span>
-                                    </div>
-                                </div>
-
-                                <div class="profile-info-row">
-                                    <div class="profile-info-name"> About Me </div>
-
-                                    <div class="profile-info-value">
-                                        <span class="editable" id="about">Editable as WYSIWYG</span>
+                                        <span class="editable" id="login">{{ formatDate _user.enterprise.updateAt
+                                            }}</span>
                                     </div>
                                 </div>
                             </div>
+                            <h4 class="header green clearfix">
+                                About me
+                            </h4>
+                            <div class="wysiwyg-editor exterprise-description" id="editor1"></div>
 
                             <div class="space-20"></div>
 
@@ -2152,35 +2168,9 @@
 </div>
 <script>
     const avatar = document.querySelector("#avatar");
-    const fileSelect = document.querySelector("#avater-file-select");
-
-    if (!!avatar && !!fileSelect) {
-        avatar.onclick = (e) => {
-            fileSelect.click()
-        }
-        fileSelect.onchange = async (e) => {
-            const formData = new FormData();
-            formData.append("avatar", e?.target?.files[0]);
-            var path = (window.URL || window.webkitURL).createObjectURL(e?.target?.files[0]);
-            await fetch("{{ url }}/admin/profiles/api?_method=PATCH", {
-                method: 'POST',
-                headers: {
-                    //'Content-Type': 'multipart/form-data', ???
-                    auth: getCookie("auth"),
-                },
-                body: formData
-            })
-                .then(res => res.json())
-                .then(res => {
-                    avatar.setAttribute("src", path);
-                    showToastMessage(res.message);
-                })
-                .catch(res => {
-                    showToastMessage(res.message);
-                })
-        }
+    if (avatar) {
         avatar.onerror = (e) => {
             avatar.src = "/static/public/admin/assets/images/avatars/avatar_default.png";
         }
-    } 
+    }
 </script>
