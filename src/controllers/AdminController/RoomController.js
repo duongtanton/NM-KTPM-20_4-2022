@@ -113,7 +113,7 @@ const RoomController = {
             let urlImgs = [];
             const roomById = await Rooms.findAll({ where: { id: idList } });
             urlImgs = roomById.map(room => 'src/' + room.toJSON().image);
-            
+
             const rooms = await Rooms.destroy({ where: { id: idList, } });
             if (urlImgs.length > 0) {
                 urlImgs.forEach((urlImg) => {

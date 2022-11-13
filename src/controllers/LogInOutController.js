@@ -9,6 +9,7 @@ const { Users, Users_Roles, Roles, Enterprises } = db;
 
 const LogInOut = {
   async index(req, res, next) {
+    console.log("loginnnnnnnnnn");
     res.render("./login", Response(res));
   },
 

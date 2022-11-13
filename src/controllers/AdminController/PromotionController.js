@@ -1,18 +1,19 @@
 const { Model } = require("sequelize");
 const db = require("../../db/models/index.js");
-const { CONSTANT, Response } = require("../../common/index.js");
+const { CONSTANT, Response, Message, MESSAGE } = require("../../common/index.js");
 const bcrypt = require("../../util/bcrypt.js");
 const { Promotions } = db;
 const PromotionController = {
     async index(req, res, next) {
         try {
+            console.log("aaaaaaaaaaaaa");
             const promotions = await Promotions.findAll({
                 raw: true,
             });
             console.log(promotions);
             res.render("./admin/promotions", Response(res, 1, null, { promotions }));
         } catch (err) {
-            res.status(500).json(err);
+            res.json(Response(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!")));
         }
     },
     async create(req, res, next) {
@@ -23,9 +24,9 @@ const PromotionController = {
                 status,
                 value,
             });
-            res.redirect('back');
+            res.json(Response(res, 1, Message(MESSAGE.SUCCESS, "Create promotions successfully!!!")))
         } catch (err) {
-            res.status(500).json(err);
+            res.json(Response(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!")))
         }
     },
     async store(req, res, next) {
@@ -45,30 +46,39 @@ const PromotionController = {
     },
     async edit(req, res, next) {
         try {
-            const { id } = req.params
-            const data = req.body;
-            const promotion = await Promotions.update(
-                data, {
+            console.log("aaaaaaaaaaaaa");
+            const { id } = req.params;
+            const newdata = req.body;
+            const promotion = await Promotions.update(newdata, {
                 where: { id, }
             })
-            res.redirect('back');
+            res.json(Response(res, 1, Message(MESSAGE.SUCCESS, "Update promotions successfully!!!")));
         } catch (err) {
-            res.status(500).json(err);
+            res.json(Response(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!")));
         }
     },
     async update(req, res, next) {
-        res.render("./admin/promotions", Response(res, 1, null, null));
+        res.render("./admin/promotions");
     },
     async destroy(req, res, next) {
-        const { id } = req.params;
-        const promotion = await Promotions.destroy({ where: { id, } });
-        res.redirect('back');
+        try {
+            const { id } = req.params;
+            const promotion = await Promotions.destroy({ where: { id, } });
+            res.json(Response(res, 1, Message(MESSAGE.SUCCESS, "Delete promotions successfully!!!")));
+        }
+        catch (err) {
+            res.json(Response(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!")));
+        }
     },
     async destroyMultiple(req, res, next) {
-        const data = req.body;
-        const idList = data.idList.split(',');
-        const promotions = await Promotions.destroy({ where: { id: idList, } });
-        res.redirect('back');
+        try {
+            const data = req.body;
+            const idList = data.idList.split(',');
+            const promotions = await Promotions.destroy({ where: { id: idList, } });
+            res.json(Response(res, 1, Message(MESSAGE.SUCCESS, "Delete rooms successfully!!!")));
+        } catch (err) {
+            res.json(Response(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!")));
+        }
     },
 };
 module.exports = PromotionController;

@@ -15,8 +15,8 @@ module.exports = (sequelize, DataTypes) => {
     }
     promotion.init({
         name: DataTypes.STRING,
-        value: DataTypes.INTEGER,
-        status: DataTypes.INTEGER,
+        value_promotion: DataTypes.INTEGER,
+        status: DataTypes.STRING,
     }, {
         sequelize,
         modelName: 'Promotions',

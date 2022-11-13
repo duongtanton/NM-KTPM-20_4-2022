@@ -143,8 +143,7 @@
                                         </th>
                                         <th>ID</th>
                                         <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Floor</th>
+                                        <th>Value</th>
                                         <th>Status</th>
                                         <th>
                                             <i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
@@ -173,9 +172,8 @@
                                             {{this.name}}
                                         </td>
                                         <td>
-                                            {{this.status}}
+                                            {{this.value_promotion}}
                                         </td>
-                                        <td>{{this.value}}</td>
                                         <td>
                                             <span class="label-status">
                                                 {{this.status}}
@@ -302,38 +300,19 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="form-type">Type:</label>
-                <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
-                    <select class="col-xs-10 col-sm-5" id="form-type" name="status" style="padding: 0;">
-                        <option value="" disabled ${!data && 'selected'}></option>
-                        <option value="STD" ${data && data.type === "STD" && 'selected'}>Standard</option>
-                        <option value="SUP" ${data && data.type === "SUP" && 'selected'}>Superior</option>
-                        <option value="DLX" ${data && data.type === "DLX" && 'selected'}>Deluxe</option>
-                        <option value="SUT" ${data && data.type === "SUT" && 'selected'}>Suite</option>
-                        <option value="SGL" ${data && data.type === "SGL" && 'selected'}>Single bed room</option>
-                        <option value="TWN" ${data && data.type === "TWN" && 'selected'}>Twin bed room</option>
-                        <option value="DBL" ${data && data.type === "DBL" && 'selected'}>Double bed room</option>
-                        <option value="TRPL" ${data && data.type === "TRPL" && 'selected'}>Triple bed room</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="form-floor">Floor:</label>
+                <label class="col-sm-3 control-label no-padding-right" for="form-value">Value:</label>
 
                 <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
-                    <input type="text" id="form-floor" name="value" placeholder="Enter floor"
-                        class="col-xs-10 col-sm-5" value=${data ? data.floor : ''}>
+                    <input type="text" id="form-value" name="value" placeholder="Enter value"
+                        class="col-xs-10 col-sm-5" value=${data ? data.value_promotion : ''}>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="form-status">Status:</label>
                 <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
                     <select class="col-xs-10 col-sm-5" id="form-status" name="value" style="padding: 0;">
-                        <option value="" disabled ${!data && 'selected'}></option>
-                        <option value="occupied" ${data && data.status === "occupied" && 'selected'}>Occupied</option>
-                        <option value="available" ${data && data.status === "available" && 'selected'}>Available</option>
-                        <option value="cleaning" ${data && data.status === "cleaning" && 'selected'}>Cleaning</option>
-                        <option value="maintenance" ${data && data.status === "maintenance" && 'selected'}>Maintenance</option>
+                        <option value="disabled" ${!data && 'selected'}>Disabled</option>
+                        <option value="available" ${data && 'selected'}>Available</option>
                     </select>
                 </div>
             </div>
@@ -361,18 +340,10 @@
                     </div>
 
                     <div class="profile-info-row">
-                        <div class="profile-info-name">Type</div>
+                        <div class="profile-info-name">Value</div>
 
                         <div class="profile-info-value">
-                            <span>${data.type}</span>
-                        </div>
-                    </div>
-
-                    <div class="profile-info-row">
-                        <div class="profile-info-name">Floor</div>
-
-                        <div class="profile-info-value">
-                            <span>${data.floor}</span>
+                            <span>${data.value_promotion}</span>
                         </div>
                     </div>
 
@@ -407,10 +378,7 @@
                 name: {
                     required: true,
                 },
-                type: {
-                    required: true,
-                },
-                floor: {
+                value_promotion: {
                     required: true,
                     number: true,
                     min: 1,
@@ -423,10 +391,7 @@
                 name: {
                     required: "This field is required"
                 },
-                type: {
-                    required: "This field is required"
-                },
-                floor: {
+                value_promotion: {
                     required: "This field is required",
                     number: "This field must be a number",
                     min: "This field must be at least 1",
@@ -444,7 +409,7 @@
                     "aoColumns": [
                         { "bSortable": false },
                         { "bSortable": false },
-                        null, null, null, null, null, null, null,
+                        null, null, null, null, null, null,
                         { "bSortable": false }
                     ],
                     "aaSorting": [],
@@ -579,16 +544,8 @@
                     $(this).addClass('label label-success arrowed');
                     break;
                 }
-                case 'occupied': {
+                case 'disabled': {
                     $(this).addClass('label label-danger arrowed');
-                    break;
-                }
-                case 'cleaning': {
-                    $(this).addClass('label label-info arrowed');
-                    break;
-                }
-                case 'maintenance': {
-                    $(this).addClass('label label-warning arrowed');
                     break;
                 }
                 default: {
@@ -647,6 +604,15 @@
                 message: details(data),
             });
         });
+        $(".tooltip-view.bootbox-confirm").on(ace.click_event, async function (e) {
+            const id = e.currentTarget.getAttribute('data-id');
+            const res = await fetch(`/admin/promotions/${id}`, { method: 'GET' });
+            const data = await res.json();
+
+            bootbox.alert({
+                message: details(data),
+            });
+        });
         $(".add.bootbox-confirm").on(ace.click_event, function () {
             bootbox.confirm({
                 message: form(),
@@ -661,7 +627,7 @@
                     {
                         "label": "Cancel",
                         "className": "btn-sm",
-                    }
+                    },
                 },
                 callback: function (result) {
                     if (result) {
@@ -677,8 +643,31 @@
                     }
                 }
             });
+            box.on("shown.bs.modal", function () {
+                $('.form-data').validate(formValidation);
+                $('.form-data').submit(function (e) {
+                    e.preventDefault();
+                    const file = document.getElementById("form-image").files[0];
+                    const formData = new FormData()
+                    formData.append("name", document.getElementById('form-name').value);
+                    formData.append("value_promotion", document.getElementById('form-value').value);
+                    formData.append("status", document.getElementById('form-status').value);
+                    fetch(`/admin/promotions/create`, {
+                        method: 'POST',
+                        body: formData
+                    })
+                        .then((res) => { location.reload(); })
+                        .catch((err) => { console.log(err); })
+                });
+                autosize($('textarea[class*=autosize]'));
+                $('textarea.limited').inputlimiter({
+                    remText: '%n character%s remaining...',
+                    limitText: 'max allowed : %n.'
+                });
+            });
         });
         $(".edit.bootbox-confirm").on(ace.click_event, async function (e) {
+            console.log("aaaaaaaaaaaaaaaaaaaaaa");
             const id = e.currentTarget.getAttribute('data-id');
             const res = await fetch(`/admin/promotions/${id}`, { method: 'GET' });
             const data = await res.json();
@@ -712,11 +701,96 @@
                     }
                 }
             });
+            box.on("shown.bs.modal", function () {
+                var changeImage = false;
+                urlToObject(data.image);
+                $('.form-data').validate(formValidation);
+                $('.form-data').submit(function (e) {
+                    e.preventDefault();
+                    const name = document.getElementById('form-name').value;
+                    const value_promotion= document.getElementById('form-value').value;
+                    const status = document.getElementById('form-status').value;
+
+                    const formData = new FormData()
+                    data.name !== name && formData.append("name", name);
+                    data.value_promotion !== value_promotion && formData.append("value_promotion", value_promotion);
+                    data.status !== status && formData.append("status", status);
+                    fetch(`/admin/promotions/${id}/edit`, {
+                        method: 'POST',
+                        body: formData
+                    })
+                        .then((res) => { location.reload(); })
+                        .catch((err) => { console.log(err); })
+                });
+                autosize($('textarea[class*=autosize]'));
+                $('textarea.limited').inputlimiter({
+                    remText: '%n character%s remaining...',
+                    limitText: 'max allowed : %n.'
+                });
+            });
+        });
+        $(".tooltip-edit.bootbox-confirm").on(ace.click_event, async function (e) {
+            const id = e.currentTarget.getAttribute('data-id');
+            const res = await fetch(`/admin/promotions/${id}`, { method: 'GET' });
+            const data = await res.json();
+
+            const box = bootbox.confirm({
+                message: form(data),
+                buttons:
+                {
+                    "confirm":
+                    {
+                        "label": "Save",
+                        "className": "btn-sm btn-primary",
+                    },
+                    "cancel":
+                    {
+                        "label": "Cancel",
+                        "className": "btn-sm",
+                    }
+                },
+                callback: function (result) {
+                    if (result) {
+                        if ($('.form-data').valid()) {
+                            $('.form-data').submit();
+                        } else {
+                            return false;
+                        }
+                    }
+                }
+            });
+            box.on("shown.bs.modal", function () {
+                var changeImage = false;
+                urlToObject(data.image);
+                $('.form-data').validate(formValidation);
+                $('.form-data').submit(function (e) {
+                    e.preventDefault();
+                    const name = document.getElementById('form-name').value;
+                    const value_promotion = document.getElementById('form-value').value;
+                    const status = document.getElementById('form-status').value;
+                
+                    const formData = new FormData()
+                    data.name !== name && formData.append("name", name);
+                    data.value_promotion !== value_promotion && formData.append("value_promotion", value_promotion);
+                    data.status !== status && formData.append("status", status);
+                    fetch(`/admin/promotions/${id}/edit`, {
+                        method: 'POST',
+                        body: formData
+                    })
+                        .then((res) => { location.reload(); })
+                        .catch((err) => { console.log(err); })
+                });
+                autosize($('textarea[class*=autosize]'));
+                $('textarea.limited').inputlimiter({
+                    remText: '%n character%s remaining...',
+                    limitText: 'max allowed : %n.'
+                });
+            });
         });
         $(".delete.bootbox-confirm").on(ace.click_event, function (e) {
             const id = e.currentTarget.getAttribute('data-id');
             bootbox.confirm({
-                message: `<span>Are you sure want to delete the room with ID ${id}?</span>`,
+                message: `<span>Are you sure want to delete the promotions code with ID ${id}?</span>`,
                 buttons:
                 {
                     "confirm":
@@ -732,16 +806,46 @@
                 },
                 callback: function (result) {
                     if (result) {
-                        $('.form-delete').attr("action", `/admin/promotions/${id}?_method=DELETE`);
-                        $('.form-delete').attr("method", "POST");
-                        $('.form-delete').submit();
+                        fetch(`/admin/promotions/${id}`, {
+                            method: 'DELETE',
+                        })
+                            .then((res) => { location.reload(); })
+                            .catch((err) => { console.log(err); })
+                    }
+                }
+            });
+        });
+        $(".tooltip-delete.bootbox-confirm").on(ace.click_event, function (e) {
+            const id = e.currentTarget.getAttribute('data-id');
+            bootbox.confirm({
+                message: `<span>Are you sure want to delete the promotion with ID ${id}?</span>`,
+                buttons:
+                {
+                    "confirm":
+                    {
+                        "label": "Delete",
+                        "className": "btn-sm btn-danger",
+                    },
+                    "cancel":
+                    {
+                        "label": "Cancel",
+                        "className": "btn-sm",
+                    }
+                },
+                callback: function (result) {
+                    if (result) {
+                        fetch(`/admin/prom/${id}`, {
+                            method: 'DELETE',
+                        })
+                            .then((res) => { location.reload(); })
+                            .catch((err) => { console.log(err); })
                     }
                 }
             });
         });
         $(".delete-multiple.bootbox-confirm").on(ace.click_event, function () {
             bootbox.confirm({
-                message: `Are you sure want to delete these rooms?`,
+                message: `Are you sure want to delete these promotions code?`,
                 buttons:
                 {
                     "confirm":
@@ -761,10 +865,17 @@
                         $('tbody').find('input[type="checkbox"]:checked').each(function () {
                             idList.push($(this).attr('data-id'));
                         })
-                        $('.form-delete').append(`<input type="hidden" name="idList" value=${idList}>`);
-                        $('.form-delete').attr("action", `/admin/promotions?_method=DELETE`);
-                        $('.form-delete').attr("method", "POST");
-                        $('.form-delete').submit();
+                        fetch(`/admin/promotions`, {
+                            method: 'DELETE',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                idList,
+                            }),
+                        })
+                            .then((res) => { location.reload(); })
+                            .catch((err) => { console.log(err); })
                     }
                 }
             });
