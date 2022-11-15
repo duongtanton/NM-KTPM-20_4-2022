@@ -2,21 +2,25 @@ const { Model } = require("sequelize");
 const db = require("../../db/models/index.js");
 const { CONSTANT, Response, Message, MESSAGE } = require("../../common");
 const bcrypt = require("../../util/bcrypt.js");
-const { Rooms } = db;
+const { Rooms, Room_Types } = db;
 const RoomController = {
     async index(req, res, next) {
         try {
             const rooms = await Rooms.findAll({
                 where: {
                     status: 'available',
-                }
+                },
+                include: [{
+                    model: Room_Types,
+                    attributes: ['name', 'price', 'bedNumber']
+                }]
             }, {
                 raw: true,
             });
             const infoRooms = rooms.map((room) => ({
                 ...room.dataValues,
-                // image: req.protocol + '://' + req.headers.host + "/" + room.image,
             }))
+            console.log(infoRooms);
             res.status(200).json(infoRooms);
         } catch (err) {
             res.json(Response(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!")));

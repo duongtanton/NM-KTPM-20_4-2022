@@ -9,11 +9,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      // this.hasMany(models.Rooms, {
-      //   foreignKey: "typeId",
-      //   onDelete: "cascade",
-      //   onUpdate: "cascade",
-      // })
+      this.hasMany(models.Rooms, {
+        foreignKey: "id",
+        onDelete: "cascade",
+        onUpdate: "cascade",
+      });
     }
   }
   types.init({

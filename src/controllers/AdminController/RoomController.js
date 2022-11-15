@@ -3,7 +3,7 @@ const db = require("../../db/models/index.js");
 const { CONSTANT, ResponseApi, Message, MESSAGE } = require("../../common/index.js");
 const bcrypt = require("../../util/bcrypt.js");
 const fs = require('fs');
-const { Rooms } = db;
+const { Rooms,Room_Types } = db;
 const RoomController = {
     async index(req, res, next) {
         try {

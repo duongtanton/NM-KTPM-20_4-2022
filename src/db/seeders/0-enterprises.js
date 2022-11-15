@@ -16,7 +16,9 @@ module.exports = {
             {
                 id: 1,
                 name: "Group 4",
-                code: "group-4"
+                code: "group-4",
+                createdAt: new Date(),
+                updatedAt: new Date(),
             }
         ], {});
     },
