@@ -32,6 +32,12 @@ const AdminController = {
     console.log(data);
     res.status(200).json(data.dataValues);
   },
+  async showAll(req, res, next) {
+    const data = await Room_Types.findAll({
+      raw: true
+    })
+    res.status(200).json(data);
+  },
   async edit(req, res, next) {
     const id = req.params.id;
     const newdata = req.body;

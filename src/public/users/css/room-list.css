@@ -77,7 +77,6 @@
 }
 .view-grid .room-info {
     width: 100%;
-    margin-bottom: 1em;
 }
 .view-list .room-info {
     margin-bottom: 0;
@@ -124,7 +123,10 @@
     border-radius: 4px;
 }
 .room-floor {
-
+    margin-right: 1em;
+}
+.room-bed {
+    margin-right: 1em;
 }
 .room-status {
 
@@ -132,11 +134,17 @@
 .room-navigate {
     
 }
+.view-list .room-tail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
 .view-grid .room-navigate {
     width: 100%;
 }
 .view-list .room-navigate {
-    width: 20%;
+    width: 100%;
 }
 .room-navigate .btn-book {
     width: 100%;

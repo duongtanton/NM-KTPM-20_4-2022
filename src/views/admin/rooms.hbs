@@ -299,7 +299,7 @@
 <script type="text/javascript">
     jQuery(function ($) {
         //create & edit form
-        const form = (data) => `<form class="form-horizontal form-data" role="form" style="padding: 8px;">
+        const form = (data, roomTypes) => `<form class="form-horizontal form-data" role="form" style="padding: 8px;">
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="form-name">Name:</label>
 
@@ -314,14 +314,7 @@
                 <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
                     <select class="col-xs-10 col-sm-5" id="form-type" name="type" style="padding: 0;">
                         <option value="" disabled ${!data && 'selected'}></option>
-                        <option value="STD" ${data && data.type === "STD" && 'selected'}>Standard</option>
-                        <option value="SUP" ${data && data.type === "SUP" && 'selected'}>Superior</option>
-                        <option value="DLX" ${data && data.type === "DLX" && 'selected'}>Deluxe</option>
-                        <option value="SUT" ${data && data.type === "SUT" && 'selected'}>Suite</option>
-                        <option value="SGL" ${data && data.type === "SGL" && 'selected'}>Single bed room</option>
-                        <option value="TWN" ${data && data.type === "TWN" && 'selected'}>Twin bed room</option>
-                        <option value="DBL" ${data && data.type === "DBL" && 'selected'}>Double bed room</option>
-                        <option value="TRPL" ${data && data.type === "TRPL" && 'selected'}>Triple bed room</option>
+                        ${roomTypes?.map(type => `<option value=${type.id} ${data && data.type === type.id && 'selected'}>${type.name}</option>`)}
                     </select>
                 </div>
             </div>
@@ -734,9 +727,11 @@
                 message: details(data),
             });
         });
-        $(".add.bootbox-confirm").on(ace.click_event, function () {
+        $(".add.bootbox-confirm").on(ace.click_event, async function () {
+            const res = await fetch('/admin/room-types/all/view', { method: 'GET' });
+            const roomTypes = await res.json();
             const box = bootbox.confirm({
-                message: form(),
+                message: form(undefined, roomTypes),
                 buttons:
                 {
                     "confirm":
@@ -821,10 +816,11 @@
             const id = e.currentTarget.getAttribute('data-id');
             const res = await fetch(`/admin/rooms/${id}`, { method: 'GET' });
             const data = await res.json();
-            console.log(data.name);
+            const resRoomTypes = await fetch('/admin/room-types/all/view', { method: 'GET' });
+            const roomTypes = await resRoomTypes.json();
 
             const box = bootbox.confirm({
-                message: form(data),
+                message: form(data, roomTypes),
                 buttons:
                 {
                     "confirm":
@@ -889,9 +885,11 @@
             const id = e.currentTarget.getAttribute('data-id');
             const res = await fetch(`/admin/rooms/${id}`, { method: 'GET' });
             const data = await res.json();
+            const resRoomTypes = await fetch('/admin/room-types/all/view', { method: 'GET' });
+            const roomTypes = await resRoomTypes.json();
 
             const box = bootbox.confirm({
-                message: form(data),
+                message: form(data, roomTypes),
                 buttons:
                 {
                     "confirm":

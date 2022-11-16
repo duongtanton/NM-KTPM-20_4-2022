@@ -659,38 +659,6 @@
 <script src="/static/public/users/js/moment.min.js"></script>
 <script src="/static/public/users/js/daterangepicker.min.js"></script>
 <script type="text/javascript">
-  const convertType = (type) => {
-    switch (type) {
-      case 'STD': {
-        return 'Standard';
-      }
-      case 'SUP': {
-        return 'Superior';
-      }
-      case 'DLX': {
-        return 'Deluxe';
-      }
-      case 'SUT': {
-        return 'Suite';
-      }
-      case 'SGL': {
-        return 'Single bed room';
-      }
-      case 'TWN': {
-        return 'Twin bed room';
-      }
-      case 'DBL': {
-        return 'Double bed room';
-      }
-      case 'TRPL': {
-        return 'Triple bed room';
-      }
-      default: {
-        return '';
-      }
-    }
-  }
-
   const getRoomsData = async () => {
     const res = await fetch('/rooms', { method: 'GET' });
     const data = await res.json();
@@ -710,17 +678,26 @@
               <p class="room-description">${room.description}</p>
               <div class="room-group">
                 <div>
-                  <p class="room-type">${convertType(room.type)}</p>
+                  <p class="room-type">${room.Room_Type.name}</p>
                 </div>
                 <div>
-                  <i class="fa fa-building-o"></i>
+                  <span>Floor: </span>
                   <span class="room-floor">${room.floor}</span>
+                </div>
+                <div>
+                  <span>Beds: </span>
+                  <span class="room-bed">${room.Room_Type.bedNumber}</span>
                 </div>
               </div>
             </div>
-            <div class="room-navigate">
-              <button class="btn-book">Book</button>
-              <button class="btn-details">Room Details</button>
+            <div class="room-tail">
+              <div class="room-price">
+                <h4>$${room.Room_Type.price} USD/Night</h4>
+              </div>
+              <div class="room-navigate">
+                <button class="btn-book">Book</button>
+                <button class="btn-details">Room Details</button>
+            </div>
             </div>
           </div>
         </div>
