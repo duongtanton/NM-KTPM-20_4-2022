@@ -1,0 +1,68 @@
+.room-header {
+
+}
+
+.room-header img {
+    width: 100%;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
+    -moz-box-shadow: 0 1px 2px rgba(34,25,25,0.4);
+    -webkit-box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
+}
+.room-header-info {
+    margin: 1em 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.room-id {
+    display: flex;
+    align-items: center;
+}
+.room-id p {
+    margin: 0;
+    margin-right: 0.5em; 
+    font-size: 1.25em;
+    font-weight: 600;
+}
+.room-id span {
+    margin-right: 0.5em; 
+    font-size: 1.25em;
+}
+.room-name {
+    margin-left: 2em;
+    font-weight: 600;
+    font-size: 1.25em;
+}
+.room-status {
+    margin: 1em 0;
+}
+.room-booked {
+
+}
+.room-user {
+
+}
+.room-user {
+
+}
+.room-check {
+
+}
+.room-check {
+
+}
+.room-body {
+
+}
+.room-box {
+    margin-bottom: 1.5em;
+}
+.room-box h5 {
+    font-weight: 600;
+}
+.room-navigate {
+    margin-top: 2em;
+}
