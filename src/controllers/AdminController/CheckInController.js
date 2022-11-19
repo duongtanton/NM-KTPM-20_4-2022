@@ -2,11 +2,12 @@ const { Model } = require("sequelize");
 const db = require("../../db/models/index.js");
 const { CONSTANT, ResponseApi, Message, MESSAGE, Response } = require("../../common/index.js");
 const bcrypt = require("../../util/bcrypt.js");
-const { Rooms, Room_Types, Check_Ins } = db;
+const { Rooms, Room_Types, Check_Ins, Users, Roles } = db;
 const CheckInController = {
     async index(req, res, next) {
         try {
             const { roomId } = req.params;
+
             const room = await Rooms.findOne(
                 {
                     where: { id: roomId },
@@ -19,14 +20,14 @@ const CheckInController = {
                 { raw: true }
             );
             const infoRoom = room.toJSON();
-            res.render("./admin/check-in", { room: infoRoom });
+            res.render("./admin/check-in", { room: infoRoom, employeeId: res.locals._user.id });
         } catch (err) {
             res.json(ResponseApi(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!")))
         }
     },
     async create(req, res, next) {
         try {
-            const { employeeId, userId, checkInDate, checkOutDate } = req.body;
+            const { userId, checkInDate, checkOutDate } = req.body;
             const { roomId } = req.params;
 
             if (new Date(checkInDate).getTime() > new Date(checkOutDate).getTime()) {
@@ -34,7 +35,7 @@ const CheckInController = {
             }
 
             const checkIn = await Check_Ins.create({
-                employeeId: Number(employeeId),
+                employeeId: Number(res.locals._user.id),
                 userId: Number(userId),
                 roomId: Number(roomId),
                 checkInTime: checkInDate,

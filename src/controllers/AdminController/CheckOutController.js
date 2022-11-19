@@ -33,9 +33,14 @@ const CheckOutController = {
       );
       const infoRoom = room.toJSON();
       res.render("./admin/check-out", {
-        room: infoRoom, user: {
+        room: infoRoom, 
+        user: {
           id: info[0][0].userId,
-        }, checkIn: {
+        },
+        employee: {
+          id: res.locals._user.id,
+        },
+        checkIn: {
           id: info[0][0].checkInId,
           employeeId: info[0][0].employeeId,
           checkInTime: info[0][0].checkInTime,
@@ -48,11 +53,11 @@ const CheckOutController = {
   },
   async create(req, res, next) {
     try {
-      const { checkInId, employeeId } = req.body;
+      const { checkInId } = req.body;
       const { roomId } = req.params;
 
       const checkOut = await Check_Outs.create({
-          employeeId: Number(employeeId),
+          employeeId: Number(res.locals._user.id),
           checkInId: Number(checkInId),
       })
 
