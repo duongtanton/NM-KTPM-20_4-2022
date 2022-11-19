@@ -19,11 +19,6 @@ const CheckInController = {
                 { raw: true }
             );
             const infoRoom = room.toJSON();
-            console.log(infoRoom);
-            // res.status(200).json({
-            //     ...infoRoom,
-            //     image: req.protocol + '://' + req.headers.host + "/" + infoRoom.image,
-            // });
             res.render("./admin/check-in", { room: infoRoom });
         } catch (err) {
             res.json(ResponseApi(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!")))
@@ -33,6 +28,10 @@ const CheckInController = {
         try {
             const { employeeId, userId, checkInDate, checkOutDate } = req.body;
             const { roomId } = req.params;
+
+            if (new Date(checkInDate).getTime() > new Date(checkOutDate).getTime()) {
+                return res.json(Response(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!")));
+            }
 
             const checkIn = await Check_Ins.create({
                 employeeId: Number(employeeId),

@@ -98,10 +98,10 @@
 
         <div class="page-header">
             <h1>
-                Check In
+                Check Out
                 <small>
                     <i class="ace-icon fa fa-angle-double-right"></i>
-                    Process customer check-in information.
+                    Process customer check-out information.
                 </small>
             </h1>
         </div><!-- /.page-header -->
@@ -112,7 +112,7 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="row">
-                            <div class="col-xs-6 check-in-room">
+                            <div class="col-xs-6 check-out-room">
                                 <div class="room-body">
                                     <div class="room-body-info">
                                         <img src="https://thietkenoithat.com/Portals/0/DNNGo_PhotoAlbums/53503/9888/Phong%20Ngu%20Master%20(4).jpg"
@@ -166,70 +166,63 @@
                                 </div>
                             </div>
                             <div class="vertical-line"></div>
-                            <div class="col-xs-6 check-in-info">
-                                <div class="tabbable">
-                                    <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
-                                        <li class="active">
-                                            <a data-toggle="tab" href="#old-user">Already Exists User</a>
-                                        </li>
-
-                                        <li>
-                                            <a data-toggle="tab" href="#new-user">New User</a>
-                                        </li>
-                                    </ul>
-
-                                    <div class="tab-content">
-                                        <div id="old-user" class="tab-pane in active">
-                                            <form action="/admin/check-in/create/{{room.id}}" method="POST">
-                                                <div class="form-group">
-                                                    <label class=" control-label no-padding-right"
-                                                        for="form-employee-id">Employee ID:</label>
-                                                    <div style="display: flex; flex-direction: column; color: red;">
-                                                        <input type="text" id="form-employee-id" name="employeeId"
-                                                            required>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class=" control-label no-padding-right"
-                                                        for="form-user-id">User ID:</label>
-                                                    <div style="display: flex; flex-direction: column; color: red;">
-                                                        <input type="text" id="form-user-id" name="userId" required>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class=" control-label no-padding-right"
-                                                        for="form-room-id">Room ID:</label>
-                                                    <div style="display: flex; flex-direction: column; color: red;">
-                                                        <input type="text" id="form-room-id" name="roomId"
-                                                            placeholder="" value="{{room.id}}" disabled="disabled">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class=" control-label no-padding-right"
-                                                        for="form-check-in">Check-In Date:</label>
-                                                    <div style="display: flex; flex-direction: column; color: red;">
-                                                        <input type="date" id="form-check-in" name="checkInDate"
-                                                            required>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class=" control-label no-padding-right"
-                                                        for="form-check-out">Check-Out Date:</label>
-                                                    <div style="display: flex; flex-direction: column; color: red;">
-                                                        <input type="date" id="form-check-out" name="checkOutDate"
-                                                            required>
-                                                    </div>
-                                                </div>
-                                                <div class="room-navigate">
-                                                    <a href="/admin/rooms/{{room.id}}" class="btn btn-default">Back</a>
-                                                    <button type="submit" class="btn btn-primary">Check In</button>
-                                                </div>
-                                            </form>
+                            <div class="col-xs-6 check-out-info">
+                                <h3>Check Out Form</h3>
+                                <form action="/admin/check-out/create/{{room.id}}" method="POST">
+                                    <input type="text" name="checkInId" value={{checkIn.id}} hidden>
+                                    <div class="form-group">
+                                        <label class=" control-label no-padding-right" for="form-employee-id">Employee
+                                            ID:</label>
+                                        <div style="display: flex; flex-direction: column;">
+                                            <input type="text" id="form-employee-id" name="employeeId" required>
                                         </div>
-
-                                        <div id="new-user" class="tab-pane"></div>
                                     </div>
-                                </div>
+                                    <div class="form-group">
+                                        <label class=" control-label no-padding-right"
+                                            for="form-check-in-employee-id">Check-in
+                                            Staff ID:</label>
+                                        <div style="display: flex; flex-direction: column;">
+                                            <input type="text" id="form-check-in-employee-id" name="checkInStaffId"
+                                                value="{{checkIn.employeeId}}" disabled="disabled">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class=" control-label no-padding-right" for="form-user-id">User
+                                            ID:</label>
+                                        <div style="display: flex; flex-direction: column;">
+                                            <input type="text" id="form-user-id" name="userId" value="{{user.id}}"
+                                                disabled="disabled">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class=" control-label no-padding-right" for="form-room-id">Room
+                                            ID:</label>
+                                        <div style="display: flex; flex-direction: column;">
+                                            <input type="text" id="form-room-id" name="roomId" placeholder=""
+                                                value="{{room.id}}" disabled="disabled">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class=" control-label no-padding-right" for="form-check-in">Check-In
+                                            Date:</label>
+                                        <div style="display: flex; flex-direction: column;">
+                                            <input type="date" id="form-check-in" name="checkInDate"
+                                                value={{formatDateInput checkIn.checkInTime}} disabled="disabled">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class=" control-label no-padding-right" for="form-check-out">Check-Out
+                                            Date:</label>
+                                        <div style="display: flex; flex-direction: column;">
+                                            <input type="date" id="form-check-out" name="checkOutDate"
+                                                value={{formatDateInput checkIn.checkOutTime}} disabled="disabled">
+                                        </div>
+                                    </div>
+                                    <div class="room-navigate">
+                                        <a href="/admin/rooms/{{room.id}}" class="btn btn-default">Back</a>
+                                        <button type="submit" class="btn btn-primary">Check Out</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

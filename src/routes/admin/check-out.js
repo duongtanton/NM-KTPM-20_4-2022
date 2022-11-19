@@ -3,6 +3,6 @@ const { CheckOutController } = require("../../controllers/AdminController");
 var AdminRouter = express.Router();
 
 AdminRouter.get("/:roomId", CheckOutController.index);
-AdminRouter.post("/create", CheckOutController.create);
+AdminRouter.post("/create/:roomId", CheckOutController.create);
 
 module.exports = AdminRouter;

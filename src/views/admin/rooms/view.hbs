@@ -163,7 +163,8 @@
                                 </div>
                                 <div class="room-navigate">
                                     <a href="/admin/rooms" class="btn btn-default">Back</a>
-                                    <a href="/admin/check-in/{{room.id}}" class="btn btn-primary">Continue</a>
+                                    <a onclick=getLinkFromStatus("{{room.id}}","{{room.status}}")
+                                        class="btn btn-primary">Continue</a>
                                 </div>
                             </div>
                         </div>
@@ -215,4 +216,14 @@
             }
         }
     });
+
+    const getLinkFromStatus = (id, status) => {
+        if (status == 'available') {
+            location.replace(`/admin/check-in/${id}`);
+        } else if (status == 'occupied') {
+            location.replace(`/admin/check-out/${id}`);
+        } else {
+            location.replace(`/admin/rooms`);
+        }
+    }
 </script>
