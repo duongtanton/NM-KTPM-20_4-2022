@@ -7,9 +7,9 @@
             </li>
 
             <li>
-                <a href="#">Promotion</a>
+                <a href="#">Employee</a>
             </li>
-            <li class="active">Promotion Management</li>
+            <li class="active">Employee Management</li>
         </ul><!-- /.breadcrumb -->
 
         <div class="nav-search" id="nav-search">
@@ -98,10 +98,10 @@
 
         <div class="page-header">
             <h1>
-                Promotion Management
+                Employee Management
                 <small>
                     <i class="ace-icon fa fa-angle-double-right"></i>
-                    Promotionoom management for full control over hotel capacitys
+                    Employee management for full control over hotel capacitys
                 </small>
             </h1>
         </div><!-- /.page-header -->
@@ -124,7 +124,7 @@
                             <div class="pull-right tableTools-container"></div>
                         </div>
                         <div class="table-header">
-                            Promotion table
+                            Employee table
                         </div>
 
                         <!-- div.table-responsive -->
@@ -141,10 +141,10 @@
                                                 <span class="lbl"></span>
                                             </label>
                                         </th>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Value</th>
-                                        <th>Status</th>
+                                        <th>Full Name</th>
+                                        <th>Avatar</th>
+                                        <th>Username</th>
+                                        <th>Password</th>
                                         <th>
                                             <i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
                                             Updated At
@@ -158,7 +158,7 @@
                                 </thead>
 
                                 <tbody>
-                                    {{#each promotions}}
+                                    {{#each employees}}
                                     <tr>
                                         <td class="number-order center">{{twoNumSum @index 1}}</td>
                                         <td class="center">
@@ -167,17 +167,17 @@
                                                 <span class="lbl"></span>
                                             </label>
                                         </td>
-                                        <td>{{this.id}}</td>
                                         <td>
-                                            {{this.name}}
+                                            {{this.fullname}}
+                                        </td>
+                                        <td style="width: 150px;">
+                                            <img src="{{this.avatar}}" alt="{{this.avatar}}" style="width: 100%;">
                                         </td>
                                         <td>
-                                            {{this.value_promotion}}
+                                            {{this.username}}
                                         </td>
                                         <td>
-                                            <span class="label-status">
-                                                {{this.status}}
-                                            </span>
+                                            {{this.password}}
                                         </td>
                                         <td>
                                             {{formatDate this.updatedAt}}
@@ -254,7 +254,6 @@
                         </div>
                     </div>
                 </div>
-                <form class="form-delete"></form>
                 <!-- PAGE CONTENT ENDS -->
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -276,6 +275,7 @@
 <!-- page specific plugin scripts -->
 <script src="/static/public/admin/assets/js/jquery.dataTables.min.js"></script>
 <script src="/static/public/admin/assets/js/jquery.validate.min.js"></script>
+<script src="/static/public/admin/assets/js/jquery-additional-methods.min.js"></script>
 <script src="/static/public/admin/assets/js/jquery.dataTables.bootstrap.min.js"></script>
 <script src="/static/public/admin/assets/js/dataTables.buttons.min.js"></script>
 <script src="/static/public/admin/assets/js/buttons.flash.min.js"></script>
@@ -284,44 +284,54 @@
 <script src="/static/public/admin/assets/js/buttons.colVis.min.js"></script>
 <script src="/static/public/admin/assets/js/dataTables.select.min.js"></script>
 <script src="/static/public/admin/assets/js/bootbox.js"></script>
-
+<script src="/static/public/admin/assets/js/ace-elements.min.js"></script>
+<script src="/static/public/admin/assets/js/autosize.min.js"></script>
+<script src="/static/public/admin/assets/js/jquery.inputlimiter.min.js"></script>
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
     jQuery(function ($) {
         //create & edit form
         const form = (data) => `<form class="form-horizontal form-data" role="form" style="padding: 8px;">
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="form-name">Name:</label>
+                <label class="col-sm-3 control-label no-padding-right" for="form-fullname">Full Name:</label>
 
                 <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
-                    <input type="text" id="form-name" name="name" placeholder="Enter name"
-                        class="col-xs-10 col-sm-5" value=${data ? data.name : ''}>
+                    <input type="text" id="form-fullname" name="fullname" placeholder="Enter Full Name"
+                        class="col-xs-10 col-sm-5" value='${data ? data.fullname : ''}'>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="form-value">Value:</label>
+                <label class="col-sm-3 control-label no-padding-right" for="form-username">Username:</label>
 
                 <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
-                    <input type="text" id="form-value" name="value" placeholder="Enter value"
-                        class="col-xs-10 col-sm-5" value=${data ? data.value_promotion : ''}>
+                    <input type="text" id="form-username" name="username" placeholder="Enter Username"
+                        class="col-xs-10 col-sm-5" value=${data ? data.username : ''}>
                 </div>
             </div>
+
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="form-status">Status:</label>
+                <label class="col-sm-3 control-label no-padding-right" for="form-password">Password:</label>
+
                 <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
-                    <select class="col-xs-10 col-sm-5" id="form-status" name="value" style="padding: 0;">
-                        <option value="disabled" ${!data && 'selected'}>Disabled</option>
-                        <option value="available" ${data && 'selected'}>Available</option>
-                    </select>
+                    <input type="text" id="form-password" name="password" placeholder="Enter Password"
+                        class="col-xs-10 col-sm-5" value=${data ? data.password : ''}>
                 </div>
             </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-avatar" style="padding-top: 0">Avatar:</label>
+                <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
+                    <input type="file" id="form-avatar" class="col-xs-10" name="avatar" style="padding: 0; color: initial; outline: none"/>
+                </div>
+            </div>
+
             <button type="submit" hidden></button>
         </form>`;
 
         //view form
         const details = (data) => `
-            <form class="form-horizontal" role="form" action="/admin/promotions" method="POST">
+            <form class="form-horizontal" role="form" action="/admin/employees" method="POST">
                 <div class="profile-user-info profile-user-info-striped">
                     <div class="profile-info-row">
                         <div class="profile-info-name">ID</div>
@@ -332,26 +342,26 @@
                     </div>
 
                     <div class="profile-info-row">
-                        <div class="profile-info-name">Name</div>
+                        <div class="profile-info-name">Full Name</div>
 
                         <div class="profile-info-value">
-                            <span>${data.name}</span>
+                            <span>${data.fullname}</span>
                         </div>
                     </div>
 
                     <div class="profile-info-row">
-                        <div class="profile-info-name">Value</div>
+                        <div class="profile-info-name">Avatar</div>
 
                         <div class="profile-info-value">
-                            <span>${data.value_promotion}</span>
+                            <img src="${data.avatar}" alt="" style="width: 150px;">
                         </div>
                     </div>
 
                     <div class="profile-info-row">
-                        <div class="profile-info-name">Status</div>
+                        <div class="profile-info-name">Password</div>
 
                         <div class="profile-info-value">
-                            <span>${data.status}</span>
+                            <span>${data.password}</span>
                         </div>
                     </div>
 
@@ -372,47 +382,74 @@
                 </div>
             </form>`;
 
-        //Client Validation for create & edit form     
+        //Client Validation for create & edit form   
         const formValidation = {
             rules: {
-                name: {
+                fullname: {
                     required: true,
                 },
-                value_promotion: {
+                username: {
                     required: true,
-                    number: true,
-                    min: 1,
                 },
-                status: {
+                password: {
+                    required: true,
+                },
+                avatar: {
+                    extension: "jpeg|jpg|png",
                     required: true,
                 },
             },
             messages: {
-                name: {
-                    required: "This field is required"
-                },
-                value_promotion: {
+                fullname: {
                     required: "This field is required",
-                    number: "This field must be a number",
-                    min: "This field must be at least 1",
                 },
-                status: {
-                    required: "This field is required"
+                username: {
+                    required: "This field is required",
+                },
+                password: {
+                    required: "This field is required",
+                },
+                avatar: {
+                    extension: "This field only support jpeg,jpg,png files",
+                    required: "This field is required",
                 },
             },
         }
 
+        //Data Table display employee info
         var myTable =
             $('#dynamic-table')
+                //.wrap("<div class='dataTables_borderWrap' />")   //if you are applying horizontal scrolling (sScrollX)
                 .DataTable({
                     bAutoWidth: false,
                     "aoColumns": [
                         { "bSortable": false },
                         { "bSortable": false },
-                        null, null, null, null, null, null,
-                        { "bSortable": false }
+                        null, null, null, null, null,
+                        { "bSortable": false },
+                        { "bSortable": false },
+                        null, null,
+                        { "bSortable": false },
                     ],
                     "aaSorting": [],
+
+
+                    //"bProcessing": true,
+                    //"bServerSide": true,
+                    //"sAjaxSource": "http://127.0.0.1/table.php"	,
+
+                    //,
+                    //"sScrollY": "200px",
+                    //"bPaginate": false,
+
+                    //"sScrollX": "100%",
+                    //"sScrollXInner": "120%",
+                    //"bScrollCollapse": true,
+                    //Note: if you are applying horizontal scrolling (sScrollX) on a ".table-bordered"
+                    //you may want to wrap the table inside a "div.dataTables_borderWrap" element
+
+                    //"iDisplayLength": 50
+
 
                     select: {
                         style: 'multi'
@@ -513,9 +550,6 @@
             }
         });
 
-
-
-
         /////////////////////////////////
         //table checkboxes
         $('th input[type=checkbox], td input[type=checkbox]').prop('checked', false);
@@ -544,8 +578,16 @@
                     $(this).addClass('label label-success arrowed');
                     break;
                 }
-                case 'disabled': {
+                case 'occupied': {
                     $(this).addClass('label label-danger arrowed');
+                    break;
+                }
+                case 'cleaning': {
+                    $(this).addClass('label label-info arrowed');
+                    break;
+                }
+                case 'maintenance': {
+                    $(this).addClass('label label-warning arrowed');
                     break;
                 }
                 default: {
@@ -593,11 +635,24 @@
             if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2)) return 'right';
             return 'left';
         }
+        function FileListItems(files) {
+            let fileList = new ClipboardEvent("").clipboardData || new DataTransfer()
+            for (let i = 0; i < files.length; i++) {
+                fileList.items.add(files[i])
+            }
+            return fileList.files
+        }
+        async function urlToObject(url) {
+            const response = await fetch(url);
+            const blob = await response.blob();
+            const file = new File([blob], url.substring(url.lastIndexOf('/') + 1), { type: blob.type });
+            document.getElementById('form-avatar').files = new FileListItems([file]);
+        }
 
         //Manage popup window
         $(".view.bootbox-confirm").on(ace.click_event, async function (e) {
             const id = e.currentTarget.getAttribute('data-id');
-            const res = await fetch(`/admin/promotions/${id}`, { method: 'GET' });
+            const res = await fetch(`/admin/employees/${id}`, { method: 'GET' });
             const data = await res.json();
 
             bootbox.alert({
@@ -606,15 +661,15 @@
         });
         $(".tooltip-view.bootbox-confirm").on(ace.click_event, async function (e) {
             const id = e.currentTarget.getAttribute('data-id');
-            const res = await fetch(`/admin/promotions/${id}`, { method: 'GET' });
+            const res = await fetch(`/admin/employees/${id}`, { method: 'GET' });
             const data = await res.json();
 
             bootbox.alert({
                 message: details(data),
             });
         });
-        $(".add.bootbox-confirm").on(ace.click_event, function () {
-            bootbox.confirm({
+        $(".add.bootbox-confirm").on(ace.click_event, async function () {
+            const box = bootbox.confirm({
                 message: form(),
                 buttons:
                 {
@@ -633,7 +688,7 @@
                     if (result) {
                         $('.form-data').validate(formValidation);
                         if ($('.form-data').valid()) {
-                            $('.form-data').attr("action", "/admin/promotions/create");
+                            $('.form-data').attr("action", "/admin/employees/create");
                             $('.form-data').attr("method", "POST");
                             $('.form-data').submit();
                         } else {
@@ -647,17 +702,50 @@
                 $('.form-data').validate(formValidation);
                 $('.form-data').submit(function (e) {
                     e.preventDefault();
+                    const avatar = document.getElementById("form-avatar").files[0];
                     const formData = new FormData()
-                    formData.append("name", document.getElementById('form-name').value);
-                    formData.append("value_promotion", document.getElementById('form-value').value);
-                    formData.append("status", document.getElementById('form-status').value);
-                    fetch(`/admin/promotions/create`, {
+                    formData.append("fullname", document.getElementById('form-fullname').value);
+                    formData.append("username", document.getElementById('form-username').value);
+                    formData.append("password", document.getElementById('form-password').value);
+                    formData.append("avatar", avatar);
+                    fetch(`/admin/employees/create`, {
                         method: 'POST',
                         body: formData
                     })
                         .then((res) => { location.reload(); })
                         .catch((err) => { console.log(err); })
                 });
+                $('#form-avatar').ace_file_input({
+                    style: 'well',
+                    btn_choose: 'Drop files here or click to choose',
+                    btn_change: null,
+                    no_icon: 'ace-icon fa fa-cloud-upload',
+                    droppable: true,
+                    thumbnail: 'small'//large | fit
+                    //,icon_remove:null//set null, to hide remove/reset button
+                    /**,before_change:function(files, dropped) {
+                        //Check an example below
+                        //or examples/file-upload.html
+                        return true;
+                    }*/
+                    /**,before_remove : function() {
+                        return true;
+                    }*/
+                    ,
+                    preview_error: function (filename, error_code) {
+                        //name of the file that failed
+                        //error_code values
+                        //1 = 'FILE_LOAD_FAILED',
+                        //2 = 'IMAGE_LOAD_FAILED',
+                        //3 = 'THUMBNAIL_FAILED'
+                        //alert(error_code);
+                    }
+
+                }).on('change', function () {
+                    //console.log($(this).data('ace_input_files'));
+                    //console.log($(this).data('ace_input_method'));
+                });
+
                 autosize($('textarea[class*=autosize]'));
                 $('textarea.limited').inputlimiter({
                     remText: '%n character%s remaining...',
@@ -666,11 +754,10 @@
             });
         });
         $(".edit.bootbox-confirm").on(ace.click_event, async function (e) {
-            console.log("aaaaaaaaaaaaaaaaaaaaaa");
             const id = e.currentTarget.getAttribute('data-id');
-            const res = await fetch(`/admin/promotions/${id}`, { method: 'GET' });
+            const res = await fetch(`/admin/employees/${id}`, { method: 'GET' });
             const data = await res.json();
-            bootbox.confirm({
+            const box = bootbox.confirm({
                 message: form(data),
                 buttons:
                 {
@@ -686,15 +773,10 @@
                     }
                 },
                 callback: function (result) {
-
                     if (result) {
-                        $('.form-data').validate(formValidation);
                         if ($('.form-data').valid()) {
-                            $('.form-data').attr("action", `/admin/promotions/${id}/edit`);
-                            $('.form-data').attr("method", "POST");
                             $('.form-data').submit();
                         } else {
-                            $('.form-data').find(':submit').click();
                             return false;
                         }
                     }
@@ -702,25 +784,30 @@
             });
             box.on("shown.bs.modal", function () {
                 var changeImage = false;
-                urlToObject(data.image);
+                urlToObject(data.avatar);
                 $('.form-data').validate(formValidation);
                 $('.form-data').submit(function (e) {
                     e.preventDefault();
-                    const name = document.getElementById('form-name').value;
-                    const value_promotion= document.getElementById('form-value').value;
-                    const status = document.getElementById('form-status').value;
+                    const fullname = document.getElementById('form-fullname').value;
+                    const username = document.getElementById('form-username').value;
+                    const password = document.getElementById('form-password').value;
+                    const file = document.getElementById("form-avatar").files[0];
 
                     const formData = new FormData()
-                    data.name !== name && formData.append("name", name);
-                    data.value_promotion !== value_promotion && formData.append("value_promotion", value_promotion);
-                    data.status !== status && formData.append("status", status);
-                    fetch(`/admin/promotions/${id}/edit`, {
+                    data.fullname !== fullname && formData.append("fullname", fullname);
+                    data.username !== username && formData.append("username", username);
+                    data.password != password && formData.append("password", password);
+                    changeImage === true && formData.append("avatar", file);
+                    fetch(`/admin/employees/${id}/edit`, {
                         method: 'POST',
                         body: formData
                     })
                         .then((res) => { location.reload(); })
                         .catch((err) => { console.log(err); })
                 });
+                $('#form-avatar').change(() => {
+                    changeImage = true;
+                })
                 autosize($('textarea[class*=autosize]'));
                 $('textarea.limited').inputlimiter({
                     remText: '%n character%s remaining...',
@@ -730,7 +817,7 @@
         });
         $(".tooltip-edit.bootbox-confirm").on(ace.click_event, async function (e) {
             const id = e.currentTarget.getAttribute('data-id');
-            const res = await fetch(`/admin/promotions/${id}/edit`, { method: 'GET' });
+            const res = await fetch(`/admin/employees/${id}`, { method: 'GET' });
             const data = await res.json();
 
             const box = bootbox.confirm({
@@ -760,25 +847,30 @@
             });
             box.on("shown.bs.modal", function () {
                 var changeImage = false;
-                urlToObject(data.image);
+                urlToObject(data.avatar);
                 $('.form-data').validate(formValidation);
                 $('.form-data').submit(function (e) {
                     e.preventDefault();
-                    const name = document.getElementById('form-name').value;
-                    const value_promotion = document.getElementById('form-value').value;
-                    const status = document.getElementById('form-status').value;
-                
+                    const fullname = document.getElementById('form-fullname').value;
+                    const username = document.getElementById('form-username').value;
+                    const password document.getElementById('form-password').value;
+                    const file = document.getElementById("form-avatar").files[0];
+
                     const formData = new FormData()
-                    data.name !== name && formData.append("name", name);
-                    data.value_promotion !== value_promotion && formData.append("value_promotion", value_promotion);
-                    data.status !== status && formData.append("status", status);
-                    fetch(`/admin/promotions/${id}/edit`, {
+                    data.fullname !== fullname && formData.append("fullname", fullname);
+                    data.username !== username && formData.append("username", username);
+                    data.password !== password && formData.append("password", password);
+                    changeImage === true && formData.append("avatar", file);
+                    fetch(`/admin/employees/${id}/edit`, {
                         method: 'POST',
                         body: formData
                     })
                         .then((res) => { location.reload(); })
                         .catch((err) => { console.log(err); })
                 });
+                $('#form-avatar').change(() => {
+                    changeImage = true;
+                })
                 autosize($('textarea[class*=autosize]'));
                 $('textarea.limited').inputlimiter({
                     remText: '%n character%s remaining...',
@@ -789,7 +881,7 @@
         $(".delete.bootbox-confirm").on(ace.click_event, function (e) {
             const id = e.currentTarget.getAttribute('data-id');
             bootbox.confirm({
-                message: `<span>Are you sure want to delete the promotions code with ID ${id}?</span>`,
+                message: `<span>Are you sure want to delete the employee with ID ${id}?</span>`,
                 buttons:
                 {
                     "confirm":
@@ -805,7 +897,7 @@
                 },
                 callback: function (result) {
                     if (result) {
-                        fetch(`/admin/promotions/${id}`, {
+                        fetch(`/admin/employees/${id}`, {
                             method: 'DELETE',
                         })
                             .then((res) => { location.reload(); })
@@ -817,7 +909,7 @@
         $(".tooltip-delete.bootbox-confirm").on(ace.click_event, function (e) {
             const id = e.currentTarget.getAttribute('data-id');
             bootbox.confirm({
-                message: `<span>Are you sure want to delete the promotion with ID ${id}?</span>`,
+                message: `<span>Are you sure want to delete the employee with ID ${id}?</span>`,
                 buttons:
                 {
                     "confirm":
@@ -833,7 +925,7 @@
                 },
                 callback: function (result) {
                     if (result) {
-                        fetch(`/admin/prom/${id}`, {
+                        fetch(`/admin/employees/${id}`, {
                             method: 'DELETE',
                         })
                             .then((res) => { location.reload(); })
@@ -844,7 +936,7 @@
         });
         $(".delete-multiple.bootbox-confirm").on(ace.click_event, function () {
             bootbox.confirm({
-                message: `Are you sure want to delete these promotions code?`,
+                message: `Are you sure want to delete these employees?`,
                 buttons:
                 {
                     "confirm":
@@ -864,7 +956,7 @@
                         $('tbody').find('input[type="checkbox"]:checked').each(function () {
                             idList.push($(this).attr('data-id'));
                         })
-                        fetch(`/admin/promotions`, {
+                        fetch(`/admin/employees`, {
                             method: 'DELETE',
                             headers: {
                                 'Content-Type': 'application/json',

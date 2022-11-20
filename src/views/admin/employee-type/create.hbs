@@ -1,0 +1,28 @@
+<div class="page-header">
+    <h1>
+        Manage Employee Type
+        <small>
+            <i class="ace-icon fa fa-angle-double-right"></i>
+                Creating Employee Type Form
+        </small>
+    </h1>
+</div>
+<div>
+    <div class="row col-xs-12">
+        <form class="form-horizontal" action="/admin/employee-type/create?_method=POST" method="POST">
+            <div class="form-group" style="padding-bottom: 50px; padding-top: 40px">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Type ID</label>
+                <div class="col-sm-9">
+                    <input name="typeId" type="number" id="form-field-1" placeholder="Type ID" class="col-xs-10 col-sm-5">
+                </div>
+            </div>
+            <div class="form-group" style="padding-bottom: 50px;" >
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Type Name</label>
+                <div class="col-sm-9">
+                    <input name="typeName" type="text" id="form-field-1" placeholder="Type Name" class="col-xs-10 col-sm-5">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-default col-sm-2" style="left:40%">Submit</button>
+        </form>
+    </div>
+</div>

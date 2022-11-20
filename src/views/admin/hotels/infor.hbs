@@ -175,7 +175,6 @@
             hotelID = button.data('id');
         });
         let btnDeleteHotel = document.getElementById('btn-delete-hotel')
-        // bị sao v
         btnDeleteHotel.onclick = function(){
             deleteform.action='/admin/hotels/' + {{hotel.id}} + '?_method=DELETE';
             deleteform.submit(); 

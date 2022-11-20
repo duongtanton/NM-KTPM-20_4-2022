@@ -14,20 +14,62 @@ module.exports = {
         */
         await queryInterface.bulkInsert('Employees', [
             {
+                id: 1,
                 fullname: 'Johny Tonny',
                 username: "johnTN",
-                avatar: "",
-                password: null,
+                password: "123456",
+                avatar: "https://i.redd.it/dh5otp8kcf741.png",
                 createdAt: new Date(),
                 updatedAt: new Date(),
             }, {
-                fullname: 'Peter Park',
+                id: 2,
+                fullname: 'Peter Park 2',
                 username: "peterP",
-                avatar: "",
-                password: null,
+                password: "123456",
+                avatar: "https://i.redd.it/dh5otp8kcf741.png",
                 createdAt: new Date(),
                 updatedAt: new Date(),
-            }
+            }, {
+                id: 3,
+                fullname: 'Peter Park 3',
+                username: "peterP",
+                password: "123456",
+                avatar: "https://i.redd.it/dh5otp8kcf741.png",
+                createdAt: new Date(),
+                updatedAt: new Date(),
+            }, {
+                id: 4,
+                fullname: 'Peter Park 4',
+                username: "peterP",
+                password: "123456",
+                avatar: "https://i.redd.it/dh5otp8kcf741.png",
+                createdAt: new Date(),
+                updatedAt: new Date(),
+            }, {
+                id: 5,
+                fullname: 'Peter Park 5',
+                username: "peterP",
+                password: "123456",
+                avatar: "https://i.redd.it/dh5otp8kcf741.png",
+                createdAt: new Date(),
+                updatedAt: new Date(),
+            }, {
+                id: 6,
+                fullname: 'Peter Park 6',
+                username: "peterP",
+                password: "123456",
+                avatar: "https://i.redd.it/dh5otp8kcf741.png",
+                createdAt: new Date(),
+                updatedAt: new Date(),
+            }, {
+                id: 7,
+                fullname: 'Peter Park 7',
+                username: "peterP",
+                password: "123456",
+                avatar: "https://i.redd.it/dh5otp8kcf741.png",
+                createdAt: new Date(),
+                updatedAt: new Date(),
+            },
         ], {});
     },
 

@@ -15,18 +15,14 @@ module.exports = {
         unique: true,
       },
       type: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         allowNull: false,
+        references: {
+          model: "Room_Types",
+          key: "id",
+        },
+        onUpdate: "cascade",
       },
-      // typeId: {
-      //   type: Sequelize.INTEGER,
-      //   references: {
-      //     model: "types",
-      //     key: "id",
-      //   },
-      //   onDelete: "cascade",
-      //   onUpdate: "cascade",
-      // },
       floor: {
         type: Sequelize.INTEGER,
         allowNull: false,

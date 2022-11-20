@@ -10,6 +10,7 @@ AdminRouter.get("/create", (req, res) => {
 AdminRouter.post("/create", RoomTypeController.create);
 AdminRouter.post("/", RoomTypeController.store);
 AdminRouter.get("/:id", RoomTypeController.show);
+AdminRouter.get("/all/view", RoomTypeController.showAll);
 AdminRouter.get("/:id/edit", RoomTypeController.edit);
 AdminRouter.post("/:id/edit", RoomTypeController.edit);
 AdminRouter.patch("/", RoomTypeController.update);
