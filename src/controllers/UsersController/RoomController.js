@@ -20,7 +20,6 @@ const RoomController = {
             const infoRooms = rooms.map((room) => ({
                 ...room.dataValues,
             }))
-            console.log(infoRooms);
             res.status(200).json(infoRooms);
         } catch (err) {
             res.json(Response(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!")));
