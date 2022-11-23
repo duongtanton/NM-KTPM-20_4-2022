@@ -11,7 +11,6 @@ const HotelsController = {
       const hotels = await Hotels.findAll({
         raw: true,
       });
-      console.log(hotels);
       res.render("./admin/hotels/view", Response(res, 1, null, { hotels }));
     } catch (err) {
       res.status(500).json(err);
@@ -75,7 +74,7 @@ const HotelsController = {
       employeeAmount,
       updateAt: new Date(),
       description
-    }, { where: { id: idHotel } }).then(() => Hotels.findOne({ id: idHotel, raw: true })); 
+    }, { where: { id: idHotel } }).then(() => Hotels.findOne({ id: idHotel, raw: true }));
     res.redirect(`/admin/hotels/${idHotel}/edit`);
   },
 
