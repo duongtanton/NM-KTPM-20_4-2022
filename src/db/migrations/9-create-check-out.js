@@ -2,56 +2,42 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Rooms', {
+    await queryInterface.createTable('Check_Outs', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
       },
-      name: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true,
-      },
-      type: {
+      employeeId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "Room_Types",
+          model: "Users",
           key: "id",
         },
         onUpdate: "cascade",
       },
-      floor: {
+      checkInId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        validate: {
-          min: 1,
-        }
-      },
-      status: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      image: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      description: {
-        type: Sequelize.STRING,
+        references: {
+          model: "Check_Ins",
+          key: "id",
+        },
+        onUpdate: "cascade",
       },
       createdAt: {
-        type: Sequelize.DATE,
         allowNull: false,
+        type: Sequelize.DATE
       },
       updatedAt: {
-        type: Sequelize.DATE,
         allowNull: false,
+        type: Sequelize.DATE
       }
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Rooms');
+    await queryInterface.dropTable('Check_Outs');
   }
 };

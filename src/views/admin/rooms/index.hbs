@@ -185,7 +185,7 @@
                                         </td>
                                         <td style="max-width: 100px;">{{this.description}}</td>
                                         <td style="width: 150px;">
-                                            <img src="{{this.image}}" alt="{{this.image}}" style="width: 100%;">
+                                            <img src="{{this.image}}" alt="{{this.name}}" style="width: 100%;">
                                         </td>
                                         <td>
                                             {{formatDate this.updatedAt}}
@@ -195,7 +195,7 @@
                                         </td>
                                         <td>
                                             <div class="hidden-sm hidden-xs action-buttons">
-                                                <a class="blue bootbox-confirm view" data-id="{{this.id}}"
+                                                <a href="/admin/rooms/{{this.id}}" class="blue bootbox-confirm view"
                                                     style="cursor: pointer">
                                                     <i class="ace-icon fa fa-search-plus bigger-130"></i>
                                                 </a>
@@ -221,8 +221,9 @@
                                                     <ul
                                                         class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
                                                         <li>
-                                                            <a class="tooltip-info tooltip-view bootbox-confirm"
-                                                                data-rel="tooltip" title="View" data-id="{{this.id}}"
+                                                            <a href="/admin/rooms/{{this.id}}" 
+                                                                class="tooltip-info tooltip-view bootbox-confirm"
+                                                                data-rel="tooltip" title="View" 
                                                                 style="cursor: pointer">
                                                                 <span class="blue">
                                                                     <i
@@ -299,7 +300,7 @@
 <script type="text/javascript">
     jQuery(function ($) {
         //create & edit form
-        const form = (data) => `<form class="form-horizontal form-data" role="form" style="padding: 8px;">
+        const form = (data, roomTypes) => `<form class="form-horizontal form-data" role="form" style="padding: 8px;">
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="form-name">Name:</label>
 
@@ -314,14 +315,7 @@
                 <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
                     <select class="col-xs-10 col-sm-5" id="form-type" name="type" style="padding: 0;">
                         <option value="" disabled ${!data && 'selected'}></option>
-                        <option value="STD" ${data && data.type === "STD" && 'selected'}>Standard</option>
-                        <option value="SUP" ${data && data.type === "SUP" && 'selected'}>Superior</option>
-                        <option value="DLX" ${data && data.type === "DLX" && 'selected'}>Deluxe</option>
-                        <option value="SUT" ${data && data.type === "SUT" && 'selected'}>Suite</option>
-                        <option value="SGL" ${data && data.type === "SGL" && 'selected'}>Single bed room</option>
-                        <option value="TWN" ${data && data.type === "TWN" && 'selected'}>Twin bed room</option>
-                        <option value="DBL" ${data && data.type === "DBL" && 'selected'}>Double bed room</option>
-                        <option value="TRPL" ${data && data.type === "TRPL" && 'selected'}>Triple bed room</option>
+                        ${roomTypes?.map(type => `<option value=${type.id} ${data && data.type === type.id && 'selected'}>${type.name}</option>`)}
                     </select>
                 </div>
             </div>
@@ -360,83 +354,6 @@
             </div>
             <button type="submit" hidden></button>
         </form>`;
-
-        //view form
-        const details = (data) => `
-            <form class="form-horizontal" role="form" action="/admin/rooms" method="POST">
-                <div class="profile-user-info profile-user-info-striped">
-                    <div class="profile-info-row">
-                        <div class="profile-info-name">ID</div>
-
-                        <div class="profile-info-value">
-                            <span>${data.id}</span>
-                        </div>
-                    </div>
-
-                    <div class="profile-info-row">
-                        <div class="profile-info-name">Name</div>
-
-                        <div class="profile-info-value">
-                            <span>${data.name}</span>
-                        </div>
-                    </div>
-
-                    <div class="profile-info-row">
-                        <div class="profile-info-name">Type</div>
-
-                        <div class="profile-info-value">
-                            <span>${data.type}</span>
-                        </div>
-                    </div>
-
-                    <div class="profile-info-row">
-                        <div class="profile-info-name">Floor</div>
-
-                        <div class="profile-info-value">
-                            <span>${data.floor}</span>
-                        </div>
-                    </div>
-
-                    <div class="profile-info-row">
-                        <div class="profile-info-name">Status</div>
-
-                        <div class="profile-info-value">
-                            <span>${data.status}</span>
-                        </div>
-                    </div>
-
-                    <div class="profile-info-row">
-                        <div class="profile-info-name">Description</div>
-
-                        <div class="profile-info-value">
-                            <span>${data.description}</span>
-                        </div>
-                    </div>
-
-                    <div class="profile-info-row">
-                        <div class="profile-info-name">Image</div>
-
-                        <div class="profile-info-value">
-                            <img src="${data.image}" alt="" style="width: 150px;">
-                        </div>
-                    </div>
-
-                    <div class="profile-info-row">
-                        <div class="profile-info-name">Updated At</div>
-
-                        <div class="profile-info-value">
-                            <span>${new Date(data.updatedAt).toLocaleString()}</span>
-                        </div>
-                    </div>
-                    <div class="profile-info-row">
-                        <div class="profile-info-name">Created At</div>
-
-                        <div class="profile-info-value">
-                            <span>${new Date(data.createdAt).toLocaleString()}</span>
-                        </div>
-                    </div>
-                </div>
-            </form>`;
 
         //Client Validation for create & edit form   
         const formValidation = {
@@ -716,27 +633,11 @@
         }
 
         //Manage popup window
-        $(".view.bootbox-confirm").on(ace.click_event, async function (e) {
-            const id = e.currentTarget.getAttribute('data-id');
-            const res = await fetch(`/admin/rooms/${id}`, { method: 'GET' });
-            const data = await res.json();
-
-            bootbox.alert({
-                message: details(data),
-            });
-        });
-        $(".tooltip-view.bootbox-confirm").on(ace.click_event, async function (e) {
-            const id = e.currentTarget.getAttribute('data-id');
-            const res = await fetch(`/admin/rooms/${id}`, { method: 'GET' });
-            const data = await res.json();
-
-            bootbox.alert({
-                message: details(data),
-            });
-        });
-        $(".add.bootbox-confirm").on(ace.click_event, function () {
+        $(".add.bootbox-confirm").on(ace.click_event, async function () {
+            const res = await fetch('/admin/room-types/all/view', { method: 'GET' });
+            const roomTypes = await res.json();
             const box = bootbox.confirm({
-                message: form(),
+                message: form(undefined, roomTypes),
                 buttons:
                 {
                     "confirm":
@@ -819,12 +720,13 @@
         });
         $(".edit.bootbox-confirm").on(ace.click_event, async function (e) {
             const id = e.currentTarget.getAttribute('data-id');
-            const res = await fetch(`/admin/rooms/${id}`, { method: 'GET' });
+            const res = await fetch(`/admin/rooms/${id}?view=true`, { method: 'GET' });
             const data = await res.json();
-            console.log(data.name);
+            const resRoomTypes = await fetch('/admin/room-types/all/view', { method: 'GET' });
+            const roomTypes = await resRoomTypes.json();
 
             const box = bootbox.confirm({
-                message: form(data),
+                message: form(data, roomTypes),
                 buttons:
                 {
                     "confirm":
@@ -889,9 +791,11 @@
             const id = e.currentTarget.getAttribute('data-id');
             const res = await fetch(`/admin/rooms/${id}`, { method: 'GET' });
             const data = await res.json();
+            const resRoomTypes = await fetch('/admin/room-types/all/view', { method: 'GET' });
+            const roomTypes = await resRoomTypes.json();
 
             const box = bootbox.confirm({
-                message: form(data),
+                message: form(data, roomTypes),
                 buttons:
                 {
                     "confirm":

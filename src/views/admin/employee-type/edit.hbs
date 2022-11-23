@@ -1,0 +1,46 @@
+<div class="page-header">
+    <h1>
+        Manage Employee Type
+        <small>
+            <i class="ace-icon fa fa-angle-double-right"></i>
+            Edit
+        </small>
+    </h1>
+</div>
+<div>
+    <div class="row col-xs-12">
+        <form class="form-horizontal" action="/admin/employee-type?_method=PATCH" method="POST">
+           <input name="id" hidden type="text" id="form-field-1" value="{{type.id}}" class="col-xs-10 col-sm-5">
+            <div class="form-group" style="padding: 20px; padding-top: 40px">
+                <label class="col-sm-3 control-label no-padding-right" style="text-align:justify;"
+                    for="form-field-1">ID</label>
+                <div class="col-sm-9">
+                    <input name="typeId" type="number" id="form-field-1" value="{{type.typeId}}"
+                        class="col-xs-10 col-sm-5">
+                </div>
+            </div>
+            <div class="form-group" style="padding: 20px;">
+                <label class="col-sm-3 control-label no-padding-right" style="text-align:justify;"
+                    for="form-field-1">Hotel Code</label>
+                <div class="col-sm-9">
+                    <input name="typeName" type="text" id="form-field-1" value="{{type.typeName}}"
+                        class="col-xs-10 col-sm-5">
+                </div>
+            </div>
+            <div class="form-group" style="padding: 20px;">
+                <label class="col-sm-3 control-label no-padding-right" style="text-align:justify;"
+                    for="form-field-1">Description</label>
+                <div class="col-sm-9">
+                    <textarea name="description" type="text" id="form-field-1" value="{{type.description}}"
+                        class="col-xs-10 col-sm-5"></textarea>
+                </div>
+            </div>
+            <button type="Submit" class="btn btn-default btn-danger col-sm-2" style="left:20%">Save</button>
+            <a href="/admin/employee-type" class="btn btn-default col-sm-2" style="left:30%">Back</a>
+        </form>
+    </div>
+</div>
+
+<script>
+    
+</script>

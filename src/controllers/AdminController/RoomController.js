@@ -3,7 +3,7 @@ const db = require("../../db/models/index.js");
 const { CONSTANT, ResponseApi, Message, MESSAGE } = require("../../common/index.js");
 const bcrypt = require("../../util/bcrypt.js");
 const fs = require('fs');
-const { Rooms } = db;
+const { Rooms, Room_Types } = db;
 const RoomController = {
     async index(req, res, next) {
         try {
@@ -43,15 +43,27 @@ const RoomController = {
     async show(req, res, next) {
         try {
             const { id } = req.params;
+            const { view } = req.query;
             const room = await Rooms.findOne(
-                { where: { id: id } },
+                {
+                    where: { id: id },
+                    include: [{
+                        model: Room_Types,
+                        attributes: ['name', 'price', 'bedNumber']
+                    }]
+                },
+
                 { raw: true }
             );
             const infoRoom = room.toJSON();
-            res.status(200).json({
-                ...infoRoom,
-                image: req.protocol + '://' + req.headers.host + "/" + infoRoom.image,
-            });
+            if (view) {
+                res.status(200).json({
+                    ...infoRoom,
+                    image: req.protocol + '://' + req.headers.host + "/" + infoRoom.image,
+                });
+            } else {
+                res.render("./admin/rooms/view", { room: infoRoom });
+            }
         } catch (err) {
             res.json(ResponseApi(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!")))
         }

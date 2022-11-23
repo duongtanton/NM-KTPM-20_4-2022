@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const types_rooms = require('./types_rooms');
 module.exports = (sequelize, DataTypes) => {
   class room extends Model {
     /**
@@ -11,11 +12,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      // this.belongsTo(models.types, {
-      //   foreignKey: "typeId",
-      //   onDelete: "cascade",
-      //   onUpdate: "cascade",
-      // })
+      this.belongsTo(models.Room_Types, {
+        foreignKey: "type",
+        onUpdate: "cascade",
+      });
     }
   }
   room.init({
