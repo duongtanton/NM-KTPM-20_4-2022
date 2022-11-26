@@ -12,29 +12,41 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
-      code: { 
-        type: Sequelize.STRING 
+      code: {
+        type: Sequelize.STRING
       },
-      roomAmount: { 
-        type: Sequelize.INTEGER 
+      email: {
+        type: Sequelize.STRING
       },
-      employeeAmount: { 
-        type: Sequelize.INTEGER 
+      phone: {
+        type: Sequelize.STRING
       },
-      avatarUrl: { 
-        type: Sequelize.STRING 
+      address: {
+        type: Sequelize.STRING
       },
-      backgoundUrl: { 
-        type: Sequelize.STRING 
+      roomAmount: {
+        type: Sequelize.INTEGER
+      },
+      employeeAmount: {
+        type: Sequelize.INTEGER
+      },
+      avatarUrl: {
+        type: Sequelize.STRING
+      },
+      backgoundUrl: {
+        type: Sequelize.STRING
       },
       hotelAddress: {
         type: Sequelize.STRING
       },
-      isActived: { 
-        type: Sequelize.BOOLEAN 
+      isActived: {
+        type: Sequelize.BOOLEAN
       },
-      description: { 
-        type: Sequelize.STRING 
+      status: {
+        type: Sequelize.BOOLEAN
+      },
+      description: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
