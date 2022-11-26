@@ -23,7 +23,7 @@ const Authen = (req, res, next) => {
                 }
             }
         } else {
-            res.render("/login")
+            res.redirect("/login")
         }
     })
 }

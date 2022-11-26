@@ -74,7 +74,7 @@ const HotelsController = {
     try {
       const { id } = req.params;
       const { view } = req.query;
-      const user = await Hotels.findOne(
+      const hotel = await Hotels.findOne(
         {
           where: { id: id },
           raw: true
@@ -82,10 +82,10 @@ const HotelsController = {
       );
       if (view) {
         res.status(200).json({
-          ...user,
+          ...hotel,
         });
       } else {
-        res.render("./admin/hotel/view", { user });
+        res.render("./admin/hotel/view", { hotel });
       }
     } catch (err) {
       res.json(ResponseApi(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!")))
@@ -121,6 +121,26 @@ const HotelsController = {
       res.redirect("back")
       // res.json(ResponseApi(res, 1, Message(MESSAGE.SUCCESS, "Update room successfully!!!")));
     } catch (err) {
+      res.json(ResponseApi(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!")));
+    }
+  },
+  async editShow(req, res, next) {
+    try {
+      const { id } = req.params;
+      const hotel = await Hotels.findOne({
+        where: { id },
+        raw: true
+      })
+
+      // if (urlImg && fs.lstatSync(urlImg).isFile()) {
+      //     fs.unlinkSync(urlImg);
+      // }
+
+      res.render("./admin/hotel/edit", Response(res, 0, null, { hotel }));
+
+      // res.json(ResponseApi(res, 1, Message(MESSAGE.SUCCESS, "Update room successfully!!!")));
+    } catch (err) {
+      console.log(err);
       res.json(ResponseApi(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!")));
     }
   },

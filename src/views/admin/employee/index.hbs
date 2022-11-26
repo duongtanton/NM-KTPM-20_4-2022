@@ -98,10 +98,10 @@
 
         <div class="page-header">
             <h1>
-                Room Management
+                Employee management
                 <small>
                     <i class="ace-icon fa fa-angle-double-right"></i>
-                    Room management for full control over hotel capacitys
+                    Employee management for full control over hotel capacitys
                 </small>
             </h1>
         </div><!-- /.page-header -->
@@ -124,7 +124,7 @@
                             <div class="pull-right tableTools-container"></div>
                         </div>
                         <div class="table-header">
-                            Room table
+                            Employee table
                         </div>
 
                         <!-- div.table-responsive -->
@@ -158,7 +158,7 @@
                                             <i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
                                             Created At
                                         </th>
-                                        <th></th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
 
@@ -187,9 +187,7 @@
                                         </td>
                                         {{!-- <td>{{this.floor}}</td> --}}
                                         <td>
-                                            <span class="label-status">
-                                                {{this.status}}
-                                            </span>
+                                            {{this.status}}
                                         </td>
                                         <td style="max-width: 100px;">{{this.description}}</td>
                                         {{!-- <td style="width: 150px;">
@@ -203,10 +201,10 @@
                                         </td>
                                         <td>
                                             <div class="hidden-sm hidden-xs action-buttons">
-                                                <a href="/admin/employee/{{this.id}}" class="blue bootbox-confirm view"
-                                                    style="cursor: pointer">
+                                                {{!-- <a href="/admin/employee/{{this.id}}"
+                                                    class="blue bootbox-confirm view" style="cursor: pointer">
                                                     <i class="ace-icon fa fa-search-plus bigger-130"></i>
-                                                </a>
+                                                </a> --}}
 
                                                 <a class="green bootbox-confirm edit" data-id="{{this.id}}"
                                                     style="cursor: pointer">

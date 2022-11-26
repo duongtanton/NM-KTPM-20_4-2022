@@ -6,6 +6,7 @@ var HotelRouter = express.Router();
 HotelRouter.get("/", HotelController.index);
 HotelRouter.post("/create", HotelController.create);
 HotelRouter.post("/", HotelController.store);
+HotelRouter.get("/:id/edit", HotelController.editShow);
 HotelRouter.get("/:id", HotelController.show);
 HotelRouter.post("/:id/edit", HotelController.edit);
 HotelRouter.patch("/", HotelController.update);
