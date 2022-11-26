@@ -7,9 +7,9 @@
             </li>
 
             <li>
-                <a href="#">Room</a>
+                <a href="#">Employee</a>
             </li>
-            <li class="active">Room Management</li>
+            <li class="active">Employee Management</li>
         </ul><!-- /.breadcrumb -->
 
         <div class="nav-search" id="nav-search">
@@ -141,13 +141,9 @@
                                                 <span class="lbl"></span>
                                             </label>
                                         </th>
-                                        <th>ID</th>
                                         <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Floor</th>
                                         <th>Status</th>
                                         <th>Description</th>
-                                        <th>Image</th>
                                         <th>
                                             <i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
                                             Updated At
@@ -161,7 +157,7 @@
                                 </thead>
 
                                 <tbody>
-                                    {{#each rooms}}
+                                    {{#each employeeTypes}}
                                     <tr>
                                         <td class="number-order center">{{twoNumSum @index 1}}</td>
                                         <td class="center">
@@ -170,23 +166,15 @@
                                                 <span class="lbl"></span>
                                             </label>
                                         </td>
-                                        <td>{{this.id}}</td>
                                         <td>
                                             {{this.name}}
                                         </td>
-                                        <td>
-                                            {{this.type}}
-                                        </td>
-                                        <td>{{this.floor}}</td>
                                         <td>
                                             <span class="label-status">
                                                 {{this.status}}
                                             </span>
                                         </td>
                                         <td style="max-width: 100px;">{{this.description}}</td>
-                                        <td style="width: 150px;">
-                                            <img src="{{this.image}}" alt="{{this.name}}" style="width: 100%;">
-                                        </td>
                                         <td>
                                             {{formatDate this.updatedAt}}
                                         </td>
@@ -195,8 +183,8 @@
                                         </td>
                                         <td>
                                             <div class="hidden-sm hidden-xs action-buttons">
-                                                <a href="/admin/rooms/{{this.id}}" class="blue bootbox-confirm view"
-                                                    style="cursor: pointer">
+                                                <a href="/admin/employee-type/{{this.id}}"
+                                                    class="blue bootbox-confirm view" style="cursor: pointer">
                                                     <i class="ace-icon fa fa-search-plus bigger-130"></i>
                                                 </a>
 
@@ -221,7 +209,7 @@
                                                     <ul
                                                         class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
                                                         <li>
-                                                            <a href="/admin/rooms/{{this.id}}"
+                                                            <a href="/admin/employee-type/{{this.id}}"
                                                                 class="tooltip-info tooltip-view bootbox-confirm"
                                                                 data-rel="tooltip" title="View" style="cursor: pointer">
                                                                 <span class="blue">
@@ -299,7 +287,7 @@
 <script type="text/javascript">
     jQuery(function ($) {
         //create & edit form
-        const form = (data, roomTypes) => `<form class="form-horizontal form-data" role="form" style="padding: 8px;" enctype="multipart/form-data">
+        const form = (action, method, data) => `<form action="${action}" method=${method} id="form-data-employee" class="form-horizontal form-data" role="form" style="padding: 8px;">
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="form-name">Name:</label>
 
@@ -308,47 +296,19 @@
                         class="col-xs-10 col-sm-5" value='${data ? data.name : ''}'>
                 </div>
             </div>
-
-            <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="form-type">Type:</label>
-                <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
-                    <select class="col-xs-10 col-sm-5" id="form-type" name="type" style="padding: 0;">
-                        <option value="" disabled ${!data && 'selected'}></option>
-                        ${roomTypes?.map(type => `<option value=${type.id} ${data && data.type === type.id && 'selected'}>${type.name}</option>`)}
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="form-floor">Floor:</label>
-
-                <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
-                    <input type="text" id="form-floor" name="floor" placeholder="Enter floor"
-                        class="col-xs-10 col-sm-5" value=${data ? data.floor : ''}>
-                </div>
-            </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="form-status">Status:</label>
                 <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
                     <select class="col-xs-10 col-sm-5" id="form-status" name="status" style="padding: 0;">
-                        <option value="" disabled ${!data && 'selected'}></option>
-                        <option value="occupied" ${data && data.status === "occupied" && 'selected'}>Occupied</option>
-                        <option value="available" ${data && data.status === "available" && 'selected'}>Available</option>
-                        <option value="cleaning" ${data && data.status === "cleaning" && 'selected'}>Cleaning</option>
-                        <option value="maintenance" ${data && data.status === "maintenance" && 'selected'}>Maintenance</option>
+                        <option value="actived" selected >Actived</option>
+                        <option value="unactived">Unactived</option>
                     </select>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="form-description">Description:</label>
-
                 <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
                     <textarea id="form-description" class="col-xs-10 autosize-transition form-control limited" maxLength="200" name="description" placeholder="Enter description" style="max-width: 100%">${data ? data.description : ''}</textarea>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="form-image" style="padding-top: 0">Image:</label>
-                <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
-                    <input type="file" id="form-image" class="col-xs-10" name="image" style="padding: 0; color: initial; outline: none"/>
                 </div>
             </div>
             <button type="submit" hidden></button>
@@ -360,41 +320,17 @@
                 name: {
                     required: true,
                 },
-                type: {
-                    required: true,
-                },
-                floor: {
-                    required: true,
-                    number: true,
-                    min: 1,
-                },
                 status: {
                     required: true,
                 },
-                image: {
-                    extension: "jpeg|jpg|png",
-                    required: true,
-                }
             },
             messages: {
                 name: {
                     required: "This field is required",
                 },
-                type: {
-                    required: "This field is required",
-                },
-                floor: {
-                    required: "This field is required",
-                    number: "This field must be a number",
-                    min: "This field must be at least 1",
-                },
                 status: {
                     required: "This field is required",
                 },
-                image: {
-                    extension: "This field only support jpeg,jpg,png files",
-                    required: "This field is required",
-                }
             },
         }
 
@@ -405,13 +341,14 @@
                 .DataTable({
                     bAutoWidth: false,
                     "aoColumns": [
+                        { "bSortable": true },
                         { "bSortable": false },
-                        { "bSortable": false },
-                        null, null, null, null, null,
-                        { "bSortable": false },
-                        { "bSortable": false },
-                        null, null,
-                        { "bSortable": false },
+                        { "bSortable": true },
+                        { "bSortable": true },
+                        { "bSortable": true },
+                        { "bSortable": true },
+                        { "bSortable": true },
+                        { "bSortable": true },
                     ],
                     "aaSorting": [],
 
@@ -520,7 +457,7 @@
             if ($('tbody input[type="checkbox"]:checked').length > 0) {
                 $('.clearfix > .delete-multiple').css('display', 'inline-block');
             } else {
-                $('.clearfix > .delete-multiple').css('display', 'none');
+                $('.clearfix > .delete-multiple').css(' ', 'none');
             }
         });
         myTable.on('deselect', function (e, dt, type, index) {
@@ -617,26 +554,12 @@
             if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2)) return 'right';
             return 'left';
         }
-        function FileListItems(files) {
-            let fileList = new ClipboardEvent("").clipboardData || new DataTransfer()
-            for (let i = 0; i < files.length; i++) {
-                fileList.items.add(files[i])
-            }
-            return fileList.files
-        }
-        async function urlToObject(url) {
-            const response = await fetch(url);
-            const blob = await response.blob();
-            const file = new File([blob], url.substring(url.lastIndexOf('/') + 1), { type: blob.type });
-            document.getElementById('form-image').files = new FileListItems([file]);
-        }
 
         //Manage popup window
         $(".add.bootbox-confirm").on(ace.click_event, async function () {
             const res = await fetch('/admin/room-types/all/view', { method: 'GET' });
-            const roomTypes = await res.json();
             const box = bootbox.confirm({
-                message: form(undefined, roomTypes),
+                message: form("/admin/employee-type/create", "POST"),
                 buttons:
                 {
                     "confirm":
@@ -663,53 +586,24 @@
             box.on("shown.bs.modal", function () {
                 $('.form-data').validate(formValidation);
                 $('.form-data').submit(function (e) {
-                    e.preventDefault();
-                    const file = document.getElementById("form-image").files[0];
-                    const formData = new FormData()
-                    formData.append("name", document.getElementById('form-name').value);
-                    formData.append("type", document.getElementById('form-type').value);
-                    formData.append("floor", document.getElementById('form-floor').value);
-                    formData.append("status", document.getElementById('form-status').value);
-                    formData.append("description", document.getElementById('form-description').value);
-                    formData.append("room-image", file);
-                    fetch(`/admin/rooms/create`, {
-                        method: 'POST',
-                        body: formData
-                    })
-                        .then((res) => { location.reload(); })
-                        .catch((err) => { console.log(err); })
+                    //e.preventDefault();
+                    //const formData = new FormData()
+                    //formData.append("phone", document.getElementById('form-phone').value);
+                    //formData.append("email", document.getElementById('form-email').value);
+                    //formData.append("name", document.getElementById('form-name').value);
+                    //formData.append("type", document.getElementById('form-type').value);
+                    //formData.append("status", document.getElementById('form-status').value);
+                    //formData.append("description", document.getElementById('form-description').value);
+                    //fetch(`/admin/employee/create`, {
+                    //   headers: {
+                    //        'Content-Type': 'application/x-www-form-urlencoded',
+                    //    },
+                    //    method: 'POST',
+                    //   body: formData
+                    //})
+                    //    .then((res) => { location.reload(); })
+                    //   .catch((err) => { console.log(err); })
                 });
-                $('#form-image').ace_file_input({
-                    style: 'well',
-                    btn_choose: 'Drop files here or click to choose',
-                    btn_change: null,
-                    no_icon: 'ace-icon fa fa-cloud-upload',
-                    droppable: true,
-                    thumbnail: 'small'//large | fit
-                    //,icon_remove:null//set null, to hide remove/reset button
-                    /**,before_change:function(files, dropped) {
-                        //Check an example below
-                        //or examples/file-upload.html
-                        return true;
-                    }*/
-                    /**,before_remove : function() {
-                        return true;
-                    }*/
-                    ,
-                    preview_error: function (filename, error_code) {
-                        //name of the file that failed
-                        //error_code values
-                        //1 = 'FILE_LOAD_FAILED',
-                        //2 = 'IMAGE_LOAD_FAILED',
-                        //3 = 'THUMBNAIL_FAILED'
-                        //alert(error_code);
-                    }
-
-                }).on('change', function () {
-                    //console.log($(this).data('ace_input_files'));
-                    //console.log($(this).data('ace_input_method'));
-                });
-
                 autosize($('textarea[class*=autosize]'));
                 $('textarea.limited').inputlimiter({
                     remText: '%n character%s remaining...',
@@ -719,13 +613,10 @@
         });
         $(".edit.bootbox-confirm").on(ace.click_event, async function (e) {
             const id = e.currentTarget.getAttribute('data-id');
-            const res = await fetch(`/admin/rooms/${id}?view=true`, { method: 'GET' });
+            const res = await fetch(`/admin/employee-type/${id}?view=true`, { method: 'GET' });
             const data = await res.json();
-            const resRoomTypes = await fetch('/admin/room-types/all/view', { method: 'GET' });
-            const roomTypes = await resRoomTypes.json();
-
             const box = bootbox.confirm({
-                message: form(data, roomTypes),
+                message: form(`/admin/employee-type/${id}/edit`, "POST", data),
                 buttons:
                 {
                     "confirm":
@@ -750,35 +641,30 @@
                 }
             });
             box.on("shown.bs.modal", function () {
-                var changeImage = false;
-                urlToObject(data.image);
                 $('.form-data').validate(formValidation);
                 $('.form-data').submit(function (e) {
-                    e.preventDefault();
-                    const name = document.getElementById('form-name').value;
-                    const type = document.getElementById('form-type').value;
-                    const floor = document.getElementById('form-floor').value;
-                    const status = document.getElementById('form-status').value;
-                    const description = document.getElementById('form-description').value;
-                    const file = document.getElementById("form-image").files[0];
+                    //e.preventDefault();
+                    //const email = document.getElementById('form-email').value;
+                    //const phone = document.getElementById('form-phone').value;
+                    //const name = document.getElementById('form-name').value;
+                    //const type = document.getElementById('form-type').value;
+                    //const status = document.getElementById('form-status').value;
+                    //const description = document.getElementById('form-description').value;
 
-                    const formData = new FormData()
-                    data.name !== name && formData.append("name", name);
-                    data.type !== type && formData.append("type", type);
-                    data.floor != floor && formData.append("floor", floor);
-                    data.status !== status && formData.append("status", status);
-                    data.description !== description && formData.append("description", description);
-                    changeImage === true && formData.append("room-image", file);
-                    fetch(`/admin/rooms/${id}/edit`, {
-                        method: 'POST',
-                        body: formData
-                    })
-                        .then((res) => { location.reload(); })
-                        .catch((err) => { console.log(err); })
+                    //const formData = new FormData()
+                    //data.email !== email && formData.append("email", email);
+                    //data.phone !== phone && formData.append("phone", phone);
+                    //data.name !== name && formData.append("name", name);
+                    //data.type !== type && formData.append("type", type);
+                    //data.status !== status && formData.append("status", status);
+                    //data.description !== description && formData.append("description", description);
+                    //fetch(`/admin/employee/${id}/edit`, {
+                    //   method: 'POST',
+                    //    body: formData
+                    //})
+                    //    .then((res) => { location.reload(); })
+                    //    .catch((err) => { console.log(err); })
                 });
-                $('#form-image').change(() => {
-                    changeImage = true;
-                })
                 autosize($('textarea[class*=autosize]'));
                 $('textarea.limited').inputlimiter({
                     remText: '%n character%s remaining...',
@@ -788,13 +674,11 @@
         });
         $(".tooltip-edit.bootbox-confirm").on(ace.click_event, async function (e) {
             const id = e.currentTarget.getAttribute('data-id');
-            const res = await fetch(`/admin/rooms/${id}`, { method: 'GET' });
+            const res = await fetch(`/admin/employee-type/${id}`, { method: 'GET' });
             const data = await res.json();
-            const resRoomTypes = await fetch('/admin/room-types/all/view', { method: 'GET' });
-            const roomTypes = await resRoomTypes.json();
 
             const box = bootbox.confirm({
-                message: form(data, roomTypes),
+                message: form(`/admin/employee-type/${id}/edit`, "POST"),
                 buttons:
                 {
                     "confirm":
@@ -819,35 +703,30 @@
                 }
             });
             box.on("shown.bs.modal", function () {
-                var changeImage = false;
-                urlToObject(data.image);
                 $('.form-data').validate(formValidation);
                 $('.form-data').submit(function (e) {
-                    e.preventDefault();
-                    const name = document.getElementById('form-name').value;
-                    const type = document.getElementById('form-type').value;
-                    const floor = document.getElementById('form-floor').value;
-                    const status = document.getElementById('form-status').value;
-                    const description = document.getElementById('form-description').value;
-                    const file = document.getElementById("form-image").files[0];
+                    // e.preventDefault();
+                    //const phone = document.getElementById('form-phone').value;
+                    //const email = document.getElementById('form-email').value;
+                    //const name = document.getElementById('form-name').value;
+                    //const type = document.getElementById('form-type').value;
+                    //const status = document.getElementById('form-status').value;
+                    //const description = document.getElementById('form-description').value;
 
-                    const formData = new FormData()
-                    data.name !== name && formData.append("name", name);
-                    data.type !== type && formData.append("type", type);
-                    data.floor !== floor && formData.append("floor", floor);
-                    data.status !== status && formData.append("status", status);
-                    data.description !== description && formData.append("description", description);
-                    changeImage === true && formData.append("room-image", file);
-                    fetch(`/admin/rooms/${id}/edit`, {
-                        method: 'POST',
-                        body: formData
-                    })
-                        .then((res) => { location.reload(); })
-                        .catch((err) => { console.log(err); })
+                    //const formData = new FormData()
+                    //data.email !== email && formData.append("email", email);
+                    //data.phone !== phone && formData.append("phone", phone);
+                    //data.name !== name && formData.append("name", name);
+                    //data.type !== type && formData.append("type", type);
+                    //data.status !== status && formData.append("status", status);
+                    ///data.description !== description && formData.append("description", description);
+                    /////fetch(`/admin/employee/${id}/edit`, {
+                    ///    method: 'POST',
+                    ///    body: formData
+                    ///})
+                    //    .then((res) => { location.reload(); })
+                    ///    .catch((err) => { console.log(err); })
                 });
-                $('#form-image').change(() => {
-                    changeImage = true;
-                })
                 autosize($('textarea[class*=autosize]'));
                 $('textarea.limited').inputlimiter({
                     remText: '%n character%s remaining...',
@@ -874,7 +753,7 @@
                 },
                 callback: function (result) {
                     if (result) {
-                        fetch(`/admin/rooms/${id}`, {
+                        fetch(`/admin/employee-type/${id}`, {
                             method: 'DELETE',
                         })
                             .then((res) => { location.reload(); })
@@ -902,7 +781,7 @@
                 },
                 callback: function (result) {
                     if (result) {
-                        fetch(`/admin/rooms/${id}`, {
+                        fetch(`/admin/employee-type/${id}`, {
                             method: 'DELETE',
                         })
                             .then((res) => { location.reload(); })
@@ -933,7 +812,7 @@
                         $('tbody').find('input[type="checkbox"]:checked').each(function () {
                             idList.push($(this).attr('data-id'));
                         })
-                        fetch(`/admin/rooms`, {
+                        fetch(`/admin/employee-type`, {
                             method: 'DELETE',
                             headers: {
                                 'Content-Type': 'application/json',

@@ -16,11 +16,14 @@ module.exports = (sequelize, DataTypes) => {
   hotels.init({
     name: DataTypes.STRING,
     code: DataTypes.STRING,
+    email: DataTypes.STRING,
+    phone: DataTypes.STRING,
     roomAmount: DataTypes.INTEGER,
     employeeAmount: DataTypes.INTEGER,
     avatarUrl: DataTypes.STRING,
     backgoundUrl: DataTypes.STRING,
-    hotelAddress: DataTypes.STRING,
+    address: DataTypes.STRING,
+    status: DataTypes.STRING,
     isActived: DataTypes.BOOLEAN,
     description: DataTypes.STRING,
   }, {

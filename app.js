@@ -10,6 +10,8 @@ const { LAYOUT } = require("./src/common");
 const { Authen } = require("./src/middleware");
 const app = express();
 const Helpers = require("./src/common/Helpers")
+const multipart = require('parse-multipart-data');
+const boundary = "----WebKitFormBoundaryDtbT5UpPj83kllfw";
 
 app.use(methodOverride('_method'))
 const hbs = handlebars.create({
@@ -27,10 +29,10 @@ app.set("views", path.join(__dirname, "src/views"));
 app.engine(".hbs", hbs.engine);
 app.set("view engine", "hbs");
 
-app.use(logger("dev"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+// app.use(logger("dev"));
 app.use(cookieParser());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 app.use("/static", express.static(path.join(__dirname, "src")));
 app.use("/assets", Authen, (req, res, next) => {
   const { originalUrl } = req;

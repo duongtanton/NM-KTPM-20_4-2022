@@ -1,7 +1,5 @@
 'use strict';
 
-// const { bcrypt } = require('../../util');
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
     async up(queryInterface, Sequelize) {
@@ -14,19 +12,11 @@ module.exports = {
          *   isBetaMember: false
          * }], {});
         */
-        await queryInterface.bulkInsert('Users', [
+        await queryInterface.bulkInsert('hotels', [
             {
                 id: 1,
-                username: '1',
-                enterpriseId: 1,
-                hotelId: 1,
-                password: '$2b$10$YRJnuXB/B4xdOToFFdsG8Ot6BQl2VyEAnXifanK7gPFRyFEgx5.iC', //1
-                createdAt: new Date(),
-                updatedAt: new Date(),
-            }, {
-                id: 2,
-                username: '2',
-                password: '$2b$10$6lR7Y8AqGCdQfDMB9ZKCiu3GI9XgY9NkXnL.RPHycxR5JMjVqOZmu', //1
+                name: "Group 4",
+                code: "group-4",
                 createdAt: new Date(),
                 updatedAt: new Date(),
             }

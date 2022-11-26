@@ -21,6 +21,9 @@ module.exports = {
       email: {
         type: Sequelize.STRING,
       },
+      name: {
+        type: Sequelize.STRING,
+      },
       phone: {
         type: Sequelize.STRING,
       },
@@ -32,6 +35,14 @@ module.exports = {
         type: Sequelize.DATE,
       },
       enterpriseId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Enterprises",
+          key: "id",
+        },
+        onUpdate: "cascade",
+      },
+      hotelId: {
         type: Sequelize.INTEGER,
         references: {
           model: "Enterprises",

@@ -14,9 +14,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   EmployeeType.init({
-    typeId: DataTypes.INTEGER,
-    typeName: DataTypes.STRING,
-    isActived: DataTypes.BOOLEAN,
+    name: DataTypes.STRING,
+    status: DataTypes.BOOLEAN,
+    hotelId: DataTypes.INTEGER,
     description: DataTypes.STRING,
   }, {
     sequelize,
