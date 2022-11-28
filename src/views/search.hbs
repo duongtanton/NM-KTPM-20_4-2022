@@ -1,0 +1,70 @@
+<head>
+    <style>
+        .title-input {border:2px solid #932;border-radius: 10px; 
+        padding: 0 2.5em 0 0.5em; margin-right: 10px; line-height: 28px;}
+        .search-btn {height: 28px; border: 2px solid gray; border-radius: 4px; }
+        tr {display: table-row;}
+        .search-btn:hover {color: white; background-color: grey;}
+        .close {display: none;}
+    </style>
+</head>
+
+<div class="container" style="padding-top: 10px; padding-bottom:10px;">
+    <input id="input-code" class="title-input col-sm-2" type="text" placeholder="Code">
+    <input id="input-name" class="title-input col-sm-3" type="text" placeholder="Name">
+    <input id="input-address" class="title-input col-sm-4" type="text" placeholder="Address">
+    <button class="search-btn" type="button" onclick="javascript:searchByTitle(this)">Search</button>
+
+    <table class="table mt-4">
+        <thead id="table-head">
+            <tr>
+                <th>Hotel code</th>
+                <th>Hotel Name</th>
+                <th>Address</th>
+            </tr>
+        </thead>
+        <tbody id="table-body">
+            {{#each hotels}}
+            <tr>
+                <td>{{this.code}}</td>
+                <td>{{this.name}}</td>
+                <td><Address>{{this.hotelAddress}}</Address></td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    window.onload = function(){
+        let temp = "{{name_Search}}";
+        document.getElementById("input-name").value = temp; 
+        document.querySelector(".search-btn").click();
+    }
+
+
+    function searchByTitle(ele){
+        const codeSearch = document.getElementById("input-code").value;
+        const nameSearch = document.getElementById("input-name").value;
+        const addressSearch = document.getElementById("input-address").value;
+        const div = document.getElementById("table-body");
+        const nodeTR = div.getElementsByTagName("tr");
+
+        for(let i = 0; i < nodeTR.length; ++i){
+            nodeTR[i].classList.add('close');
+        }
+
+        for(let i = 0; i < nodeTR.length; ++i){
+            let nodeTD = nodeTR[i].getElementsByTagName("td");
+
+            let code = nodeTD[0].textContent;
+            let name = nodeTD[1].textContent;
+            let address = nodeTD[2].textContent;
+
+            if(name.includes(nameSearch) && address.includes(addressSearch) && code.includes(codeSearch)){
+                nodeTR[i].classList.remove('close');
+            }
+        }
+    }
+
+</script>
