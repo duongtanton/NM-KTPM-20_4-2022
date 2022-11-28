@@ -10,11 +10,12 @@ const RoomController = {
             const rooms = await Rooms.findAll({
                 raw: true,
             });
-            const infoRooms = rooms.map((room) => ({
-                ...room,
-                image: req.protocol + '://' + req.headers.host + "/" + room.image,
-            }))
-            res.render("./admin/rooms", { rooms: infoRooms });
+            // const infoRooms = rooms.map((room) => ({
+            //     ...room,
+            //     image: req.protocol + '://' + req.headers.host + "/" + room.image,
+            // }))
+            // res.render("./admin/rooms", { rooms: infoRooms });
+            res.render("./admin/rooms", { rooms });
         } catch (err) {
             res.json(ResponseApi(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!")));
         }

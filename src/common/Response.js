@@ -18,7 +18,6 @@ const ResponseApi = (res, code, message, data) => {
         code,
         url,
         message,
-        data,
         layout,
         ...data,
     }
