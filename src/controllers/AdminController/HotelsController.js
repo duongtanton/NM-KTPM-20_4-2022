@@ -13,7 +13,8 @@ const HotelsController = {
         },
         raw: true,
       });
-      res.render("./admin/hotel", Response(res, 0, null, { hotels }));
+      console.log(hotels);
+      res.render("./admin/hotels/view", Response(res, 1, null, { hotels }));
     } catch (err) {
       console.log(err);
       res.json(ResponseApi(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!")));
