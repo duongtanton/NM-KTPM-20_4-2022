@@ -104,9 +104,11 @@ const EmployeeController = {
             const data = req.body;
 
             const user = await Users.update(
-                data, {
-                where: { id }
-            })
+                data,
+                {
+                    where: { id }
+                }
+            )
 
             // if (urlImg && fs.lstatSync(urlImg).isFile()) {
             //     fs.unlinkSync(urlImg);

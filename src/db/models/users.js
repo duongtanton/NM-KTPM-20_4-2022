@@ -42,6 +42,8 @@ module.exports = (sequelize, DataTypes) => {
       hotelId: DataTypes.INTEGER,
       email: DataTypes.STRING,
       phone: DataTypes.STRING,
+      type: DataTypes.INTEGER,
+      status: DataTypes.STRING,
     },
     {
       sequelize,

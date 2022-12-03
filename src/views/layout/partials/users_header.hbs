@@ -68,8 +68,53 @@
               <li><a href="/static/public/users/#"><i class="fa fa-star"></i> Wishlist</a></li>
               <li><a href="/static/public/users/checkout.html"><i class="fa fa-crosshairs"></i>
                   Checkout</a></li>
-              <li><a href="/static/public/users/cart.html"><i class="fa fa-shopping-cart"></i>
-                  Cart</a></li>
+              <li class="cart-home has-item">
+                <a href="/cart">
+                  <i class="fa fa-shopping-cart"></i>
+                  Cart
+                </a>
+                <div class="cart-home-amount">{{amountBookingNew}}</div>
+                <style>
+                  .cart-home.has-item {
+                    position: relative;
+                    animation: rotate 1s infinite;
+                  }
+
+                  @keyframes rotate {
+                    0% {
+                      transform: rotate(10deg);
+                    }
+
+                    33% {
+                      transform: rotate(-10deg);
+                    }
+
+                    66% {
+                      transform: rotate(10deg);
+                    }
+                  }
+
+                  .cart-home-amount {
+                    display: none;
+                  }
+
+                  .has-item .cart-home-amount {
+                    display: block;
+                  }
+
+                  .cart-home-amount {
+                    position: absolute;
+                    background-color: rgba(254, 125, 15, 0.8);
+                    padding: 4px 8px;
+                    color: white;
+                    font-size: 10px;
+                    border-radius: 30px;
+                    top: -3px;
+                    right: 32px;
+                  }
+                </style>
+              </li>
+
               {{#if _user}}
               <li><a href="/login/out"><i class="fa fa-lock"></i> Logout</a></li>
               {{else}}

@@ -30,6 +30,12 @@ module.exports = {
       password: {
         type: Sequelize.STRING,
       },
+      type: {
+        type: Sequelize.STRING,
+      },
+      status: {
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -45,7 +51,7 @@ module.exports = {
       hotelId: {
         type: Sequelize.INTEGER,
         references: {
-          model: "Enterprises",
+          model: "Hotels",
           key: "id",
         },
         onUpdate: "cascade",

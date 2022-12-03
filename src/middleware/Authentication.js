@@ -17,7 +17,7 @@ const Authen = (req, res, next) => {
                 if (Date.now() > exp * 1000 || !_user) {
                     res.redirect("/login")
                 } else {
-                    const token = jwt.sign(_user, process.env.SECRET_KEY, { expiresIn: 60 * 60 });
+                    const token = jwt.sign(_user, process.env.SECRET_KEY, { expiresIn: 60 * 60 * 60 });
                     res.cookie("auth", token);
                     next();
                 }

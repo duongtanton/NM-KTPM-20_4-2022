@@ -16,6 +16,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "type",
         onUpdate: "cascade",
       });
+
+      this.hasMany(models.Booking, {
+        onDelete: "cascade",
+        onUpdate: "cascade",
+      });
     }
   }
   room.init({
@@ -23,6 +28,7 @@ module.exports = (sequelize, DataTypes) => {
     type: DataTypes.INTEGER,
     floor: DataTypes.INTEGER,
     status: DataTypes.STRING,
+    hotelId: DataTypes.INTEGER,
     image: DataTypes.STRING,
     description: DataTypes.STRING,
   }, {

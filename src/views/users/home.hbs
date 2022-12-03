@@ -695,12 +695,12 @@
                 <h4>$${room.Room_Type.price} USD/Night</h4>
               </div>
               <div class="room-navigate">
-                <button class="btn-book">Book</button>
-                <button class="btn-details">Room Details</button>
-            </div>
-            </div>
-          </div>
-        </div>
+                <button onclick="handleAddtoCart(${room.id})" class="btn-book">Book</button>
+                <button onclick="handleViewDetail(${room.id})" class="btn-details" > Room Details</button>
+            </div >
+            </div >
+          </div >
+        </div >
         `)
         $('.room-list').html(rooms.join('\n'));
       }
@@ -733,5 +733,31 @@
       $('.btn-grid').removeClass('active');
       $('.view').removeClass('col-sm-4 view-grid');
     })
-  }); 
+  });
+  function handleAddtoCart(roomId) {
+    const cartHome = document.querySelector(".cart-home");
+    fetch(`/rooms/booking`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        auth: getCookie("auth"),
+      },
+      body: JSON.stringify({
+        roomId,
+      })
+    }).then(res => res.json())
+      .then(result => {
+        const { message, bookings } = result;
+        showToastMessage(message);
+        cartHome.classList.add("has-item");
+        cartHome.querySelector(".cart-home-amount").innerText = bookings.length || 0;
+      })
+      .catch(error => {
+        cartHome.classList.remove("has-item");
+        console.log("error", error)
+      })
+  }
+  function handleViewDetail(roomId) {
+    window.location.href = `/room/${roomId}`;
+  }
 </script>
