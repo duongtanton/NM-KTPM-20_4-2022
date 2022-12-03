@@ -6,11 +6,15 @@ const LogInOutRouter = require("../loginout");
 const ProfilesRouter = require("./profiles");
 const RoomsRouter = require("./rooms");
 const CartRouter = require("./cart");
+const SearchRouter = require("./search");
+const { DataCommon } = require("../../middleware/DataCommon");
+
 
 UsersRouter.use("/login", LogInOutRouter);
 UsersRouter.use("/profiles", Authen, ProfilesRouter);
 UsersRouter.use("/rooms", RoomsRouter);
 UsersRouter.use("/cart", CartRouter);
+UsersRouter.use("/search", SearchRouter);
 UsersRouter.use("/", UserHomeRouter);
 
 module.exports = UsersRouter;

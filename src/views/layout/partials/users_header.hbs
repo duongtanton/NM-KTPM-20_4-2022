@@ -165,9 +165,10 @@
           </div>
         </div>
         <div class="col-sm-3">
-          <div class="search_box pull-right">
-            <input type="text" placeholder="Search" />
-          </div>
+          <form class="search_box pull-right" method="post" action="/search">
+            <input class="searchBar"  name="HotelName" type="text" placeholder="Search" 
+            onkeydown="search(this)"/>
+          </form>
         </div>
       </div>
     </div>
@@ -175,3 +176,12 @@
   <!--/header-bottom-->
 </header>
 <!--/header-->
+
+<script>
+  function search(ele){
+    if(event.key === "Enter"){
+      const val = document.querySelector('.searchBar');
+      val.submit();
+    }
+  }
+</script>
