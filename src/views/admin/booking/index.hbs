@@ -834,8 +834,8 @@
                             .then(rs => rs.json())
                             .then(async (res) => {
                                 const { message } = res;
-                                location.reload();
-                                //showToastMessage({{{ json  message }}});
+                                await location.reload();
+                                showToastMessage(message);
                             })
                             .catch((err) => {
                                 console.log(err);

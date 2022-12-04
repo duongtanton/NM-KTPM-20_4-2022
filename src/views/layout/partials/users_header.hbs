@@ -23,7 +23,7 @@
                     class="fa fa-linkedin"></i></a>
               </li>
               <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-              <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+              <li><a href="mailto:20120598@student.hcmus.edu.vn"><i class="fa fa-google-plus"></i></a></li>
             </ul>
           </div>
         </div>
@@ -37,7 +37,8 @@
       <div class="row">
         <div class="col-sm-4">
           <div class="logo pull-left">
-            <a href="/"><img src="/static/public/users/images/home/logo.png" alt="" /></a>
+            <a href="/"><img height="25px" width="100px" style="object-fit: fill;"
+                src="/static/public/common/images/booking-logo.png" alt="" /></a>
           </div>
           <div class="btn-group pull-right">
             <div class="btn-group">
@@ -47,6 +48,7 @@
               </button>
               <ul class="dropdown-menu">
                 <li><a href="#">Vietnam</a></li>
+                <li><a href="#">English</a></li>
               </ul>
             </div>
 
@@ -57,6 +59,7 @@
               </button>
               <ul class="dropdown-menu">
                 <li><a href="#">VND</a></li>
+                <li><a href="#">$</a></li>
               </ul>
             </div>
           </div>
@@ -65,9 +68,9 @@
           <div class="shop-menu pull-right">
             <ul class="nav navbar-nav">
               <li><a href="/profiles"><i class="fa fa-user"></i> Account</a></li>
-              <li><a href="/static/public/users/#"><i class="fa fa-star"></i> Wishlist</a></li>
-              <li><a href="/static/public/users/checkout.html"><i class="fa fa-crosshairs"></i>
-                  Checkout</a></li>
+              {{!-- <li><a href="/static/public/users/#"><i class="fa fa-star"></i> Wishlist</a></li> --}}
+              {{!-- <li><a href="/static/public/users/checkout.html"><i class="fa fa-crosshairs"></i>
+                  Checkout</a></li> --}}
               <li class="cart-home has-item">
                 <a href="/cart">
                   <i class="fa fa-shopping-cart"></i>
@@ -144,7 +147,7 @@
           <div class="mainmenu pull-left">
             <ul class="nav navbar-nav collapse navbar-collapse">
               <li><a href="/static/public/users/index.html" class="active">Home</a></li>
-              <li class="dropdown"><a href="/static/public/users/#">Shop<i class="fa fa-angle-down"></i></a>
+              {{!-- <li class="dropdown"><a href="/static/public/users/#">Shop<i class="fa fa-angle-down"></i></a>
                 <ul role="menu" class="sub-menu">
                   <li><a href="/static/public/users/shop.html">Products</a></li>
                   <li><a href="/static/public/users/product-details.html">Product Details</a></li>
@@ -152,22 +155,21 @@
                   <li><a href="/static/public/users/cart.html">Cart</a></li>
                   <li><a href="/login">Login</a></li>
                 </ul>
-              </li>
-              <li class="dropdown"><a href="/static/public/users/#">Blog<i class="fa fa-angle-down"></i></a>
+              </li> --}}
+              <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
                 <ul role="menu" class="sub-menu">
-                  <li><a href="/static/public/users/blog.html">Blog List</a></li>
-                  <li><a href="/static/public/users/blog-single.html">Blog Single</a></li>
+                  <li><a href="/my-blog">My blog</a></li>
+                  <li><a href="/blog">Trendy blog</a></li>
                 </ul>
               </li>
-              <li><a href="/static/public/users/404.html">404</a></li>
+              {{!-- <li><a href="/static/public/users/404.html">404</a></li> --}}
               <li><a href="/static/public/users/contact-us.html">Contact</a></li>
             </ul>
           </div>
         </div>
         <div class="col-sm-3">
           <form class="search_box pull-right" method="post" action="/search">
-            <input class="searchBar"  name="HotelName" type="text" placeholder="Search" 
-            onkeydown="search(this)"/>
+            <input class="searchBar" name="HotelName" type="text" placeholder="Search" onkeydown="search(this)" />
           </form>
         </div>
       </div>
@@ -178,8 +180,8 @@
 <!--/header-->
 
 <script>
-  function search(ele){
-    if(event.key === "Enter"){
+  function search(ele) {
+    if (event.key === "Enter") {
       const val = document.querySelector('.searchBar');
       val.submit();
     }

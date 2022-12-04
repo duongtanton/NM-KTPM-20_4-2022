@@ -45,7 +45,9 @@ const RoomController = {
     async booking(req, res, next) {
         const { _user } = res.locals;
         if (!_user) {
-            return res.redirect("/login");
+            return res.json({
+                rediectTo: "login"
+            });
         }
         const { roomId } = req.body;
         await Booking.create({
