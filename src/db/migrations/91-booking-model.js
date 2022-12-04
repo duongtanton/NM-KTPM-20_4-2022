@@ -35,6 +35,14 @@ module.exports = {
                 },
                 onUpdate: "cascade",
             },
+            hotelId: {
+                type: Sequelize.INTEGER,
+                references: {
+                    model: "Hotels",
+                    key: "id",
+                },
+                onUpdate: "cascade",
+            },
             createdBy: {
                 type: Sequelize.INTEGER,
                 references: {

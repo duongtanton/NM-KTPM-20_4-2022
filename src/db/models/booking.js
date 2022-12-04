@@ -13,9 +13,15 @@ module.exports = (sequelize, DataTypes) => {
             // define association here
             this.belongsTo(models.Rooms, {
                 foreignKey: 'roomId',
-                onUpdate: "cascade",
             });
 
+            this.belongsTo(models.Users, {
+                foreignKey: 'createdBy',
+            });
+
+            this.belongsTo(models.Users, {
+                foreignKey: 'updatedBy',
+            });
             // this.hasMany(models.Users, {
             //     foreignKey: "createdBy",
             //     onDelete: "cascade",
@@ -37,8 +43,10 @@ module.exports = (sequelize, DataTypes) => {
         description: DataTypes.STRING,
 
         roomId: DataTypes.INTEGER,
+        hotelId: DataTypes.INTEGER,
 
         status: DataTypes.STRING,
+
 
         createdBy: DataTypes.INTEGER,
         updatedBy: DataTypes.INTEGER,

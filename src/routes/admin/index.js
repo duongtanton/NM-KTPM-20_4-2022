@@ -11,11 +11,15 @@ const EmployeeTypeRouter = require("./employee-type");
 const EmployeeRouter = require("./employee");
 const CheckInRouter = require("./check-in");
 const CheckOutRouter = require("./check-out");
+const BookingOutRouter = require("./booking");
+const ReportRouter = require("./report");
 
 AdminRoute.use("/promotions", PromotionsRouter);
 AdminRoute.use("/hotel", HotelsRouter);
+AdminRoute.use("/booking", BookingOutRouter);
 AdminRoute.use("/room-types", AdminTypesRoomRouter)
 AdminRoute.use("/rooms", RoomRouter);
+AdminRoute.use("/report", ReportRouter);
 AdminRoute.use("/profiles", ProfilesRouter);
 AdminRoute.use("/employee-type", EmployeeTypeRouter);
 AdminRoute.use("/employee", EmployeeRouter);

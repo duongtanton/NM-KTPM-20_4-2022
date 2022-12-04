@@ -50,6 +50,7 @@ const RoomController = {
         const { roomId } = req.body;
         await Booking.create({
             createdBy: _user.id,
+            hotelId: _user.hotelId,
             startDate: moment().valueOf(),
             endDate: moment().valueOf(),
             roomId,
