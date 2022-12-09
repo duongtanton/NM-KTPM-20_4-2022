@@ -24,9 +24,10 @@ const ROLES_ID = {
   USER: 4,
 }
 const ROOM_STATUS = {
-  NEW: "New",
+  NEW: "NEW",
   ACTIED: "ACTIVED",
   PAID: "PAID",
   CALCEL: "CALCEL",
 }
+
 module.exports = { ROOM_STATUS, CONSTANT, LAYOUT, MESSAGE, ROLES, ROLES_ID };
