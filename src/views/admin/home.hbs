@@ -20,7 +20,7 @@
   </div>
 
   <div class="page-content">
-    {{!-- <div class="ace-settings-container" id="ace-settings-container">
+    <div class="ace-settings-container" id="ace-settings-container">
       <div class="btn btn-app btn-xs btn-warning ace-settings-btn" id="ace-settings-btn">
         <i class="ace-icon fa fa-cog bigger-130"></i>
       </div>
@@ -89,7 +89,7 @@
           </div>
         </div><!-- /.pull-left -->
       </div><!-- /.ace-settings-box -->
-    </div><!-- /.ace-settings-container --> --}}
+    </div><!-- /.ace-settings-container -->
 
     <div class="page-header">
       <h1>
@@ -121,216 +121,165 @@
         <div class="row">
           <div class="space-6"></div>
 
-          <div class="col-sm-7 infobox-container">
-            <div class="infobox infobox-green">
-              <div class="infobox-icon">
-                <i class="ace-icon fa fa-comments"></i>
-              </div>
-
-              <div class="infobox-data">
-                <span class="infobox-data-number">32</span>
-                <div class="infobox-content">comments + 2 reviews</div>
-              </div>
-
-              <div class="stat stat-success">8%</div>
+          <div class="statistic-hotels">
+            <div class="statistic-hotels-img" style="padding: 0 10px;">
+              <img
+                src="https://www.gannett-cdn.com/-mm-/05b227ad5b8ad4e9dcb53af4f31d7fbdb7fa901b/c=0-64-2119-1259/local/-/media/USATODAY/USATODAY/2014/08/13/1407953244000-177513283.jpg"
+                alt="group"
+                style="width: 100%; height:300px; object-fit: cover; border-radius: 8px; box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;">
             </div>
-
-            <div class="infobox infobox-blue">
-              <div class="infobox-icon">
-                <i class="ace-icon fa fa-twitter"></i>
-              </div>
-
-              <div class="infobox-data">
-                <span class="infobox-data-number">11</span>
-                <div class="infobox-content">new followers</div>
-              </div>
-
-              <div class="badge badge-success">
-                +32%
-                <i class="ace-icon fa fa-arrow-up"></i>
-              </div>
-            </div>
-
-            <div class="infobox infobox-pink">
-              <div class="infobox-icon">
-                <i class="ace-icon fa fa-shopping-cart"></i>
-              </div>
-
-              <div class="infobox-data">
-                <span class="infobox-data-number">8</span>
-                <div class="infobox-content">new orders</div>
-              </div>
-              <div class="stat stat-important">4%</div>
-            </div>
-
-            <div class="infobox infobox-red">
-              <div class="infobox-icon">
-                <i class="ace-icon fa fa-flask"></i>
-              </div>
-
-              <div class="infobox-data">
-                <span class="infobox-data-number">7</span>
-                <div class="infobox-content">experiments</div>
-              </div>
-            </div>
-
-            <div class="infobox infobox-orange2">
-              <div class="infobox-chart">
-                <span class="sparkline" data-values="196,128,202,177,154,94,100,170,224"></span>
-              </div>
-
-              <div class="infobox-data">
-                <span class="infobox-data-number">6,251</span>
-                <div class="infobox-content">pageviews</div>
-              </div>
-
-              <div class="badge badge-success">
-                7.2%
-                <i class="ace-icon fa fa-arrow-up"></i>
-              </div>
-            </div>
-
-            <div class="infobox infobox-blue2">
-              <div class="infobox-progress">
-                <div class="easy-pie-chart percentage" data-percent="42" data-size="46">
-                  <span class="percent">42</span>%
-                </div>
-              </div>
-
-              <div class="infobox-data">
-                <span class="infobox-text">traffic used</span>
-
-                <div class="infobox-content">
-                  <span class="bigger-110">~</span>
-                  58GB remaining
-                </div>
-              </div>
-            </div>
-
             <div class="space-6"></div>
-
-            {{!-- <div class="infobox infobox-green infobox-small infobox-dark">
-              <div class="infobox-progress">
-                <div class="easy-pie-chart percentage" data-percent="61" data-size="39">
-                  <span class="percent">61</span>%
+            <div class="col-xs-12 infobox-container">
+              <div class="infobox" style="width: 20%; height: auto; margin: 1rem;">
+                <div class="">
+                  <div style="color: #555;">
+                    <h4>Total Revenues</h4>
+                    <h5>${{totalRevenues}}</h5>
+                  </div>
+                  <div class="infobox-icon">
+                    <i class="ace-icon fa fa-shopping-cart"></i>
+                  </div>
                 </div>
+                <div class="d-flex">
+                  <span class="label label-primary me-2">+11%</span>
+                  <h5 style="color: #555;">From Previous Month</h5>
+                </div>
+                {{!-- <div class="infobox-icon">
+                  <i class="ace-icon fa fa-comments"></i>
+                </div>
+
+                <div class="infobox-data">
+                  <span class="infobox-data-number">32</span>
+                  <div class="infobox-content">comments + 2 reviews</div>
+                </div>
+
+                <div class="stat stat-success">8%</div> --}}
               </div>
 
-              <div class="infobox-data">
-                <div class="infobox-content">Task</div>
-                <div class="infobox-content">Completion</div>
-              </div>
-            </div> --}}
+              <div class="infobox" style="width: 20%; height: auto; margin: 1rem">
+                <div class="">
+                  <div style="color: #555;">
+                    <h4>Total Bookings</h4>
+                    <h5>{{totalBookings}}</h5>
+                  </div>
+                  <i class="bi bi-1-circle-fill"></i>
+                </div>
+                <div class="d-flex">
+                  <span class="label label-success me-2">+17%</span>
+                  <h5 style="color: #555;">From Previous Month</h5>
+                </div>
+                {{!-- <div class="infobox-icon">
+                  <i class="ace-icon fa fa-comments"></i>
+                </div>
 
-            <div class="infobox infobox-blue infobox-small infobox-dark">
-              <div class="infobox-chart">
-                <span class="sparkline" data-values="3,4,2,3,4,4,2,2"></span>
+                <div class="infobox-data">
+                  <span class="infobox-data-number">32</span>
+                  <div class="infobox-content">comments + 2 reviews</div>
+                </div>
+
+                <div class="stat stat-success">8%</div> --}}
+              </div>
+              <div class="infobox" style="width: 20%; height: auto; margin: 1rem">
+                <div class="">
+                  <div style="color: #555;">
+                    <h4>Total Check-ins</h4>
+                    <h5>{{totalCheck_ins}}</h5>
+                  </div>
+                  <i class="bi bi-1-circle-fill"></i>
+                </div>
+                <div class="d-flex">
+                  <span class="label label-warning me-2">+3%</span>
+                  <h5 style="color: #555;">From Previous Month</h5>
+                </div>
+                {{!-- <div class="infobox-icon">
+                  <i class="ace-icon fa fa-comments"></i>
+                </div>
+
+                <div class="infobox-data">
+                  <span class="infobox-data-number">32</span>
+                  <div class="infobox-content">comments + 2 reviews</div>
+                </div>
+
+                <div class="stat stat-success">8%</div> --}}
+              </div>
+              <div class="infobox" style="width: 20%; height: auto; margin: 1rem">
+                <div class="">
+                  <div style="color: #555;">
+                    <h4>Total Customers</h4>
+                    <h5>{{totalUsers}}</h5>
+                  </div>
+                  <i class="bi bi-1-circle-fill"></i>
+                </div>
+                <div class="d-flex">
+                  <span class="label label-danger me-2">+5%</span>
+                  <h5 style="color: #555;">From Previous Month</h5>
+                </div>
+                {{!-- <div class="infobox-icon">
+                  <i class="ace-icon fa fa-comments"></i>
+                </div>
+
+                <div class="infobox-data">
+                  <span class="infobox-data-number">32</span>
+                  <div class="infobox-content">comments + 2 reviews</div>
+                </div>
+
+                <div class="stat stat-success">8%</div> --}}
+              </div>
+              <div class="space-6"></div>
+            </div>
+            <div class="space-6"></div>
+            <div class="col-xs-12">
+              <div class="clearfix">
+                <div class="pull-right tableTools-container"></div>
+              </div>
+              <div class="table-header">
+                Top Hotels
               </div>
 
-              <div class="infobox-data">
-                <div class="infobox-content">Earnings</div>
-                <div class="infobox-content">$32,000</div>
+              <!-- div.table-responsive -->
+
+              <!-- div.dataTables_borderWrap -->
+              <div>
+                <table id="dynamic-table" class="table table-striped table-bordered table-hover">
+                  <thead>
+                    <tr>
+                      <th class="center">#</th>
+                      <th>Image</th>
+                      <th>Name</th>
+                      <th>Code</th>
+                      <th>Total revenues</th>
+                      <th>Total bookings</th>
+                      <th>Total check-ins</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {{#each hotels}}
+                    <tr>
+                      <td class="center">{{twoNumSum @index 1}}</td>
+                      <td style="width: 150px;">
+                        <a href="/admin/statistic/{{this.id}}">
+                          <img
+                            src="https://www.gannett-cdn.com/-mm-/05b227ad5b8ad4e9dcb53af4f31d7fbdb7fa901b/c=0-64-2119-1259/local/-/media/USATODAY/USATODAY/2014/08/13/1407953244000-177513283.jpg"
+                            alt="" style="width: 100%;">
+                        </a>
+                      </td>
+                      <td>
+                        <a href="/admin/statistic/{{this.id}}">{{this.name}}</a>
+                      </td>
+                      <td>
+                        {{this.code}}
+                      </td>
+                      <td>{{this.revenues}}</td>
+                      <td>{{this.bookings}}</td>
+                      <td>{{this.checkIns}}</td>
+                    </tr>
+                    {{/each}}
+                  </tbody>
+                </table>
               </div>
             </div>
-
-            {{!-- <div class="infobox infobox-grey infobox-small infobox-dark">
-              <div class="infobox-icon">
-                <i class="ace-icon fa fa-download"></i>
-              </div>
-
-              <div class="infobox-data">
-                <div class="infobox-content">Downloads</div>
-                <div class="infobox-content">1,205</div>
-              </div>
-            </div> --}}
           </div>
-
-          <div class="vspace-12-sm"></div>
-
-          <div class="col-sm-5">
-            <div class="widget-box">
-              <div class="widget-header widget-header-flat widget-header-small">
-                <h5 class="widget-title">
-                  <i class="ace-icon fa fa-signal"></i>
-                  Booking by type
-                </h5>
-
-                <div class="widget-toolbar no-border">
-                  <div class="inline dropdown-hover">
-                    <button class="btn btn-minier btn-primary">
-                      This Week
-                      <i class="ace-icon fa fa-angle-down icon-on-right bigger-110"></i>
-                    </button>
-
-                    <ul
-                      class="dropdown-menu dropdown-menu-right dropdown-125 dropdown-lighter dropdown-close dropdown-caret">
-                      <li class="active">
-                        <a href="#" class="blue">
-                          <i class="ace-icon fa fa-caret-right bigger-110">&nbsp;</i>
-                          This Week
-                        </a>
-                      </li>
-
-                      <li>
-                        <a href="#">
-                          <i class="ace-icon fa fa-caret-right bigger-110 invisible">&nbsp;</i>
-                          Last Week
-                        </a>
-                      </li>
-
-                      <li>
-                        <a href="#">
-                          <i class="ace-icon fa fa-caret-right bigger-110 invisible">&nbsp;</i>
-                          This Month
-                        </a>
-                      </li>
-
-                      <li>
-                        <a href="#">
-                          <i class="ace-icon fa fa-caret-right bigger-110 invisible">&nbsp;</i>
-                          Last Month
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              <div class="widget-body">
-                <div class="widget-main">
-                  <div id="piechart-placeholder"></div>
-
-                  <div class="hr hr8 hr-double"></div>
-
-                  <div class="clearfix">
-                    {{!-- <div class="grid3">
-                      <span class="grey">
-                        <i class="ace-icon fa fa-facebook-square fa-2x blue"></i>
-                        &nbsp; likes
-                      </span>
-                      <h4 class="bigger pull-right">1,255</h4>
-                    </div> --}}
-
-                    <div class="grid5">
-                      <span class="grey">
-                        <i class="ace-icon fa fa-twitter-square fa-2x purple"></i>
-                        &nbsp; During the day
-                      </span>
-                      <h4 class="bigger pull-right">941</h4>
-                    </div>
-
-                    <div class="grid5">
-                      <span class="grey">
-                        <i class="ace-icon fa fa-pinterest-square fa-2x red"></i>
-                        &nbsp; Overnight
-                      </span>
-                      <h4 class="bigger pull-right">1,050</h4>
-                    </div>
-                  </div>
-                </div><!-- /.widget-main -->
-              </div><!-- /.widget-body -->
-            </div><!-- /.widget-box -->
-          </div><!-- /.col -->
         </div><!-- /.row -->
 
         <div class="hr hr32 hr-dotted"></div>
@@ -1241,3 +1190,161 @@
     </div><!-- /.row -->
   </div><!-- /.page-content -->
 </div>
+
+<script src="/static/public/admin/assets/js/jquery-2.1.4.min.js"></script>
+
+<!-- <![endif]-->
+
+<!--[if IE]>
+<script src="/static/public/admin/assets/js/jquery-1.11.3.min.js"></script>
+<![endif]-->
+<script type="text/javascript">
+  if ('ontouchstart' in document.documentElement) document.write("<script src='/static/public/admin/assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+</script>
+<script src="/static/public/admin/assets/js/jquery.dataTables.min.js"></script>
+<script src="/static/public/admin/assets/js/jquery.validate.min.js"></script>
+<script src="/static/public/admin/assets/js/jquery-additional-methods.min.js"></script>
+<script src="/static/public/admin/assets/js/jquery.dataTables.bootstrap.min.js"></script>
+<script src="/static/public/admin/assets/js/dataTables.buttons.min.js"></script>
+<script src="/static/public/admin/assets/js/buttons.flash.min.js"></script>
+<script src="/static/public/admin/assets/js/buttons.html5.min.js"></script>
+<script src="/static/public/admin/assets/js/buttons.print.min.js"></script>
+<script src="/static/public/admin/assets/js/buttons.colVis.min.js"></script>
+<script src="/static/public/admin/assets/js/dataTables.select.min.js"></script>
+<script src="/static/public/admin/assets/js/bootbox.js"></script>
+<script src="/static/public/admin/assets/js/ace-elements.min.js"></script>
+<script src="/static/public/admin/assets/js/autosize.min.js"></script>
+<script src="/static/public/admin/assets/js/jquery.inputlimiter.min.js"></script>
+
+<script type="text/javascript">
+  jQuery(function ($) {
+    //Data Table display room info
+    var myTable =
+      $('#dynamic-table')
+        .DataTable({
+          bAutoWidth: false,
+          "aoColumns": [
+            { "bSortable": false },
+            { "bSortable": false },
+            { "bSortable": false },
+            { "bSortable": false },
+            { "bSortable": false },
+            { "bSortable": false },
+            { "bSortable": false },
+          ],
+          "aaSorting": [],
+          select: {
+            style: 'multi'
+          }
+        });
+
+
+
+    $.fn.dataTable.Buttons.defaults.dom.container.className = 'dt-buttons btn-overlap btn-group btn-overlap';
+
+    new $.fn.dataTable.Buttons(myTable, {
+      buttons: [
+        {
+          "extend": "colvis",
+          "text": "<i class='fa fa-search bigger-110 blue'></i> <span class='hidden'>Show/hide columns</span>",
+          "className": "btn btn-white btn-primary btn-bold",
+          columns: ':not(:first):not(:last)'
+        },
+        {
+          "extend": "copy",
+          "text": "<i class='fa fa-copy bigger-110 pink'></i> <span class='hidden'>Copy to clipboard</span>",
+          "className": "btn btn-white btn-primary btn-bold"
+        },
+        {
+          "extend": "csv",
+          "text": "<i class='fa fa-database bigger-110 orange'></i> <span class='hidden'>Export to CSV</span>",
+          "className": "btn btn-white btn-primary btn-bold"
+        },
+        {
+          "extend": "excel",
+          "text": "<i class='fa fa-file-excel-o bigger-110 green'></i> <span class='hidden'>Export to Excel</span>",
+          "className": "btn btn-white btn-primary btn-bold"
+        },
+        {
+          "extend": "pdf",
+          "text": "<i class='fa fa-file-pdf-o bigger-110 red'></i> <span class='hidden'>Export to PDF</span>",
+          "className": "btn btn-white btn-primary btn-bold"
+        },
+        {
+          "extend": "print",
+          "text": "<i class='fa fa-print bigger-110 grey'></i> <span class='hidden'>Print</span>",
+          "className": "btn btn-white btn-primary btn-bold",
+          autoPrint: false,
+          message: 'This print was produced using the Print button for DataTables'
+        }
+      ]
+    });
+
+    myTable.buttons().container().appendTo($('.tableTools-container'));
+
+    //style the message box
+    var defaultCopyAction = myTable.button(1).action();
+    myTable.button(1).action(function (e, dt, button, config) {
+      defaultCopyAction(e, dt, button, config);
+      $('.dt-button-info').addClass('gritter-item-wrapper gritter-info gritter-center white');
+    });
+
+
+    var defaultColvisAction = myTable.button(0).action();
+    myTable.button(0).action(function (e, dt, button, config) {
+
+      defaultColvisAction(e, dt, button, config);
+
+
+      if ($('.dt-button-collection > .dropdown-menu').length == 0) {
+        $('.dt-button-collection')
+          .wrapInner('<ul class="dropdown-menu dropdown-light dropdown-caret dropdown-caret" />')
+          .find('a').attr('href', '#').wrap("<li />")
+      }
+      $('.dt-button-collection').appendTo('.tableTools-container .dt-buttons')
+    });
+
+    setTimeout(function () {
+      $($('.tableTools-container')).find('a.dt-button').each(function () {
+        var div = $(this).find(' > div').first();
+        if (div.length == 1) div.tooltip({ container: 'body', title: div.parent().text() });
+        else jQuery(this).tooltip({ container: 'body', title: $(this).text() });
+      });
+    }, 500);
+
+    //And for the first simple table, which doesn't have TableTools or dataTables
+    //select/deselect all rows according to table header checkbox
+    var active_class = 'active';
+
+    /********************************/
+    //add tooltip for small view action buttons in dropdown menu
+    jQuery('[data-rel="tooltip"]').tooltip({ placement: tooltip_placement });
+
+    //tooltip placement on right or left
+    function tooltip_placement(context, source) {
+      var $source = $(source);
+      var $parent = $source.closest('table')
+      var off1 = $parent.offset();
+      var w1 = $parent.width();
+
+      var off2 = $source.offset();
+      //var w2 = $source.width();
+
+      if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2)) return 'right';
+      return 'left';
+    }
+    function FileListItems(files) {
+      let fileList = new ClipboardEvent("").clipboardData || new DataTransfer()
+      for (let i = 0; i < files.length; i++) {
+        fileList.items.add(files[i])
+      }
+      return fileList.files
+    }
+    async function urlToObject(url) {
+      const response = await fetch(url);
+      const blob = await response.blob();
+      const file = new File([blob], url.substring(url.lastIndexOf('/') + 1), { type: blob.type });
+      document.getElementById('form-image').files = new FileListItems([file]);
+    }
+  });
+</script>
