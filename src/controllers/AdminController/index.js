@@ -5,7 +5,7 @@ const RoomController = require("./RoomController");
 const PromotionController = require("./PromotionController");
 const CheckInController = require("./CheckInController");
 const CheckOutController = require("./CheckOutController");
-
+const StatisticController = require("./StatisticController");
 
 module.exports = {
     AdminController,
@@ -14,5 +14,6 @@ module.exports = {
     PromotionController,
     HotelsController,
     CheckInController,
-    CheckOutController
+    CheckOutController,
+    StatisticController,
 }
