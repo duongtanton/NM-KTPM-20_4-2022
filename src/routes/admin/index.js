@@ -13,8 +13,10 @@ const CheckInRouter = require("./check-in");
 const CheckOutRouter = require("./check-out");
 const BookingOutRouter = require("./booking");
 const ReportRouter = require("./report");
+const TimekeepingRouter = require("./report");
 
 AdminRoute.use("/promotions", PromotionsRouter);
+AdminRoute.use("/timekeeping", TimekeepingRouter);
 AdminRoute.use("/hotel", HotelsRouter);
 AdminRoute.use("/booking", BookingOutRouter);
 AdminRoute.use("/room-types", AdminTypesRoomRouter)

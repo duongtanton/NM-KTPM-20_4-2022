@@ -136,7 +136,7 @@
       </ul>
     </li>
     <li class="">
-      <a href="/static/public/admin/#" class="dropdown-toggle">
+      <a href="/admin/#" class="dropdown-toggle">
         <i class="menu-icon fa fa-pencil-square-o"></i>
         <span class="menu-text"> Booking </span>
 
@@ -192,6 +192,40 @@
         </li> --}}
       </ul>
     </li>
+    <li class="">
+      <a href="/admin/#" class="dropdown-toggle">
+        <i class="menu-icon fa fa-pencil-square-o"></i>
+        <span class="menu-text"> Timekeeping </span>
+
+        <b class="arrow fa fa-angle-down"></b>
+      </a>
+
+      <b class="arrow"></b>
+
+      <ul class="submenu">
+        <li class="">
+          <a href="/admin/timekeeping">
+            <i class="menu-icon fa fa-caret-right"></i>
+            Timekeeping manager
+          </a>
+
+          <b class="arrow"></b>
+        </li>
+
+      </ul>
+      <ul class="submenu">
+        <li class="">
+          <a href="/admin/timekeeping/{{_user.id}}">
+            <i class="menu-icon fa fa-caret-right"></i>
+            In/Out shift
+          </a>
+
+          <b class="arrow"></b>
+        </li>
+
+      </ul>
+    </li>
+
     <li class="">
       <a href="#" class="dropdown-toggle">
         <i class="menu-icon fa fa-tag"></i>
