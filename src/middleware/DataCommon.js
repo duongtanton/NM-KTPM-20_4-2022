@@ -10,6 +10,7 @@ const DataCommon = (req, res, next) => {
     const { Users, Booking } = db;
     jwt.verify(token, process.env.SECRET_KEY, async (error, decode) => {
         try {
+            if (!decode) { throw Error() }
             const { username, id } = decode;
             const _user = await Users.findOne({ where: { username, id } }).then(result => result?.toJSON());
             const bookingNew = await Booking.findAll({

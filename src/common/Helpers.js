@@ -6,6 +6,7 @@ const json = content => JSON.stringify(content);
 
 
 const twoNumSum = (a, b) => a + b;
+const ArrayAt = (arr, index) => arr[index] || [];
 const formatDateInput = date => moment(date).format('YYYY-MM-DD');
 const formatDateTimeInput = date => moment(date).format('YYYY-MM-DD HH-mm-ss');
 
@@ -14,6 +15,7 @@ module.exports = {
     formatDate,
     twoNumSum,
     json,
+    ArrayAt,
     formatDateInput,
     formatDateTimeInput
 }
