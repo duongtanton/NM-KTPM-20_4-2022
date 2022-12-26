@@ -14,11 +14,13 @@ const RoomController = {
                 },
                 raw: true,
             });
+            console.log(_user);
             // const infoRooms = rooms.map((room) => ({
             //     ...room,
             //     image: req.protocol + '://' + req.headers.host + "/" + room.image,
             // }))
             // res.render("./admin/rooms", { rooms: infoRooms });
+            console.log(rooms);
             res.render("./admin/rooms", { rooms });
         } catch (err) {
             res.json(ResponseApi(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!"), { err }));

@@ -2519,5 +2519,8 @@ h2.title {
 .contact-info .social-networks ul li a:hover{
   color: #FE980F;
 }
+.shadow-box {
+  box-shadow: 0 .125rem .25rem rgba(72, 70, 70, .075);
+}
 
 
