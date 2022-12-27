@@ -287,7 +287,7 @@
         //create & edit form
         const form = (data) => `<form class="form-horizontal form-data" role="form" style="padding: 8px;">
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="form-name">LOại Phòng:</label>
+                <label class="col-sm-3 control-label no-padding-right" for="form-name">Loại Phòng:</label>
 
                 <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
                     <input type="text" id="form-name" name="name" placeholder="Enter name"
@@ -298,7 +298,7 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="form-type">Giá:</label>
                 <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
-                    <input type="text" id="form-name" name="price" placeholder="100.000"
+                    <input type="text" id="form-name" name="price" placeholder="0"
                         class="col-xs-10 col-sm-5" value=${data ? data.price : ''}>
                 </div>
             </div>
@@ -306,7 +306,7 @@
                 <label class="col-sm-3 control-label no-padding-right" for="form-floor">Số Giường:</label>
 
                 <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
-                    <input type="text" id="form-floor" name="bedNumber" placeholder="1"
+                    <input type="text" id="form-floor" name="bedNumber" placeholder="0"
                         class="col-xs-10 col-sm-5" value=${data ? data.bedNumber : ''}>
                 </div>
             </div>
@@ -314,7 +314,7 @@
                 <label class="col-sm-3 control-label no-padding-right" for="form-floor">Số Phòng Trống:</label>
 
                 <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
-                    <input type="text" id="form-floor" name="roomNumber" placeholder="1"
+                    <input type="text" id="form-floor" name="roomNumber" placeholder="0"
                         class="col-xs-10 col-sm-5" value=${data ? data.roomNumber : ''}>
                 </div>
             </div>
@@ -390,6 +390,8 @@
                 },
                 Price: {
                     required: true,
+                    number: true,
+                    min: 1,
                 },
                 bedNumber: {
                     required: true,
@@ -398,6 +400,8 @@
                 },
                 roomNumber: {
                     required: true,
+                    number: true,
+                    min: 1,
                 },
             },
             messages: {

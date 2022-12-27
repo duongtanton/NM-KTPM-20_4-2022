@@ -19,6 +19,7 @@ const RoomController = {
             //     image: req.protocol + '://' + req.headers.host + "/" + room.image,
             // }))
             // res.render("./admin/rooms", { rooms: infoRooms });
+            console.log(rooms);
             res.render("./admin/rooms", { rooms });
         } catch (err) {
             res.json(ResponseApi(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!"), { err }));
