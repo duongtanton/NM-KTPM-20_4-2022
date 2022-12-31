@@ -1,0 +1,103 @@
+<section class="container shadow-box">
+    <div class="row" style="padding: 0 32px">
+        <div class="col-sm-6">
+            <div class="room-image">
+                <img src="/{{infoHotel.avatarUrl}}" alt="" srcset="">
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <h2>{{infoHotel.name}}</h2>
+            <h4>Address: {{infoHotel.address}}</h4>
+            <h4>Email: {{infoHotel.email}}</h4>
+            <h4>Phone: {{infoHotel.phone}}</h4>
+            <p>{{infoHotel.description}}</p>
+        </div>
+    </div>
+</section>
+<section style="margin-top: 32px">
+    <div class="container">
+        <div class="row">
+            <div class="padding-right">
+                <!--features_items-->
+                <h2 class="title text-center">Room Items</h2>
+                <div class="tab-content">
+                    <div class="tab-pane fade active in"
+                         id="tshirt">
+                        {{#each rooms}}
+                        <div class="col-sm-3 view view-grid">
+                            <div class="room-item">
+                                <div class="room-image">
+                                    <img src="/{{image}}"
+                                         alt={{name}}>
+                                </div>
+                                <div class="room-info">
+                                    <h3 class="room-name">{{name}}</h3>
+                                    <p class="room-description">{{description}}</p>
+                                    <div class="room-group">
+                                        <div>
+                                            <p class="room-type">{{roomTypeName}}</p>
+                                        </div>
+                                        <div>
+                                            <span>Floor: </span>
+                                            <span class="room-floor">{{floor}}</span>
+                                        </div>
+                                        <div>
+                                            <span>Beds: </span>
+                                            <span class="room-bed">{{roomTypeBed}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="room-tail">
+                                    <div class="room-price">
+                                        <h4>{{roomTypePrice}} USD/Night</h4>
+                                    </div>
+                                    <div class="room-navigate">
+                                        <button onclick="handleAddtoCart({{id}})"
+                                                class="btn-book">Book</button>
+                                        <button onclick="handleViewRoom({{id}})"
+                                                class="btn-details"> Room Details</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+<script src="/static/public/users/js/jquery.js"></script>
+<script src="/static/public/users/js/moment.min.js"></script>
+<script src="/static/public/users/js/daterangepicker.min.js"></script>
+<script type="text/javascript">
+  function handleAddtoCart(roomId) {
+    const cartHome = document.querySelector(".cart-home");
+    fetch(`/rooms/booking`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        auth: getCookie("auth"),
+      },
+      body: JSON.stringify({
+        roomId,
+      })
+    }).then(res => res.json())
+      .then(result => {
+        const { message, bookings, rediectTo } = result;
+        if (!!rediectTo) {
+          window.location = `/${rediectTo}`;
+          return;
+        }
+        showToastMessage(message);
+        cartHome.classList.add("has-item");
+        cartHome.querySelector(".cart-home-amount").innerText = bookings.length || 0;
+      })
+      .catch(error => {
+        cartHome.classList.remove("has-item");
+        console.log("error", error)
+      })
+  }
+  function handleViewRoom(roomId) {
+    window.location.href = `/room/${roomId}`;   
+  }
+</script>

@@ -19,16 +19,51 @@ module.exports = {
                 id: 1,
                 username: '1',
                 enterpriseId: 1,
-                password: '$2b$10$YRJnuXB/B4xdOToFFdsG8Ot6BQl2VyEAnXifanK7gPFRyFEgx5.iC',
+                hotelId: 1,
+                password: '$2b$10$YRJnuXB/B4xdOToFFdsG8Ot6BQl2VyEAnXifanK7gPFRyFEgx5.iC', //1
                 createdAt: new Date(),
                 updatedAt: new Date(),
-            }, {
+            },
+            {
                 id: 2,
                 username: '2',
-                password: '$2b$10$6lR7Y8AqGCdQfDMB9ZKCiu3GI9XgY9NkXnL.RPHycxR5JMjVqOZmu',
+                password: '$2b$10$6lR7Y8AqGCdQfDMB9ZKCiu3GI9XgY9NkXnL.RPHycxR5JMjVqOZmu', //1
                 createdAt: new Date(),
                 updatedAt: new Date(),
-            }
+            },
+            {
+                id: 3,
+                username: '3',
+                password: '$2b$10$6lR7Y8AqGCdQfDMB9ZKCiu3GI9XgY9NkXnL.RPHycxR5JMjVqOZmu', //1
+                createdAt: new Date(),
+                updatedAt: new Date(),
+            },
+            {
+                id: 4,
+                username: '4',
+                password: '$2b$10$6lR7Y8AqGCdQfDMB9ZKCiu3GI9XgY9NkXnL.RPHycxR5JMjVqOZmu', //1
+                createdAt: new Date(),
+                updatedAt: new Date(),
+            },
+            {
+                id: 5,
+                username: '5',
+                enterpriseId: 2,
+                hotelId: 2,
+                password: '$2b$10$YRJnuXB/B4xdOToFFdsG8Ot6BQl2VyEAnXifanK7gPFRyFEgx5.iC', //1
+                createdAt: new Date(),
+                updatedAt: new Date(),
+            },
+            {
+                id: 6,
+                username: '6',
+                enterpriseId: 3,
+                hotelId: 3,
+                password: '$2b$10$YRJnuXB/B4xdOToFFdsG8Ot6BQl2VyEAnXifanK7gPFRyFEgx5.iC', //1
+                createdAt: new Date(),
+                updatedAt: new Date(),
+            },
+
         ], {});
     },
 

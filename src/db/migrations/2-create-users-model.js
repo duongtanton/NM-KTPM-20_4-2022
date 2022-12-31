@@ -21,10 +21,19 @@ module.exports = {
       email: {
         type: Sequelize.STRING,
       },
+      name: {
+        type: Sequelize.STRING,
+      },
       phone: {
         type: Sequelize.STRING,
       },
       password: {
+        type: Sequelize.STRING,
+      },
+      type: {
+        type: Sequelize.STRING,
+      },
+      status: {
         type: Sequelize.STRING,
       },
       createdAt: {
@@ -35,6 +44,14 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: "Enterprises",
+          key: "id",
+        },
+        onUpdate: "cascade",
+      },
+      hotelId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Hotels",
           key: "id",
         },
         onUpdate: "cascade",

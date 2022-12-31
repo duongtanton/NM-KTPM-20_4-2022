@@ -1,0 +1,228 @@
+<section id="cart_items">
+    <div class="container">
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li class="active">Shopping Cart</li>
+            </ol>
+        </div>
+        <div class="btn-group">
+            <div class="single_field">
+                <label style="display: inline-block;">Type:</label>
+                <select class="filter-type-booking" onchange="handlechaneFilter()" style="display: inline-block;">
+                    <option value="New">New</option>
+                    <option value="ALL">All</option>
+                    <option value="CALCEL">Cancel</option>
+                    <option value="ACTIVED">Actived</option>
+                    <option value="PAID">Paid</option>
+                </select>
+            </div>
+        </div>
+        <div class="table-responsive cart_info">
+            <table class="table table-condensed">
+                <thead>
+                    <tr class="cart_menu">
+                        <td class="image">Item</td>
+                        <td class="description"></td>
+                        <td class="price">Price</td>
+                        <td class="quantity">Quantity</td>
+                        <td class="total">Total</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each bookings}}
+                    <tr>
+                        <td class="cart_product">
+                            <a href=""><img height="90px" src="{{this.Room.image}}" alt=""></a>
+                        </td>
+                        <td class="cart_description">
+                            <h4><a href="">{{this.Room.name}}</a></h4>
+                            <div class="filter-datetime" style="justify-content: flex-start;">
+                                <span class="filter-datetime-addon">
+                                    <i class="fa fa-calendar bigger-110"></i>
+                                </span>
+                                <input style="max-width: 200px;" class="form-control date-in-{{this.id}}"
+                                    value="{{dateIn}}" type="text" name="date-range-picker"
+                                    id="id-date-range-picker-1" />
+                            </div>
+                            <p>{{this.Room.Room_Type.name}}: {{this.Room.Room_Type.bedNumber}} bed</p>
+                        </td>
+                        <td class="cart_price">
+                            <p>${{this.Room.Room_Type.price}}</p>
+                        </td>
+                        <td class="cart_quantity">
+                            <div class="cart_quantity_button">
+                                <input class="cart_quantity_input" type="text" name="quantity" value="1"
+                                    autocomplete="off" size="2">
+                            </div>
+                        </td>
+                        <td class="cart_total">
+                            <p class="cart_total_price">${{this.Room.Room_Type.price}}</p>
+                        </td>
+                        <td class="total_area">
+                            <a class="cart_quantity_delete" href="/cart/{{this.id}}?action=delete"
+                                onclick="return confirm('Do you want to delete???')">
+                                <i style="font-size: 30px;" class=" fa fa-times"></i>
+                            </a>
+                            <a class="cart_quantity_delete" onclick="handleUpdateBooking({{this.id}})"
+                                onclick="return confirm('Do you want to save???')" href="#">
+                                <i style="font-size: 30px;" class=" fa fa-pencil-square-o"></i>
+                            </a>
+                            <a class="cart_quantity_delete" href="/cart/{{this.id}}?action=confirm"
+                                onclick="return  confirm('Do you want to confirm for reservation???')">
+                                <i style="font-size: 30px;" class=" fa fa-check-circle-o"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            <div style="text-align: right ;">
+                <a class="btn btn-default check_out" style="margin: 20px; padding: 20px; font-size: 20px;"
+                    href="/">Continute reservation</a>
+            </div>
+        </div>
+    </div>
+
+</section>
+<!--/#cart_items-->
+
+{{!-- <section id="do_action">
+    <div class="container">
+        <div class="heading">
+            <h3>What would you like to do next?</h3>
+            <p>Choose if you have a discount code or reward points you want to use or would like to estimate your
+                delivery cost.</p>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="chose_area">
+                    <ul class="user_option">
+                        <li>
+                            <input type="checkbox">
+                            <label>Use Coupon Code</label>
+                        </li>
+                        <li>
+                            <input type="checkbox">
+                            <label>Use Gift Voucher</label>
+                        </li>
+                        <li>
+                            <input type="checkbox">
+                            <label>Estimate Shipping & Taxes</label>
+                        </li>
+                    </ul>
+                    <ul class="user_info">
+                        <li class="single_field">
+                            <label>Country:</label>
+                            <select>
+                                <option>United States</option>
+                                <option>Bangladesh</option>
+                                <option>UK</option>
+                                <option>India</option>
+                                <option>Pakistan</option>
+                                <option>Ucrane</option>
+                                <option>Canada</option>
+                                <option>Dubai</option>
+                            </select>
+
+                        </li>
+                        <li class="single_field">
+                            <label>Region / State:</label>
+                            <select>
+                                <option>Select</option>
+                                <option>Dhaka</option>
+                                <option>London</option>
+                                <option>Dillih</option>
+                                <option>Lahore</option>
+                                <option>Alaska</option>
+                                <option>Canada</option>
+                                <option>Dubai</option>
+                            </select>
+
+                        </li>
+                        <li class="single_field zip-field">
+                            <label>Zip Code:</label>
+                            <input type="text">
+                        </li>
+                    </ul>
+                    <a class="btn btn-default update" href="">Get Quotes</a>
+                    <a class="btn btn-default check_out" href="">Continue</a>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="total_area">
+                    <ul>
+                        <li>Cart Sub Total <span>$59</span></li>
+                        <li>Eco Tax <span>$2</span></li>
+                        <li>Shipping Cost <span>Free</span></li>
+                        <li>Total <span>$61</span></li>
+                    </ul>
+                    <a class="btn btn-default update" href="">Update</a>
+                    <a class="btn btn-default check_out" href="">Check Out</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> --}}
+<!--/#do_action-->
+<script src="/static/public/users/js/jquery.js"></script>
+<script src="/static/public/users/js/moment.min.js"></script>
+<script src="/static/public/users/js/daterangepicker.min.js"></script>
+<script>
+    jQuery(function ($) {
+        $('input[name=date-range-picker]').daterangepicker({
+            'applyClass': 'btn-sm btn-success',
+            'cancelClass': 'btn-sm btn-default',
+            locale: {
+                applyLabel: 'Apply',
+                cancelLabel: 'Cancel',
+            }
+        })
+            .prev().on('click', function () {
+                $(this).next().focus();
+            });
+
+        $('.btn-grid').on('click', function () {
+            $(this).addClass('active');
+            $('.view').addClass('col-sm-4 view-grid');
+            $('.btn-list').removeClass('active');
+            $('.view').removeClass('col view-list');
+        })
+        $('.btn-list').on('click', function () {
+            $(this).addClass('active');
+            $('.view').addClass('col view-list');
+            $('.btn-grid').removeClass('active');
+            $('.view').removeClass('col-sm-4 view-grid');
+        })
+    });
+    const handleUpdateBooking = (id) => {
+        const dateinput = document.querySelector(`.date-in-${id}`)
+        const date = dateinput.value;
+        let startDate = date.split("-")[0]
+        startDate = `${startDate.split("/")[2]}-${startDate.split("/")[0]}-${startDate.split("/")[1]}`.replace(" ", "")
+        let endDate = date.split("-")[1]
+        endDate = `${endDate.split("/")[2]}-${endDate.split("/")[0]}-${endDate.split("/")[1]}`.replace(" ", "")
+        fetch("{{ url }}/cart", {
+            method: "PATCH",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                startDate,
+                endDate,
+                id
+            })
+        }).then(_r => _r.json())
+            .then(_r => {
+                showToastMessage(_r.message);
+            })
+            .catch(_e => {
+                console.log(_e)
+            })
+    }
+    const handlechaneFilter = () => {
+        const dateinput = document.querySelector(`.filter-type-booking`);
+        window.location.href = "{{url}}/cart?filter=" + dateinput.value;
+    }
+</script>

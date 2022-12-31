@@ -1,10 +1,24 @@
 const { Model } = require("sequelize");
 const db = require("../../db/models/index.js");
-const { CONSTANT } = require("../../common/index.js");
+const { CONSTANT, Response } = require("../../common/index.js");
 const bcrypt = require("../../util/bcrypt.js");
+const statistic = require("../../db/queries/statistic.js");
+
 const AdminController = {
   async index(req, res, next) {
-    res.render("./admin/home", {layout: "admin"});
+    const totalRevenues = await statistic.totalRevenues();
+    const totalBookings = await statistic.totalBookings();
+    const totalCheck_ins = await statistic.totalCheck_ins();
+    const totalUsers = await statistic.totalUsers();
+    const hotels = await statistic.topHotels();
+
+    res.render("./admin/home", Response(res, 1, null, {
+      totalRevenues,
+      totalBookings,
+      totalCheck_ins,
+      totalUsers,
+      hotels,
+    }));
   },
   async create(req, res, next) {
     res.send("create");

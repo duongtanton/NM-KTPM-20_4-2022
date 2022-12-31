@@ -59,7 +59,7 @@ const LogInOut = {
     } else if (!bcrypt.compare(password, user.password)) {
       res.render("./login", Response(res, 0, Message(MESSAGE.ERROR, "Password not match"), null));
     } else {
-      const token = jwt.sign(user, process.env.SECRET_KEY, { expiresIn: 60 * 60 });
+      const token = jwt.sign(user, process.env.SECRET_KEY, { expiresIn: 60 * 60 * 60 });
       res.cookie("auth", token);
       const { id } = user;
       const userRoles = await Users.findOne({

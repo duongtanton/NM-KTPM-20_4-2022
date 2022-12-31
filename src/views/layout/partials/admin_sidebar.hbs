@@ -3,7 +3,7 @@
     try { ace.settings.loadState('sidebar') } catch (e) { }
   </script>
 
-  <div class="sidebar-shortcuts" id="sidebar-shortcuts">
+  {{!-- <div class="sidebar-shortcuts" id="sidebar-shortcuts">
     <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
       <button class="btn btn-success">
         <i class="ace-icon fa fa-signal"></i>
@@ -31,23 +31,23 @@
 
       <span class="btn btn-danger"></span>
     </div>
-  </div><!-- /.sidebar-shortcuts -->
+  </div><!-- /.sidebar-shortcuts --> --}}
 
   <ul class="nav nav-list">
     <li class="active">
-      <a href="/static/public/admin/index.html">
+      <a href="#">
         <i class="menu-icon fa fa-tachometer"></i>
         <span class="menu-text"> Dashboard </span>
       </a>
 
       <b class="arrow"></b>
     </li>
-<!-- Hotel -->
+    <!-- Hotel -->
     <li class="">
       <a href="/admin" class="dropdown-toggle">
         <i class="menu-icon fa fa-home"></i>
         <span class="menu-text">
-          Hotels
+          Hotel
         </span>
 
         <b class="arrow fa fa-angle-down"></b>
@@ -57,26 +57,26 @@
 
       <ul class="submenu">
         <li class="">
-          <a href="/admin/hotels/create">
+          <a href="/admin/hotel">
             <i class="menu-icon fa fa-caret-right"></i>
-            Add Hotel
+            Hotel manager
             <b class="arrow"></b>
           </a>
 
           <b class="arrow"></b>
         </li>
-
         <li class="">
-          <a href="/admin/hotels">
+          <a href="/admin/hotel/{{_user.hotelId}}">
             <i class="menu-icon fa fa-caret-right"></i>
-            Hotel List
+            My hotel
+            <b class="arrow"></b>
           </a>
 
           <b class="arrow"></b>
         </li>
       </ul>
     </li>
-<!-- Employee -->
+    <!-- Employee -->
     <li class="">
       <a href="/admin" class="dropdown-toggle">
         <i class="menu-icon fa fa-male"></i>
@@ -91,24 +91,16 @@
 
       <ul class="submenu">
         <li class="">
-          <a href="/admin/employees">
+          <a href="/admin/employee">
             <i class="menu-icon fa fa-caret-right"></i>
-            Employees list
-          </a>
-          <b class="arrow"></b>
-        </li>
-
-        <li class="">
-          <a href="/admin/employee-type/create">
-            <i class="menu-icon fa fa-caret-right"></i>
-            Create employee-type
+            Employee manager
           </a>
           <b class="arrow"></b>
         </li>
         <li class="">
           <a href="/admin/employee-type">
             <i class="menu-icon fa fa-caret-right"></i>
-            Types of employee
+            Employee type manager 
           </a>
           <b class="arrow"></b>
         </li>
@@ -118,7 +110,7 @@
     <li class="">
       <a href="/admin/#" class="dropdown-toggle">
         <i class="menu-icon fa fa-list"></i>
-        <span class="menu-text"> Rooms </span>
+        <span class="menu-text"> Room </span>
 
         <b class="arrow fa fa-angle-down"></b>
       </a>
@@ -129,27 +121,24 @@
         <li class="">
           <a href="/admin/rooms">
             <i class="menu-icon fa fa-caret-right"></i>
-            Room list
+            Booking
           </a>
-
           <b class="arrow"></b>
         </li>
 
-        {{!-- <li class="">
-          <a href="/static/public/admin/jqgrid.html">
+        <li class="">
+          <a href="/admin/room-types">
             <i class="menu-icon fa fa-caret-right"></i>
-            jqGrid plugin
+            Room type manager
           </a>
-
           <b class="arrow"></b>
-        </li> --}}
+        </li>
       </ul>
     </li>
-
     <li class="">
-      <a href="/static/public/admin/#" class="dropdown-toggle">
+      <a href="/admin/#" class="dropdown-toggle">
         <i class="menu-icon fa fa-pencil-square-o"></i>
-        <span class="menu-text"> Room types </span>
+        <span class="menu-text"> Booking </span>
 
         <b class="arrow fa fa-angle-down"></b>
       </a>
@@ -158,9 +147,9 @@
 
       <ul class="submenu">
         <li class="">
-          <a href="/admin/room-types">
+          <a href="/admin/booking">
             <i class="menu-icon fa fa-caret-right"></i>
-            Room type list
+            Booking manager
           </a>
 
           <b class="arrow"></b>
@@ -203,6 +192,7 @@
         </li> --}}
       </ul>
     </li>
+{{!-- <<<<<<< HEAD
 
     <li class="">
       <a href="/static/public/admin/#" class="dropdown-toggle">
@@ -236,34 +226,9 @@
     </li> --}}
 
     <li class="">
-      <a href="/static/public/admin/calendar.html">
-        <i class="menu-icon fa fa-calendar"></i>
-
-        <span class="menu-text">
-          Calendar
-
-          <span class="badge badge-transparent tooltip-error" title="2 Important Events">
-            <i class="ace-icon fa fa-exclamation-triangle red bigger-130"></i>
-          </span>
-        </span>
-      </a>
-
-      <b class="arrow"></b>
-    </li>
-
-    <li class="">
-      <a href="/static/public/admin/gallery.html">
-        <i class="menu-icon fa fa-picture-o"></i>
-        <span class="menu-text"> Gallery </span>
-      </a>
-
-      <b class="arrow"></b>
-    </li>
-
-    <li class="">
-      <a href="/static/public/admin/#" class="dropdown-toggle">
-        <i class="menu-icon fa fa-tag"></i>
-        <span class="menu-text"> More Pages </span>
+      <a href="/admin/#" class="dropdown-toggle">
+        <i class="menu-icon fa fa-pencil-square-o"></i>
+        <span class="menu-text"> Timekeeping </span>
 
         <b class="arrow fa fa-angle-down"></b>
       </a>
@@ -272,15 +237,64 @@
 
       <ul class="submenu">
         <li class="">
-          <a href="/static/public/admin/profile.html">
+          <a href="/admin/timekeeping">
             <i class="menu-icon fa fa-caret-right"></i>
-            User Profile
+            Timekeeping manager
           </a>
 
           <b class="arrow"></b>
         </li>
 
+      </ul>
+      <ul class="submenu">
         <li class="">
+          <a href="/admin/timekeeping/{{_user.id}}">
+            <i class="menu-icon fa fa-caret-right"></i>
+            In/Out shift
+          </a>
+
+          <b class="arrow"></b>
+        </li>
+
+      </ul>
+    </li>
+
+    <li class="">
+      <a href="#" class="dropdown-toggle">
+        <i class="menu-icon fa fa-tag"></i>
+        <span class="menu-text"> Report </span>
+
+        <b class="arrow fa fa-angle-down"></b>
+      </a>
+
+      <b class="arrow"></b>
+
+      <ul class="submenu">
+        <li class="">
+          <a href="/admin/report">
+            <i class="menu-icon fa fa-caret-right"></i>
+            Report by time
+          </a>
+
+          <b class="arrow"></b>
+        </li>
+        <li class="">
+          <a href="/admin/report">
+            <i class="menu-icon fa fa-caret-right"></i>
+            Report by booking type
+          </a>
+
+          <b class="arrow"></b>
+        </li>
+        <li class="">
+          <a href="/admin/report">
+            <i class="menu-icon fa fa-caret-right"></i>
+            Report price
+          </a>
+
+          <b class="arrow"></b>
+        </li>
+        {{!-- <li class="">
           <a href="/static/public/admin/inbox.html">
             <i class="menu-icon fa fa-caret-right"></i>
             Inbox
@@ -341,18 +355,51 @@
           </a>
 
           <b class="arrow"></b>
-        </li>
+        </li> --}}
       </ul>
     </li>
+    {{!-- <li class="">
+      <a href="/admin/room-types">
+        <i class="menu-icon fa fa-list-alt"></i>
+        <span class="menu-text"> Loại Phòng </span>
+      </a>
+
+      <b class="arrow"></b>
+    </li> --}}
+
+    {{!-- <li class="">
+      <a href="/admin/report">
+        <i class="menu-icon fa fa-calendar"></i>
+
+        <span class="menu-text">
+          Report
+
+          <span class="badge badge-transparent tooltip-error" title="2 Important Events">
+            <i class="ace-icon fa fa-exclamation-triangle red bigger-130"></i>
+          </span>
+        </span>
+      </a>
+
+      <b class="arrow"></b>
+    </li> --}}
+
+    {{!-- <li class="">
+      <a href="/static/public/admin/gallery.html">
+        <i class="menu-icon fa fa-picture-o"></i>
+        <span class="menu-text"> Report </span>
+      </a>
+
+      <b class="arrow"></b>
+    </li> --}}
+
 
     <li class="">
-      <a href="/static/public/admin/#" class="dropdown-toggle">
+      <a href="#" class="dropdown-toggle">
         <i class="menu-icon fa fa-file-o"></i>
 
         <span class="menu-text">
-          Other Pages
-
-          <span class="badge badge-primary">5</span>
+          Support
+          <span class="badge badge-primary">3</span>
         </span>
 
         <b class="arrow fa fa-angle-down"></b>
@@ -362,33 +409,32 @@
 
       <ul class="submenu">
         <li class="">
-          <a href="/static/public/admin/faq.html">
+          <a href="#">
             <i class="menu-icon fa fa-caret-right"></i>
             FAQ
           </a>
 
           <b class="arrow"></b>
         </li>
-
         <li class="">
-          <a href="/static/public/admin/error-404.html">
+          <a href="#">
             <i class="menu-icon fa fa-caret-right"></i>
-            Error 404
+            Mail for admin
           </a>
 
           <b class="arrow"></b>
         </li>
-
         <li class="">
-          <a href="/static/public/admin/error-500.html">
+          <a href="#">
             <i class="menu-icon fa fa-caret-right"></i>
-            Error 500
+            Send messages
           </a>
-
           <b class="arrow"></b>
         </li>
 
-        <li class="">
+
+
+        {{!-- <li class="">
           <a href="/static/public/admin/grid.html">
             <i class="menu-icon fa fa-caret-right"></i>
             Grid
@@ -404,7 +450,7 @@
           </a>
 
           <b class="arrow"></b>
-        </li>
+        </li> --}}
       </ul>
     </li>
   </ul><!-- /.nav-list -->

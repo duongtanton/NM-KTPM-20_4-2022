@@ -1,0 +1,893 @@
+<div class="main-content-inner">
+    <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+        <ul class="breadcrumb">
+            <li>
+                <i class="ace-icon fa fa-home home-icon"></i>
+                <a href="#">Home</a>
+            </li>
+
+            <li>
+                <a href="#">Employee</a>
+            </li>
+            <li class="active">Employee Management</li>
+        </ul><!-- /.breadcrumb -->
+
+        <div class="nav-search" id="nav-search">
+            <form class="form-search">
+                <span class="input-icon">
+                    <input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input"
+                        autocomplete="off" />
+                    <i class="ace-icon fa fa-search nav-search-icon"></i>
+                </span>
+            </form>
+        </div><!-- /.nav-search -->
+    </div>
+    <div class="page-content">
+        <div class="ace-settings-container" id="ace-settings-container">
+            <div class="btn btn-app btn-xs btn-warning ace-settings-btn" id="ace-settings-btn">
+                <i class="ace-icon fa fa-cog bigger-130"></i>
+            </div>
+
+            <div class="ace-settings-box clearfix" id="ace-settings-box">
+                <div class="pull-left width-50">
+                    <div class="ace-settings-item">
+                        <div class="pull-left">
+                            <select id="skin-colorpicker" class="hide">
+                                <option data-skin="no-skin" value="#438EB9">#438EB9</option>
+                                <option data-skin="skin-1" value="#222A2D">#222A2D</option>
+                                <option data-skin="skin-2" value="#C6487E">#C6487E</option>
+                                <option data-skin="skin-3" value="#D0D0D0">#D0D0D0</option>
+                            </select>
+                        </div>
+                        <span>&nbsp; Choose Skin</span>
+                    </div>
+
+                    <div class="ace-settings-item">
+                        <input type="checkbox" class="ace ace-checkbox-2 ace-save-state" id="ace-settings-navbar"
+                            autocomplete="off" />
+                        <label class="lbl" for="ace-settings-navbar"> Fixed Navbar</label>
+                    </div>
+
+                    <div class="ace-settings-item">
+                        <input type="checkbox" class="ace ace-checkbox-2 ace-save-state" id="ace-settings-sidebar"
+                            autocomplete="off" />
+                        <label class="lbl" for="ace-settings-sidebar"> Fixed Sidebar</label>
+                    </div>
+
+                    <div class="ace-settings-item">
+                        <input type="checkbox" class="ace ace-checkbox-2 ace-save-state" id="ace-settings-breadcrumbs"
+                            autocomplete="off" />
+                        <label class="lbl" for="ace-settings-breadcrumbs"> Fixed Breadcrumbs</label>
+                    </div>
+
+                    <div class="ace-settings-item">
+                        <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-rtl" autocomplete="off" />
+                        <label class="lbl" for="ace-settings-rtl"> Right To Left (rtl)</label>
+                    </div>
+
+                    <div class="ace-settings-item">
+                        <input type="checkbox" class="ace ace-checkbox-2 ace-save-state" id="ace-settings-add-container"
+                            autocomplete="off" />
+                        <label class="lbl" for="ace-settings-add-container">
+                            Inside
+                            <b>.container</b>
+                        </label>
+                    </div>
+                </div><!-- /.pull-left -->
+
+                <div class="pull-left width-50">
+                    <div class="ace-settings-item">
+                        <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-hover" autocomplete="off" />
+                        <label class="lbl" for="ace-settings-hover"> Submenu on Hover</label>
+                    </div>
+
+                    <div class="ace-settings-item">
+                        <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-compact"
+                            autocomplete="off" />
+                        <label class="lbl" for="ace-settings-compact"> Compact Sidebar</label>
+                    </div>
+
+                    <div class="ace-settings-item">
+                        <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-highlight"
+                            autocomplete="off" />
+                        <label class="lbl" for="ace-settings-highlight"> Alt. Active Item</label>
+                    </div>
+                </div><!-- /.pull-left -->
+            </div><!-- /.ace-settings-box -->
+        </div><!-- /.ace-settings-container -->
+
+        <div class="page-header">
+            <h1>
+                Room Management
+                <small>
+                    <i class="ace-icon fa fa-angle-double-right"></i>
+                    Room management for full control over hotel capacitys
+                </small>
+            </h1>
+        </div><!-- /.page-header -->
+
+        <div class="row">
+            <div class="col-xs-12">
+                <!-- PAGE CONTENT BEGINS -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="clearfix">
+                            <button class="btn btn-white btn-primary btn-bold bootbox-confirm add">
+                                <i class="ace-icon fa fa-plus bigger-120"></i>
+                                Add
+                            </button>
+                            <button class="btn btn-white btn-danger btn-bold bootbox-confirm delete-multiple"
+                                style="display: none;">
+                                <i class="ace-icon fa fa-trash-o bigger-120 red"></i>
+                                Delete
+                            </button>
+                            <div class="pull-right tableTools-container"></div>
+                        </div>
+                        <div class="table-header">
+                            Room table
+                        </div>
+
+                        <!-- div.table-responsive -->
+
+                        <!-- div.dataTables_borderWrap -->
+                        <div>
+                            <table id="dynamic-table" class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="center">#</th>
+                                        <th class="center">
+                                            <label class="pos-rel">
+                                                <input type="checkbox" class="ace" />
+                                                <span class="lbl"></span>
+                                            </label>
+                                        </th>
+                                        {{!-- <th>ID</th> --}}
+                                        <th>Phone</th>
+                                        <th>Email</th>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        {{!-- <th>Floor</th> --}}
+                                        <th>Actived</th>
+                                        <th>Status</th>
+                                        <th>Description</th>
+                                        {{!-- <th>Image</th> --}}
+                                        <th>
+                                            <i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
+                                            Updated At
+                                        </th>
+                                        <th>
+                                            <i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
+                                            Created At
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    {{#each hotels}}
+                                    <tr>
+                                        <td class="number-order center">{{twoNumSum @index 1}}</td>
+                                        <td class="center">
+                                            <label class="pos-rel">
+                                                <input type="checkbox" class="ace" data-id="{{this.id}}" />
+                                                <span class="lbl"></span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            {{this.name}}
+                                        </td>
+                                        <td>
+                                            {{this.phone}}
+                                        </td>
+                                        <td>
+                                            {{this.email}}
+                                        </td>
+                                        <td>
+                                            {{this.address}}
+                                        </td>
+                                        <td>
+                                            {{this.isActived}}
+                                        </td>
+                                        <td>
+                                            {{this.status}}
+                                        </td>
+                                        <td>
+                                            {{formatDate this.updatedAt}}
+                                        </td>
+                                        <td>
+                                            {{formatDate this.createdAt}}
+                                        </td>
+                                        <td>
+                                            <div class="hidden-sm hidden-xs action-buttons">
+                                                <a href="/admin/hotel/{{this.id}}" class="blue bootbox-confirm view"
+                                                    style="cursor: pointer">
+                                                    <i class="ace-icon fa fa-search-plus bigger-130"></i>
+                                                </a>
+
+                                                <a class="green bootbox-confirm edit" data-id="{{this.id}}"
+                                                    style="cursor: pointer">
+                                                    <i class="ace-icon fa fa-pencil bigger-130"></i>
+                                                </a>
+
+                                                <a class="red bootbox-confirm delete" data-id="{{this.id}}"
+                                                    style="cursor: pointer">
+                                                    <i class="ace-icon fa fa-trash-o bigger-130"></i>
+                                                </a>
+                                            </div>
+
+                                            <div class="hidden-md hidden-lg">
+                                                <div class="inline pos-rel">
+                                                    <button class="btn btn-minier btn-yellow dropdown-toggle"
+                                                        data-toggle="dropdown" data-position="auto">
+                                                        <i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
+                                                    </button>
+
+                                                    <ul
+                                                        class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+                                                        <li>
+                                                            <a href="/admin/hotel/{{this.id}}"
+                                                                class="tooltip-info tooltip-view bootbox-confirm"
+                                                                data-rel="tooltip" title="View" style="cursor: pointer">
+                                                                <span class="blue">
+                                                                    <i
+                                                                        class="ace-icon fa fa-search-plus bigger-120"></i>
+                                                                </span>
+                                                            </a>
+                                                        </li>
+
+                                                        <li>
+                                                            <a class="tooltip-success tooltip-edit bootbox-confirm"
+                                                                data-rel="tooltip" title="Edit" data-id="{{this.id}}"
+                                                                style="cursor: pointer">
+                                                                <span class="green">
+                                                                    <i
+                                                                        class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+                                                                </span>
+                                                            </a>
+                                                        </li>
+
+                                                        <li>
+                                                            <a class="tooltip-error tooltip-delete bootbox-confirm"
+                                                                data-rel="tooltip" title="Delete" data-id="{{this.id}}"
+                                                                style="cursor: pointer">
+                                                                <span class="red">
+                                                                    <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                                                                </span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- PAGE CONTENT ENDS -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.page-content -->
+</div>
+
+
+<script src="/static/public/admin/assets/js/jquery-2.1.4.min.js"></script>
+
+<!-- <![endif]-->
+
+<!--[if IE]>
+<script src="/static/public/admin/assets/js/jquery-1.11.3.min.js"></script>
+<![endif]-->
+<script type="text/javascript">
+    if ('ontouchstart' in document.documentElement) document.write("<script src='/static/public/admin/assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+</script>
+
+<!-- page specific plugin scripts -->
+<script src="/static/public/admin/assets/js/jquery.dataTables.min.js"></script>
+<script src="/static/public/admin/assets/js/jquery.validate.min.js"></script>
+<script src="/static/public/admin/assets/js/jquery-additional-methods.min.js"></script>
+<script src="/static/public/admin/assets/js/jquery.dataTables.bootstrap.min.js"></script>
+<script src="/static/public/admin/assets/js/dataTables.buttons.min.js"></script>
+<script src="/static/public/admin/assets/js/buttons.flash.min.js"></script>
+<script src="/static/public/admin/assets/js/buttons.html5.min.js"></script>
+<script src="/static/public/admin/assets/js/buttons.print.min.js"></script>
+<script src="/static/public/admin/assets/js/buttons.colVis.min.js"></script>
+<script src="/static/public/admin/assets/js/dataTables.select.min.js"></script>
+<script src="/static/public/admin/assets/js/bootbox.js"></script>
+<script src="/static/public/admin/assets/js/ace-elements.min.js"></script>
+<script src="/static/public/admin/assets/js/autosize.min.js"></script>
+<script src="/static/public/admin/assets/js/jquery.inputlimiter.min.js"></script>
+<!-- inline scripts related to this page -->
+<script type="text/javascript">
+    jQuery(function ($) {
+        //create & edit form
+        const form = (action, method, data) => `<form action="${action}" method=${method} id="form-data-employee" class="form-horizontal form-data" role="form" style="padding: 8px;">
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-name">Name:</label>
+
+                <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
+                    <input type="text" id="form-name" name="name" placeholder="Enter name"
+                        class="col-xs-10 col-sm-5" value='${data ? data.name : ''}'>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-phone">Phone:</label>
+
+                <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
+                    <input type="text" id="form-phone" name="phone" placeholder="Enter phone"
+                        class="col-xs-10 col-sm-5" value='${data ? data.phone : ''}'>
+                </div>
+            </div>
+             <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-email">Email:</label>
+
+                <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
+                    <input type="text" id="form-email" name="email" placeholder="Enter email"
+                        class="col-xs-10 col-sm-5" value='${data ? data.email : ''}'>
+                </div>
+            </div>
+             <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-address">Address:</label>
+
+                <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
+                    <input type="text" id="form-address" name="address" placeholder="Enter address"
+                        class="col-xs-10 col-sm-5" value='${data ? data.address : ''}'>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-status">Status:</label>
+                <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
+                    <select class="col-xs-10 col-sm-5" id="form-status" name="status" style="padding: 0;">
+                        <option value="actived" selected >Actived</option>
+                        <option value="unactived">Unactived</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="form-description">Description:</label>
+
+                <div class="col-sm-9" style="display: flex; flex-direction: column; color: red;">
+                    <textarea id="form-description" class="col-xs-10 autosize-transition form-control limited" maxLength="200" name="description" placeholder="Enter description" style="max-width: 100%">${data ? data.description : ''}</textarea>
+                </div>
+            </div>
+            <button type="submit" hidden></button>
+        </form>`;
+
+        //Client Validation for create & edit form   
+        const formValidation = {
+            rules: {
+                name: {
+                    required: true,
+                },
+                phone: {
+                    required: true,
+                },
+                email: {
+                    required: true,
+                },
+                address: {
+                    required: true,
+                },
+                status: {
+                    required: true,
+                },
+            },
+            messages: {
+                name: {
+                    required: "This field is required",
+                },
+                phone: {
+                    required: "This field is required",
+                },
+                email: {
+                    required: "This field is required",
+                },
+                address: {
+                    required: "This field is required",
+                },
+                status: {
+                    required: "This field is required",
+                },
+            },
+        }
+
+        //Data Table display room info
+        var myTable =
+            $('#dynamic-table')
+                //.wrap("<div class='dataTables_borderWrap' />")   //if you are applying horizontal scrolling (sScrollX)
+                .DataTable({
+                    bAutoWidth: false,
+                    "aoColumns": [
+                        { "bSortable": true },
+                        { "bSortable": false },
+                        { "bSortable": true },
+                        { "bSortable": true },
+                        { "bSortable": true },
+                        { "bSortable": true },
+                        { "bSortable": true },
+                        { "bSortable": true },
+                        { "bSortable": true },
+                        { "bSortable": true },
+                        { "bSortable": false },
+                    ],
+                    "aaSorting": [],
+
+
+                    //"bProcessing": true,
+                    //"bServerSide": true,
+                    //"sAjaxSource": "http://127.0.0.1/table.php"	,
+
+                    //,
+                    //"sScrollY": "200px",
+                    //"bPaginate": false,
+
+                    //"sScrollX": "100%",
+                    //"sScrollXInner": "120%",
+                    //"bScrollCollapse": true,
+                    //Note: if you are applying horizontal scrolling (sScrollX) on a ".table-bordered"
+                    //you may want to wrap the table inside a "div.dataTables_borderWrap" element
+
+                    //"iDisplayLength": 50
+
+
+                    select: {
+                        style: 'multi'
+                    }
+                });
+
+
+
+        $.fn.dataTable.Buttons.defaults.dom.container.className = 'dt-buttons btn-overlap btn-group btn-overlap';
+
+        new $.fn.dataTable.Buttons(myTable, {
+            buttons: [
+                {
+                    "extend": "colvis",
+                    "text": "<i class='fa fa-search bigger-110 blue'></i> <span class='hidden'>Show/hide columns</span>",
+                    "className": "btn btn-white btn-primary btn-bold",
+                    columns: ':not(:first):not(:last)'
+                },
+                {
+                    "extend": "copy",
+                    "text": "<i class='fa fa-copy bigger-110 pink'></i> <span class='hidden'>Copy to clipboard</span>",
+                    "className": "btn btn-white btn-primary btn-bold"
+                },
+                {
+                    "extend": "csv",
+                    "text": "<i class='fa fa-database bigger-110 orange'></i> <span class='hidden'>Export to CSV</span>",
+                    "className": "btn btn-white btn-primary btn-bold"
+                },
+                {
+                    "extend": "excel",
+                    "text": "<i class='fa fa-file-excel-o bigger-110 green'></i> <span class='hidden'>Export to Excel</span>",
+                    "className": "btn btn-white btn-primary btn-bold"
+                },
+                {
+                    "extend": "pdf",
+                    "text": "<i class='fa fa-file-pdf-o bigger-110 red'></i> <span class='hidden'>Export to PDF</span>",
+                    "className": "btn btn-white btn-primary btn-bold"
+                },
+                {
+                    "extend": "print",
+                    "text": "<i class='fa fa-print bigger-110 grey'></i> <span class='hidden'>Print</span>",
+                    "className": "btn btn-white btn-primary btn-bold",
+                    autoPrint: false,
+                    message: 'This print was produced using the Print button for DataTables'
+                }
+            ]
+        });
+
+        myTable.buttons().container().appendTo($('.tableTools-container'));
+
+        //style the message box
+        var defaultCopyAction = myTable.button(1).action();
+        myTable.button(1).action(function (e, dt, button, config) {
+            defaultCopyAction(e, dt, button, config);
+            $('.dt-button-info').addClass('gritter-item-wrapper gritter-info gritter-center white');
+        });
+
+
+        var defaultColvisAction = myTable.button(0).action();
+        myTable.button(0).action(function (e, dt, button, config) {
+
+            defaultColvisAction(e, dt, button, config);
+
+
+            if ($('.dt-button-collection > .dropdown-menu').length == 0) {
+                $('.dt-button-collection')
+                    .wrapInner('<ul class="dropdown-menu dropdown-light dropdown-caret dropdown-caret" />')
+                    .find('a').attr('href', '#').wrap("<li />")
+            }
+            $('.dt-button-collection').appendTo('.tableTools-container .dt-buttons')
+        });
+
+        setTimeout(function () {
+            $($('.tableTools-container')).find('a.dt-button').each(function () {
+                var div = $(this).find(' > div').first();
+                if (div.length == 1) div.tooltip({ container: 'body', title: div.parent().text() });
+                else jQuery(this).tooltip({ container: 'body', title: $(this).text() });
+            });
+        }, 500);
+
+
+        myTable.on('select', function (e, dt, type, index) {
+            if (type === 'row') {
+                $(myTable.row(index).node()).find('input:checkbox').prop('checked', true);
+            }
+            if ($('tbody input[type="checkbox"]:checked').length > 0) {
+                $('.clearfix > .delete-multiple').css('display', 'inline-block');
+            } else {
+                $('.clearfix > .delete-multiple').css(' ', 'none');
+            }
+        });
+        myTable.on('deselect', function (e, dt, type, index) {
+            if (type === 'row') {
+                $(myTable.row(index).node()).find('input:checkbox').prop('checked', false);
+            }
+            if ($('tbody input[type="checkbox"]:checked').length == 0) {
+                $('.clearfix > .delete-multiple').css('display', 'none');
+            }
+        });
+
+        /////////////////////////////////
+        //table checkboxes
+        $('th input[type=checkbox], td input[type=checkbox]').prop('checked', false);
+
+        //select/deselect all rows according to table header checkbox
+        $('#dynamic-table > thead > tr > th input[type=checkbox], #dynamic-table_wrapper input[type=checkbox]').eq(0).on('click', function () {
+            var th_checked = this.checked;//checkbox inside "TH" table header
+
+            $('#dynamic-table').find('tbody > tr').each(function () {
+                var row = this;
+                if (th_checked) myTable.row(row).select();
+                else myTable.row(row).deselect();
+            });
+        });
+
+        //select/deselect a row when the checkbox is checked/unchecked
+        $('#dynamic-table').on('click', 'td input[type=checkbox]', function () {
+            var row = $(this).closest('tr').get(0);
+            if (this.checked) myTable.row(row).deselect();
+            else myTable.row(row).select();
+        });
+        $('#dynamic-table').find('td > .label-status').each(function () {
+            const status = $(this).text().trim();
+            switch (status) {
+                case 'available': {
+                    $(this).addClass('label label-success arrowed');
+                    break;
+                }
+                case 'occupied': {
+                    $(this).addClass('label label-danger arrowed');
+                    break;
+                }
+                case 'cleaning': {
+                    $(this).addClass('label label-info arrowed');
+                    break;
+                }
+                case 'maintenance': {
+                    $(this).addClass('label label-warning arrowed');
+                    break;
+                }
+                default: {
+                    $(this).addClass('label');
+                }
+            }
+        });
+
+        $('#dynamic-table').find('thead th').each(function () {
+            $(this).click(function () {
+                $('#dynamic-table').find('.number-order').each(function (index) {
+                    $(this).text(index + 1);
+                })
+            });
+        })
+
+
+
+        $(document).on('click', '#dynamic-table .dropdown-toggle', function (e) {
+            e.stopImmediatePropagation();
+            e.stopPropagation();
+            e.preventDefault();
+        });
+
+
+
+        //And for the first simple table, which doesn't have TableTools or dataTables
+        //select/deselect all rows according to table header checkbox
+        var active_class = 'active';
+
+        /********************************/
+        //add tooltip for small view action buttons in dropdown menu
+        jQuery('[data-rel="tooltip"]').tooltip({ placement: tooltip_placement });
+
+        //tooltip placement on right or left
+        function tooltip_placement(context, source) {
+            var $source = $(source);
+            var $parent = $source.closest('table')
+            var off1 = $parent.offset();
+            var w1 = $parent.width();
+
+            var off2 = $source.offset();
+            //var w2 = $source.width();
+
+            if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2)) return 'right';
+            return 'left';
+        }
+
+        //Manage popup window
+        $(".add.bootbox-confirm").on(ace.click_event, async function () {
+            const res = await fetch('/admin/room-types/all/view', { method: 'GET' });
+            const box = bootbox.confirm({
+                message: form("/admin/hotel/create", "POST"),
+                buttons:
+                {
+                    "confirm":
+                    {
+                        "label": "Create",
+                        "className": "btn-sm btn-primary",
+                    },
+                    "cancel":
+                    {
+                        "label": "Cancel",
+                        "className": "btn-sm",
+                    },
+                },
+                callback: function (result) {
+                    if (result) {
+                        if ($('.form-data').valid()) {
+                            $('.form-data').submit();
+                        } else {
+                            return false;
+                        }
+                    }
+                }
+            });
+            box.on("shown.bs.modal", function () {
+                $('.form-data').validate(formValidation);
+                $('.form-data').submit(function (e) {
+                    //e.preventDefault();
+                    //const formData = new FormData()
+                    //formData.append("phone", document.getElementById('form-phone').value);
+                    //formData.append("email", document.getElementById('form-email').value);
+                    //formData.append("name", document.getElementById('form-name').value);
+                    //formData.append("type", document.getElementById('form-type').value);
+                    //formData.append("status", document.getElementById('form-status').value);
+                    //formData.append("description", document.getElementById('form-description').value);
+                    //fetch(`/admin/hotel/create`, {
+                    //   headers: {
+                    //        'Content-Type': 'application/x-www-form-urlencoded',
+                    //    },
+                    //    method: 'POST',
+                    //   body: formData
+                    //})
+                    //    .then((res) => { location.reload(); })
+                    //   .catch((err) => { console.log(err); })
+                });
+                autosize($('textarea[class*=autosize]'));
+                $('textarea.limited').inputlimiter({
+                    remText: '%n character%s remaining...',
+                    limitText: 'max allowed : %n.'
+                });
+            });
+        });
+        $(".edit.bootbox-confirm").on(ace.click_event, async function (e) {
+            const id = e.currentTarget.getAttribute('data-id');
+            const res = await fetch(`/admin/hotel/${id}?view=true`, { method: 'GET' });
+            const data = await res.json();
+            const box = bootbox.confirm({
+                message: form(`/admin/hotel/${id}/edit`, "POST", data),
+                buttons:
+                {
+                    "confirm":
+                    {
+                        "label": "Save",
+                        "className": "btn-sm btn-primary",
+                    },
+                    "cancel":
+                    {
+                        "label": "Cancel",
+                        "className": "btn-sm",
+                    }
+                },
+                callback: function (result) {
+                    if (result) {
+                        if ($('.form-data').valid()) {
+                            $('.form-data').submit();
+                        } else {
+                            return false;
+                        }
+                    }
+                }
+            });
+            box.on("shown.bs.modal", function () {
+                $('.form-data').validate(formValidation);
+                $('.form-data').submit(function (e) {
+                    //e.preventDefault();
+                    //const email = document.getElementById('form-email').value;
+                    //const phone = document.getElementById('form-phone').value;
+                    //const name = document.getElementById('form-name').value;
+                    //const type = document.getElementById('form-type').value;
+                    //const status = document.getElementById('form-status').value;
+                    //const description = document.getElementById('form-description').value;
+
+                    //const formData = new FormData()
+                    //data.email !== email && formData.append("email", email);
+                    //data.phone !== phone && formData.append("phone", phone);
+                    //data.name !== name && formData.append("name", name);
+                    //data.type !== type && formData.append("type", type);
+                    //data.status !== status && formData.append("status", status);
+                    //data.description !== description && formData.append("description", description);
+                    //fetch(`/admin/hotel/${id}/edit`, {
+                    //   method: 'POST',
+                    //    body: formData
+                    //})
+                    //    .then((res) => { location.reload(); })
+                    //    .catch((err) => { console.log(err); })
+                });
+                autosize($('textarea[class*=autosize]'));
+                $('textarea.limited').inputlimiter({
+                    remText: '%n character%s remaining...',
+                    limitText: 'max allowed : %n.'
+                });
+            });
+        });
+        $(".tooltip-edit.bootbox-confirm").on(ace.click_event, async function (e) {
+            const id = e.currentTarget.getAttribute('data-id');
+            const res = await fetch(`/admin/hotel/${id}`, { method: 'GET' });
+            const data = await res.json();
+
+            const box = bootbox.confirm({
+                message: form(`/admin/hotel/${id}/edit`, "POST"),
+                buttons:
+                {
+                    "confirm":
+                    {
+                        "label": "Save",
+                        "className": "btn-sm btn-primary",
+                    },
+                    "cancel":
+                    {
+                        "label": "Cancel",
+                        "className": "btn-sm",
+                    }
+                },
+                callback: function (result) {
+                    if (result) {
+                        if ($('.form-data').valid()) {
+                            $('.form-data').submit();
+                        } else {
+                            return false;
+                        }
+                    }
+                }
+            });
+            box.on("shown.bs.modal", function () {
+                $('.form-data').validate(formValidation);
+                $('.form-data').submit(function (e) {
+                    // e.preventDefault();
+                    //const phone = document.getElementById('form-phone').value;
+                    //const email = document.getElementById('form-email').value;
+                    //const name = document.getElementById('form-name').value;
+                    //const type = document.getElementById('form-type').value;
+                    //const status = document.getElementById('form-status').value;
+                    //const description = document.getElementById('form-description').value;
+
+                    //const formData = new FormData()
+                    //data.email !== email && formData.append("email", email);
+                    //data.phone !== phone && formData.append("phone", phone);
+                    //data.name !== name && formData.append("name", name);
+                    //data.type !== type && formData.append("type", type);
+                    //data.status !== status && formData.append("status", status);
+                    ///data.description !== description && formData.append("description", description);
+                    /////fetch(`/admin/hotel/${id}/edit`, {
+                    ///    method: 'POST',
+                    ///    body: formData
+                    ///})
+                    //    .then((res) => { location.reload(); })
+                    ///    .catch((err) => { console.log(err); })
+                });
+                autosize($('textarea[class*=autosize]'));
+                $('textarea.limited').inputlimiter({
+                    remText: '%n character%s remaining...',
+                    limitText: 'max allowed : %n.'
+                });
+            });
+        });
+        $(".delete.bootbox-confirm").on(ace.click_event, function (e) {
+            const id = e.currentTarget.getAttribute('data-id');
+            bootbox.confirm({
+                message: `<span>Are you sure want to delete the room with ID ${id}?</span>`,
+                buttons:
+                {
+                    "confirm":
+                    {
+                        "label": "Delete",
+                        "className": "btn-sm btn-danger",
+                    },
+                    "cancel":
+                    {
+                        "label": "Cancel",
+                        "className": "btn-sm",
+                    }
+                },
+                callback: function (result) {
+                    if (result) {
+                        fetch(`/admin/hotel/${id}`, {
+                            method: 'DELETE',
+                        })
+                            .then((res) => { location.reload(); })
+                            .catch((err) => { console.log(err); })
+                    }
+                }
+            });
+        });
+        $(".tooltip-delete.bootbox-confirm").on(ace.click_event, function (e) {
+            const id = e.currentTarget.getAttribute('data-id');
+            bootbox.confirm({
+                message: `<span>Are you sure want to delete the room with ID ${id}?</span>`,
+                buttons:
+                {
+                    "confirm":
+                    {
+                        "label": "Delete",
+                        "className": "btn-sm btn-danger",
+                    },
+                    "cancel":
+                    {
+                        "label": "Cancel",
+                        "className": "btn-sm",
+                    }
+                },
+                callback: function (result) {
+                    if (result) {
+                        fetch(`/admin/hotel/${id}`, {
+                            method: 'DELETE',
+                        })
+                            .then((res) => { location.reload(); })
+                            .catch((err) => { console.log(err); })
+                    }
+                }
+            });
+        });
+        $(".delete-multiple.bootbox-confirm").on(ace.click_event, function () {
+            bootbox.confirm({
+                message: `Are you sure want to delete these rooms?`,
+                buttons:
+                {
+                    "confirm":
+                    {
+                        "label": "Delete",
+                        "className": "btn-sm btn-danger",
+                    },
+                    "cancel":
+                    {
+                        "label": "Cancel",
+                        "className": "btn-sm",
+                    }
+                },
+                callback: function (result) {
+                    if (result) {
+                        let idList = [];
+                        $('tbody').find('input[type="checkbox"]:checked').each(function () {
+                            idList.push($(this).attr('data-id'));
+                        })
+                        fetch(`/admin/hotel`, {
+                            method: 'DELETE',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                idList,
+                            }),
+                        })
+                            .then((res) => { location.reload(); })
+                            .catch((err) => { console.log(err); })
+                    }
+                }
+            });
+        });
+    });
+</script>

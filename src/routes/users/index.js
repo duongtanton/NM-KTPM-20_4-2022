@@ -4,13 +4,19 @@ const UsersRouter = express.Router();
 const UserHomeRouter = require("./home");
 const LogInOutRouter = require("../loginout");
 const ProfilesRouter = require("./profiles");
-const RoomsRouter = require("./rooms");
+const RoomRouter = require("./rooms");
+const CartRouter = require("./cart");
+const SearchRouter = require("./search");
+const HotelRouter = require('./hotel');
 const { DataCommon } = require("../../middleware/DataCommon");
 
 
 UsersRouter.use("/login", LogInOutRouter);
 UsersRouter.use("/profiles", Authen, ProfilesRouter);
-UsersRouter.use("/rooms", RoomsRouter);
+UsersRouter.use("/rooms", RoomRouter);
+UsersRouter.use("/cart", CartRouter);
+UsersRouter.use("/search", SearchRouter);
+UsersRouter.use("/hotel", HotelRouter); 
 UsersRouter.use("/", UserHomeRouter);
 
 module.exports = UsersRouter;

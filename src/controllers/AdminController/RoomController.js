@@ -3,24 +3,31 @@ const db = require("../../db/models/index.js");
 const { CONSTANT, ResponseApi, Message, MESSAGE } = require("../../common/index.js");
 const bcrypt = require("../../util/bcrypt.js");
 const fs = require('fs');
-const { Rooms,Room_Types } = db;
+const { Rooms, Room_Types } = db;
 const RoomController = {
     async index(req, res, next) {
         try {
+            const { _user } = res.locals
             const rooms = await Rooms.findAll({
+                where: {
+                    hotelId: _user.hotelId
+                },
                 raw: true,
             });
-            const infoRooms = rooms.map((room) => ({
-                ...room,
-                image: req.protocol + '://' + req.headers.host + "/" + room.image,
-            }))
-            res.render("./admin/rooms", { rooms: infoRooms });
+            // const infoRooms = rooms.map((room) => ({
+            //     ...room,
+            //     image: req.protocol + '://' + req.headers.host + "/" + room.image,
+            // }))
+            // res.render("./admin/rooms", { rooms: infoRooms });
+            console.log(rooms);
+            res.render("./admin/rooms", { rooms });
         } catch (err) {
-            res.json(ResponseApi(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!")));
+            res.json(ResponseApi(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!"), { err }));
         }
     },
     async create(req, res, next) {
         try {
+            const { _user } = res.locals
             const { name, type, floor, status, description } = req.body;
             const { path } = req.file;
 
@@ -30,11 +37,12 @@ const RoomController = {
                 floor,
                 status,
                 description,
+                hotelId: _user.hotelId,
                 image: path.split("\\").slice(1).join("//"),
             });
             res.json(ResponseApi(res, 1, Message(MESSAGE.SUCCESS, "Create room successfully!!!")))
         } catch (err) {
-            res.json(ResponseApi(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!")))
+            res.json(ResponseApi(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!"), { err }))
         }
     },
     async store(req, res, next) {
@@ -42,18 +50,34 @@ const RoomController = {
     },
     async show(req, res, next) {
         try {
+            const { _user } = res.locals
             const { id } = req.params;
+            const { view } = req.query;
             const room = await Rooms.findOne(
-                { where: { id: id } },
+                {
+                    where: {
+                        id: id,
+                        hotelId: _user?.hotelId,
+                    },
+                    include: [{
+                        model: Room_Types,
+                        attributes: ['name', 'price', 'bedNumber']
+                    }]
+                },
+
                 { raw: true }
             );
             const infoRoom = room.toJSON();
-            res.status(200).json({
-                ...infoRoom,
-                image: req.protocol + '://' + req.headers.host + "/" + infoRoom.image,
-            });
+            if (view) {
+                res.status(200).json({
+                    ...infoRoom,
+                    image: req.protocol + '://' + req.headers.host + "/" + infoRoom.image,
+                });
+            } else {
+                res.render("./admin/rooms/view", { room: infoRoom });
+            }
         } catch (err) {
-            res.json(ResponseApi(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!")))
+            res.json(ResponseApi(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!"), { err }))
         }
     },
     async edit(req, res, next) {
@@ -84,7 +108,7 @@ const RoomController = {
 
             res.json(ResponseApi(res, 1, Message(MESSAGE.SUCCESS, "Update room successfully!!!")));
         } catch (err) {
-            res.json(ResponseApi(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!")));
+            res.json(ResponseApi(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!"), { err }));
         }
     },
     async update(req, res, next) {
@@ -104,7 +128,7 @@ const RoomController = {
             res.json(ResponseApi(res, 1, Message(MESSAGE.SUCCESS, "Delete room successfully!!!")));
         }
         catch (err) {
-            res.json(ResponseApi(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!")));
+            res.json(ResponseApi(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!"), { err }));
         }
     },
     async destroyMultiple(req, res, next) {
@@ -124,7 +148,7 @@ const RoomController = {
             }
             res.json(ResponseApi(res, 1, Message(MESSAGE.SUCCESS, "Delete rooms successfully!!!")));
         } catch (err) {
-            res.json(ResponseApi(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!")));
+            res.json(ResponseApi(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!")), { err });
         }
     },
 };

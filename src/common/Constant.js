@@ -17,4 +17,17 @@ const ROLES = {
   USER: "User",
   STAFF: "Staff",
 }
-module.exports = { CONSTANT, LAYOUT, MESSAGE, ROLES };
+const ROLES_ID = {
+  AMDIN: 1,
+  ENTERPRISE: 2,
+  STAFF: 3,
+  USER: 4,
+}
+const ROOM_STATUS = {
+  NEW: "NEW",
+  ACTIED: "ACTIVED",
+  PAID: "PAID",
+  CALCEL: "CALCEL",
+}
+
+module.exports = { ROOM_STATUS, CONSTANT, LAYOUT, MESSAGE, ROLES, ROLES_ID };

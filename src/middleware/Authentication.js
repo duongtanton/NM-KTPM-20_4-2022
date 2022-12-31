@@ -9,6 +9,7 @@ const Authen = (req, res, next) => {
     const token = req.cookies.auth || req.header.auth;
     jwt.verify(token, process.env.SECRET_KEY, async (error, decode) => {
         if (!error) {
+            if (!decode) { throw Error() }
             if (!decode || Object.keys(decode)?.length <= 0) {
                 res.redirect("/");
             } else {
@@ -17,13 +18,13 @@ const Authen = (req, res, next) => {
                 if (Date.now() > exp * 1000 || !_user) {
                     res.redirect("/login")
                 } else {
-                    const token = jwt.sign(_user, process.env.SECRET_KEY, { expiresIn: 60 * 60 });
+                    const token = jwt.sign(_user, process.env.SECRET_KEY, { expiresIn: 60 * 60 * 60 });
                     res.cookie("auth", token);
                     next();
                 }
             }
         } else {
-            res.render("/login")
+            res.redirect("/login")
         }
     })
 }

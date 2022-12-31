@@ -19,6 +19,20 @@ module.exports = {
                 code: "group-4",
                 createdAt: new Date(),
                 updatedAt: new Date(),
+            },
+            {
+                id: 2,
+                name: "Group 4-1",
+                code: "group-4-1",
+                createdAt: new Date(),
+                updatedAt: new Date(),
+            },
+            {
+                id: 3,
+                name: "Group 4-2",
+                code: "group-4-2",
+                createdAt: new Date(),
+                updatedAt: new Date(),
             }
         ], {});
     },

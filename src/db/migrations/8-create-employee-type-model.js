@@ -9,18 +9,18 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      typeId: {
-        type: Sequelize.INTEGER,
-      },
-      typeName: {
+      name: {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      isActived: { 
-        type: Sequelize.BOOLEAN 
+      status: {
+        type: Sequelize.BOOLEAN
       },
-      description: { 
-        type: Sequelize.STRING 
+      description: {
+        type: Sequelize.STRING
+      },
+      hotelId: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
