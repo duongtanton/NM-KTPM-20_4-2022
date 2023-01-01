@@ -24,6 +24,7 @@
                     <tr class="cart_menu">
                         <td class="image">Item</td>
                         <td class="description"></td>
+                        <td class="price">User id</td>
                         <td class="price">Price</td>
                         <td class="quantity">Quantity</td>
                         <td class="total">Total</td>
@@ -47,6 +48,9 @@
                                     id="id-date-range-picker-1" />
                             </div>
                             <p>{{this.Room.Room_Type.name}}: {{this.Room.Room_Type.bedNumber}} bed</p>
+                        </td>
+                        <td class="cart_price">
+                            <p>{{this.createdBy}}</p>
                         </td>
                         <td class="cart_price">
                             <p>${{this.Room.Room_Type.price}}</p>
