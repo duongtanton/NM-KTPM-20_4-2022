@@ -56,6 +56,10 @@
       <b class="arrow"></b>
 
       <ul class="submenu">
+        <script>
+          console.log({{{ json _user }}})
+        </script>
+        {{#if (equal _user.roleMaxId 1)}}
         <li class="">
           <a href="/admin/hotel">
             <i class="menu-icon fa fa-caret-right"></i>
@@ -65,6 +69,7 @@
 
           <b class="arrow"></b>
         </li>
+        {{/if}}
         <li class="">
           <a href="/admin/hotel/{{_user.hotelId}}">
             <i class="menu-icon fa fa-caret-right"></i>

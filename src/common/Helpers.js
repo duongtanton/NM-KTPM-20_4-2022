@@ -10,6 +10,7 @@ const ArrayAt = (arr, index) => arr[index] || [];
 const formatDateInput = date => moment(date).format('YYYY-MM-DD');
 const formatDateTimeInput = date => moment(date).format('YYYY-MM-DD HH-mm-ss');
 
+const equal = (a, b) => a == b;
 
 module.exports = {
     formatDate,
@@ -17,5 +18,6 @@ module.exports = {
     json,
     ArrayAt,
     formatDateInput,
-    formatDateTimeInput
+    formatDateTimeInput,
+    equal,
 }

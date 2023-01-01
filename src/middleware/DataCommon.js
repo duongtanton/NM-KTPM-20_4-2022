@@ -2,17 +2,21 @@ const jwt = require('jsonwebtoken');
 const dotenv = require("dotenv");
 const db = require('../db/models');
 const { ROOM_STATUS } = require('../common');
+const { Users, Booking, Roles } = db;
 dotenv.config();
 
 
 const DataCommon = (req, res, next) => {
     const token = req.cookies.auth || req.headers.auth;
-    const { Users, Booking } = db;
     jwt.verify(token, process.env.SECRET_KEY, async (error, decode) => {
         try {
             if (!decode) { throw Error() }
             const { username, id } = decode;
-            const _user = await Users.findOne({ where: { username, id } }).then(result => result?.toJSON());
+            const _user = await Users.findOne({
+                where: { username, id },
+                include: Roles,
+            }).then(result => result?.toJSON());
+            _user.roleMaxId = _user.Roles.sort((a, b) => a?.id > a?.id)?.[0]?.id || null;
             const bookingNew = await Booking.findAll({
                 where: {
                     status: ROOM_STATUS.NEW,
