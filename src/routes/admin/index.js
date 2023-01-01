@@ -15,8 +15,10 @@ const BookingOutRouter = require("./booking");
 const ReportRouter = require("./report");
 const TimekeepingRouter = require("./report");
 const StatisticRouter = require("./statistic");
+const SupportRouter = require("./support");
 
 AdminRoute.use("/promotions", PromotionsRouter);
+AdminRoute.use("/support", SupportRouter);
 AdminRoute.use("/timekeeping", TimekeepingRouter);
 AdminRoute.use("/hotel", HotelsRouter);
 AdminRoute.use("/booking", BookingOutRouter);

@@ -14,9 +14,9 @@ const { DataCommon } = require("../../middleware/DataCommon");
 UsersRouter.use("/login", LogInOutRouter);
 UsersRouter.use("/profiles", Authen, ProfilesRouter);
 UsersRouter.use("/rooms", RoomRouter);
-UsersRouter.use("/cart", CartRouter);
+UsersRouter.use("/cart", Authen, CartRouter);
 UsersRouter.use("/search", SearchRouter);
-UsersRouter.use("/hotel", HotelRouter); 
+UsersRouter.use("/hotel", HotelRouter);
 UsersRouter.use("/", UserHomeRouter);
 
 module.exports = UsersRouter;

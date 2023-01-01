@@ -2,7 +2,7 @@
     <div class="row" style="padding: 0 32px">
         <div class="col-sm-6">
             <div class="room-image">
-                <img src="/{{infoRoom.image}}" alt="" srcset="">
+                <img src="{{infoRoom.image}}" alt="" srcset="">
             </div>
         </div>
         <div class="col-sm-6">
@@ -25,28 +25,28 @@
     function handleAddtoCart(roomId) {
         const cartHome = document.querySelector(".cart-home");
         fetch(`/rooms/booking`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            auth: getCookie("auth"),
-        },
-        body: JSON.stringify({
-            roomId,
-        })
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                auth: getCookie("auth"),
+            },
+            body: JSON.stringify({
+                roomId,
+            })
         }).then(res => res.json())
-        .then(result => {
-            const { message, bookings, rediectTo } = result;
-            if (!!rediectTo) {
-            window.location = `/${rediectTo}`;
-            return;
-            }
-            showToastMessage(message);
-            cartHome.classList.add("has-item");
-            cartHome.querySelector(".cart-home-amount").innerText = bookings.length || 0;
-        })
-        .catch(error => {
-            cartHome.classList.remove("has-item");
-            console.log("error", error)
-      })
-  }
+            .then(result => {
+                const { message, bookings, rediectTo } = result;
+                if (!!rediectTo) {
+                    window.location = `/${rediectTo}`;
+                    return;
+                }
+                showToastMessage(message);
+                cartHome.classList.add("has-item");
+                cartHome.querySelector(".cart-home-amount").innerText = bookings.length || 0;
+            })
+            .catch(error => {
+                cartHome.classList.remove("has-item");
+                console.log("error", error)
+            })
+    }
 </script>
