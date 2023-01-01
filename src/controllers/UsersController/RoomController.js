@@ -34,11 +34,14 @@ const RoomController = {
                 { raw: true }
             );
             const infoRoom = room.dataValues;
-            res.status(200).json({
-                ...infoRoom,
-                // image: req.protocol + '://' + req.headers.host + "/" + infoRoom.image,
-            });
+            const typeRoom = await Room_Types.findOne(
+                { where: { roomNumber: infoRoom.type } },
+                { raw: true }
+            );
+            const infoType = typeRoom.dataValues;
+            res.render("./users/room/roomDetail", { infoRoom, infoType });
         } catch (err) {
+            console.log(err);
             res.json(Response(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!")));
         }
     },
