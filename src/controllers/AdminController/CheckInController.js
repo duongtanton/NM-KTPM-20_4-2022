@@ -2,7 +2,8 @@ const { Model } = require("sequelize");
 const db = require("../../db/models/index.js");
 const { CONSTANT, ResponseApi, Message, MESSAGE, Response } = require("../../common/index.js");
 const bcrypt = require("../../util/bcrypt.js");
-const { Rooms, Room_Types, Check_Ins, Users, Roles } = db;
+const fs = require('fs');
+const { Rooms, Room_Types, Check_Ins, Check_Outs, Users, Roles } = db;
 const CheckInController = {
     async index(req, res, next) {
         try {
@@ -51,6 +52,21 @@ const CheckInController = {
             res.redirect('/admin/rooms');
         } catch (err) {
             res.json(Response(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!")));
+        }
+    },
+    async show(req,res,next){
+        try {
+            const checkOut = await Check_Outs.findAll({
+                raw:true,
+            })
+            const checkIn = await Check_Ins.findAll({
+                raw: true,
+            });
+
+            res.render("./admin/check-in/view", {checkIn, checkOut});
+        }
+        catch(err){
+            res.json(Response(res,1,Message(MESSAGE.ERROR,"Sometime wrong. Try again!!!")));
         }
     },
 };

@@ -71,7 +71,10 @@ const CheckOutController = {
       res.redirect('/admin/rooms');
   } catch (err) {
       res.json(Response(res, 1, Message(MESSAGE.ERROR, "Sometime wrong. Try again!!!")));
-  }
+    }
+  },
+  async show(req, res, next){
+
   },
 };
 module.exports = CheckOutController;
