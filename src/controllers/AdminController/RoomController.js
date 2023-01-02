@@ -14,11 +14,6 @@ const RoomController = {
                 },
                 raw: true,
             });
-            // const infoRooms = rooms.map((room) => ({
-            //     ...room,
-            //     image: req.protocol + '://' + req.headers.host + "/" + room.image,
-            // }))
-            // res.render("./admin/rooms", { rooms: infoRooms });
             console.log(rooms);
             res.render("./admin/rooms", { rooms });
         } catch (err) {

@@ -8,7 +8,6 @@ const RoomRouter = require("./rooms");
 const CartRouter = require("./cart");
 const SearchRouter = require("./search");
 const HotelRouter = require('./hotel');
-const { DataCommon } = require("../../middleware/DataCommon");
 
 
 UsersRouter.use("/login", LogInOutRouter);
