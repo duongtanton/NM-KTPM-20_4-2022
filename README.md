@@ -96,14 +96,17 @@ Documentation: [Express](https://expressjs.com), [Handlebars](https://handlebars
     
     [Tạo RDS aws](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_CreateDBInstance.html) 
 
-2. Sử dụng file pem vừa mới download connect tới ec2 vừa tạo 
+2. Sử dụng file pem vừa mới download connect tới ec2 vừa tạo. [Xem tại đây](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html)
 
-    [Xem tại đây](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html)
-    
-3. Cài đặt node, pm2 cho máy ec2
-    [Xem tại đây](https://viblo.asia/p/su-dung-pm2-de-deploy-nodejs-application-6J3ZgxWqlmB)
-4. Lưu ý nhớ chuyển config từ db local sang db trên aws( rds )
-    [Xem tạ đây](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_RDS_Configuring.html)
+3. Cài đặt node, pm2 cho máy ec2. [Xem tại đây](https://viblo.asia/p/su-dung-pm2-de-deploy-nodejs-application-6J3ZgxWqlmB)
+
+4. Sử dụng filezilla connect đến máy ec2 và upload source code lên. [Xem tại đây](https://stackoverflow.com/questions/16744863/connect-to-amazon-ec2-file-directory-using-filezilla-and-sftp)
+
+5. Sau khi upload project thành công sử dụng pm2 để run project. [Xem tại đây](https://viblo.asia/p/su-dung-pm2-de-deploy-nodejs-application-6J3ZgxWqlmB)
+ 
+6. Lưu ý nhớ chuyển config từ db local sang db trên aws(rds). [Xem tại đây](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_RDS_Configuring.html)
+
+7. Hoàn thành. Có thể truy cập thông qua địa chỉ ip và port chạy ở bước 5. Ví dụ ( 112.132.12.31:3000 ) nếu hiện ra website của mình là thành công.
 
 ### KẾT THÚC.
 Chúng em xin tỏ lòng kính trọng và biết ơn sâu sắc đến thầy cô giáo là người trực tiếp hướng dẫn đồ án. Thầy cô đã cung cấp cho chúng em những tài liệu cần thiết cho đồ án của chúng em. 
