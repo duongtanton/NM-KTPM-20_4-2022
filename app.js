@@ -34,6 +34,11 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use("/static", express.static(path.join(__dirname, "src")));
+app.use("/admin/assets", Authen, (req, res, next) => {
+  let { originalUrl } = req;
+  originalUrl = originalUrl.slice(6)
+  res.sendFile(originalUrl, { root: "src" });
+});
 app.use("/assets", Authen, (req, res, next) => {
   const { originalUrl } = req;
   res.sendFile(originalUrl, { root: "src" });

@@ -1,6 +1,6 @@
 const { Model } = require("sequelize");
 const db = require("../../db/models/index.js");
-const { CONSTANT, ResponseApi, Message, MESSAGE, ROLES_ID, Response } = require("../../common/index.js");
+const { CONSTANT, ResponseApi, Message, MESSAGE, ROLES_ID, Response, ROLES } = require("../../common/index.js");
 const bcrypt = require("../../util/bcrypt.js");
 const fs = require('fs');
 const { Hotels, Users, Users_Roles } = db;
@@ -53,7 +53,7 @@ const HotelsController = {
         .then(datas => {
           return Users_Roles.create({
             userId: datas[0].id,
-            hotelId: datas[1].id
+            roleId: ROLES_ID.ENTERPRISE
           })
         })
         .then(_result => {

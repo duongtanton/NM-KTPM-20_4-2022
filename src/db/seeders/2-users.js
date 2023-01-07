@@ -36,6 +36,8 @@ module.exports = {
             {
                 id: 2,
                 username: '2',
+                enterpriseId: 1,
+                hotelId: 1,
                 password: '$2b$10$6lR7Y8AqGCdQfDMB9ZKCiu3GI9XgY9NkXnL.RPHycxR5JMjVqOZmu', //1
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -43,6 +45,8 @@ module.exports = {
             {
                 id: 3,
                 username: '3',
+                enterpriseId: 1,
+                hotelId: 1,
                 password: '$2b$10$6lR7Y8AqGCdQfDMB9ZKCiu3GI9XgY9NkXnL.RPHycxR5JMjVqOZmu', //1
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -50,6 +54,8 @@ module.exports = {
             {
                 id: 4,
                 username: '4',
+                enterpriseId: 1,
+                hotelId: 1,
                 password: '$2b$10$6lR7Y8AqGCdQfDMB9ZKCiu3GI9XgY9NkXnL.RPHycxR5JMjVqOZmu', //1
                 createdAt: new Date(),
                 updatedAt: new Date(),
